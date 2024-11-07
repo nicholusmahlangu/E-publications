@@ -38,4 +38,3 @@ if (trim($username)!=""and trim($password)!= "") {
 
 // Close connection
 $conn->close();
-?>

@@ -71,19 +71,6 @@ form label{
     font-size: 1.5rem;
     font-weight:500;
 }
-form input, select{
-    box-sizing: border-box;
-    flex-grow: 1;
-    min-width: 0;
-    height: 50px;
-    padding: 1em;
-    font: inherit;
-    border-radius: 0 10px 10px 0;
-    border-left: none;
-    border: 2px solid var(--accent-color);
-    background-color: var(--white-color);
-    transition: 150ms ease;
-}
 form input:hover{
     border-color: var(--base-color);
 }
