@@ -2,7 +2,7 @@
 // Start session
 session_start();
 // Database connection parameters
-include '../assets/php/conn.php';
+include 'conn.php';
 
 // // Create connection
 // $conn = new mysqli($servername, $username, $password, $database);
@@ -11,24 +11,24 @@ include '../assets/php/conn.php';
 // if ($conn->connect_error) {
 //     die("Connection failed: " . $conn->connect_error);
 // }
-
+$username = $_POST['email'];
+$password = $_POST['password'];
 // Check if the form is submitted
-if (isset($_POST['email']) && isset($_POST['password'])) {
+if (trim($username)!=""and trim($password)!= "") {
     // Retrieve form data
     echo"it reaches this point";
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+
 
     // Perform SQL query to check user credentials
-    $sql = "SELECT * FROM users WHERE EmailAddress = '$email' AND Password = '$password'";
+    $sql = "SELECT * FROM users WHERE EmailAddress = '$username' AND Password = '$password'";
     $result = $conn->query($sql);
     
     // Check if user exists
     if ($result->num_rows > 0) {
         // User authenticated successfully, set session variables
-        $_SESSION['email'] = $email;
+        $_SESSION['email'] = $username;
         // Redirect to dashboard or desired page
-        header("Location: index.html");
+        header("Location:../../application files/index.html");
         exit();
     } else {
         // Invalid credentials, display error message
