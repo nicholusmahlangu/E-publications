@@ -51,7 +51,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Attempt to move the uploaded file
             if (move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)) {
                 if ($conn && $conn->ping()) {
-                    $stmt = $conn->prepare("INSERT INTO book_info(EmailAddress, AuthorName, EditorName, AuthorPusedonym, PublicationTitle, BookEdition, Impression, Isbn, SetISBN, PublisherName, PublisherAddress, PublicationYear, Price, FictionOrNonFiction, Genre, PublicationLanguage, EnglishVersionTitle, FileUpload) 
+                    $stmt = $conn->prepare("INSERT INTO book_informationsheet(PublisherEmail, AuthorName, EditorName, AuthorPseudonym, PublicationTitle, BookEdition, Impression, Isbn, SetISBN, PublisherName, PublisherAddress, PublicationYear, Price, FictionOrNonFiction, Genre, PublicationLanguage, EnglishVersionTitle, FileUpload) 
                     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
                     $stmt->bind_param("ssssssssssssssssss", $email, $author_name, $author_pseudonym, $editor_name, $title_of_publication, $book_edition, $impression, $isbn_electronic, $set_isbn, $publisher_name, $publisher_address, $publisher_year, $price, $fiction_or_non, $genre, $langauge_of_publication, $english_translation, $newFileName);
 
