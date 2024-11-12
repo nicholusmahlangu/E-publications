@@ -20,6 +20,7 @@ if (trim($username)!=""and trim($password)!= "") {
 
 
     // Perform SQL query to check user credentials
+    $password = md5('password');
     $sql = "SELECT * FROM users WHERE EmailAddress = '$username' AND Password = '$password'";
     $result = $conn->query($sql);
     
