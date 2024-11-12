@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "You registered successfully!";
             header("Location:../../application files/admin_dashboard.html");
         } else {
-            echo "Database error: " . $conn->error;
+            echo "Database error: " . $conn->error; 
         }
 
         $stmt->close();
