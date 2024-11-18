@@ -16,6 +16,13 @@
         "listitem": "off"
       }
     ],
-    "disown-opener": "off"
+    "disown-opener": "off",
+    "meta-viewport": "off",
+    "axe/forms": [
+      "default",
+      {
+        "label": "off"
+      }
+    ]
   }
 }
