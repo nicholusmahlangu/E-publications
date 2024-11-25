@@ -1,3 +1,12 @@
+<?php
+
+require_once('../assets/php/adminDashboard.php');
+$query = "select * from book_informationsheet";
+$result = mysqli_query($conn,$query);
+
+$bookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -9,6 +18,7 @@
       rel="stylesheet"
       href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
     />
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/adminDashboard.css" />
   </head>
   <body>
@@ -142,11 +152,16 @@
                 <div class="card-flex">
                     <div class="card-info">
                         <div class="card-head">
-                            <span>Total E-books captured</span>
-                            <small>Number of E-books</small>
+                            <span><strong>E-books captured</strong></span>
                         </div>
                         
-                        <h2>1000</h2>
+                        <h2>
+                            <?php if ($bookTotalResult = mysqli_query($conn,$bookTotal)) {
+                              $rowcount = mysqli_num_rows($bookTotalResult);
+                              print($rowcount);
+                            
+                            } ?>
+                        </h2>
                         <small>10 less</small>
                     </div>
                     <div class="card-chart danger">
@@ -210,11 +225,31 @@
                 </div>
             </div>
 
-            <div class="jobs">
-              <h2>Books <small>View books <span class="las la-arrow-right"></span></small></h2>
+            <div class="jobs"> <!----This is where you need to include the database list-->
+              <h2>Books <small><a href="bookDetails.php">View books</a><span class="las la-arrow-right"></span></small></h2>
                 <div class="table-responsive">
-                  <table>
-                      <tbody>
+                   <table class="table table-bordered text-center">
+                    <tr>
+                      <td>Book ID</td>
+                      <td>Publisher Email</td>
+                      <td>Book Title</td>
+                      <td>ISBN</td>
+                      <td>Edit</td>
+                    </tr>
+                    <tr>
+                     <?php
+                     
+                        while ($row = mysqli_fetch_assoc($result)) 
+                        {
+                          ?>
+                          <td><?php echo $row['Book_ID']; ?></td>
+                          <td><?php echo $row['PublisherEmail']; ?></td>
+                          <td><?php echo $row['PublicationTitle']; ?></td>
+                          <td><?php echo $row['Isbn']; ?></td>
+                          <td><a href="bookDetails.php" class="btn btn-primary">Edit</a></td>
+                        </tr>
+                    <?php }?>
+                  <!--    <tbody>
                           <tr>
                               <td>
                                   <div>
@@ -300,7 +335,8 @@
                               </div>
                           </td>
                           </tr>
-                      </tbody>
+                      </tbody> -->
+
                   </table>
                 </div>
             </div>
