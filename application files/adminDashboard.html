@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" >
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1, minimum-scale=1">
     <link href="../assets/img/favicon.webp" rel="icon" >
     <title>Admin Dashboard</title>
     <link
@@ -12,6 +12,9 @@
     <link rel="stylesheet" href="../assets/css/adminDashboard.css" />
   </head>
   <body>
+
+    <input type="checkbox" name="" id="sidebar-toggle">
+
     <div class="sidebar">
       <div class="sidebar-brand">
         <div class="brand-flex">
@@ -102,13 +105,15 @@
       <div class="main-content">
         <header>
             <div class="menu-toggle">
-                <label for="">
+                <label for="sidebar-toggle">
                     <span class="las la-bars"></span>
                 </label>
             </div>
           <!-- <span class="bars"> </span> -->
           <div class="header-icons">
-            <span class="las la-search"></span>
+            <span class="las la-search">
+              
+            </span>
             <span class="las la-bookmark"></span>
             <span class="las la-sms"></span>
           </div>
@@ -206,57 +211,103 @@
             </div>
 
             <div class="jobs">
-                <table>
-                    <tbody>
-                        <tr>
+              <h2>Books <small>View books <span class="las la-arrow-right"></span></small></h2>
+                <div class="table-responsive">
+                  <table>
+                      <tbody>
+                          <tr>
+                              <td>
+                                  <div>
+                                    <span class="indicator even"></span>
+                                  </div>
+                              </td>
+                              <td>
+                                <div>Publisher experience designer</div>
+                              </td>
+                              <td><div>Design</div></td>
+                              <td><div>Posted 6 days ago</div></td>
+                              <td>
+                                  <div>
+                                    <button>8 applications</button>
+                                  </div>
+                              </td>
+                          </tr>
+                          <tr>
                             <td>
+                              <div>
                                 <span class="indicator"></span>
-                            </td>
-                            <td>Publisher experience designer</td>
-                            <td>Design</td>
-                            <td>Posted 6 days ago</td>
-                            <td>
+                              </div>
+                          </td>
+                          <td>
+                            <div>Publisher experience designer</div>
+                          </td>
+                          <td><div>Design</div></td>
+                          <td><div>Posted 6 days ago</div></td>
+                          <td>
+                              <div>
                                 <button>8 applications</button>
-                            </td>
-                        </tr>
-                        <tr>
+                              </div>
+                          </td>
+                          </tr>
+                          <tr>
                             <td>
+                              <div>
+                                <span class="indicator even"></span>
+                              </div>
+                          </td>
+                          <td>
+                            <div>Publisher experience designer</div>
+                          </td>
+                          <td><div>Design</div></td>
+                          <td><div>Posted 6 days ago</div></td>
+                          <td>
+                              <div>
+                                <button>8 applications</button>
+                              </div>
+                          </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div>
                                 <span class="indicator"></span>
-                            </td>
-                            <td>Publisher experience designer</td>
-                            <td>Design</td>
-                            <td>Posted 6 days ago</td>
-                            <td>
+                              </div>
+                          </td>
+                          <td>
+                            <div>Publisher experience designer</div>
+                          </td>
+                          <td><div>Design</div></td>
+                          <td><div>Posted 6 days ago</div></td>
+                          <td>
+                              <div>
                                 <button>8 applications</button>
-                            </td>
-                        </tr>
-                        <tr>
+                              </div>
+                          </td>
+                          </tr>
+                          <tr>
                             <td>
-                                <span class="indicator"></span>
-                            </td>
-                            <td>Publisher experience designer</td>
-                            <td>Design</td>
-                            <td>Posted 6 days ago</td>
-                            <td>
+                              <div>
+                                <span class="indicator even"></span>
+                              </div>
+                          </td>
+                          <td>
+                            <div>Publisher experience designer</div>
+                          </td>
+                          <td><div>Design</div></td>
+                          <td><div>Posted 6 days ago</div></td>
+                          <td>
+                              <div>
                                 <button>8 applications</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <span class="indicator"></span>
-                            </td>
-                            <td>Publisher experience designer</td>
-                            <td>Design</td>
-                            <td>Posted 6 days ago</td>
-                            <td>
-                                <button>8 applications</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                              </div>
+                          </td>
+                          </tr>
+                      </tbody>
+                  </table>
+                </div>
             </div>
           </div>
         </main>
       </div>
+
+      <label for="sidebar-toggle" class="body-label"></label>
   </body>
 </html>
