@@ -1,17 +1,30 @@
+<?php
+
+require_once('../assets/php/adminDashboard.php');
+$query = "select * from book_informationsheet";
+$result = mysqli_query($conn,$query);
+
+$bookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" >
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1, minimum-scale=1">
     <link href="../assets/img/favicon.webp" rel="icon" >
     <title>Admin Dashboard</title>
     <link
       rel="stylesheet"
       href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"
     />
+    <link rel="stylesheet" href="../assets/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/adminDashboard.css" />
   </head>
   <body>
+
+    <input type="checkbox" name="" id="sidebar-toggle">
+
     <div class="sidebar">
       <div class="sidebar-brand">
         <div class="brand-flex">
@@ -102,13 +115,15 @@
       <div class="main-content">
         <header>
             <div class="menu-toggle">
-                <label for="">
+                <label for="sidebar-toggle">
                     <span class="las la-bars"></span>
                 </label>
             </div>
           <!-- <span class="bars"> </span> -->
           <div class="header-icons">
-            <span class="las la-search"></span>
+            <span class="las la-search">
+              
+            </span>
             <span class="las la-bookmark"></span>
             <span class="las la-sms"></span>
           </div>
@@ -137,11 +152,16 @@
                 <div class="card-flex">
                     <div class="card-info">
                         <div class="card-head">
-                            <span>Total E-books captured</span>
-                            <small>Number of E-books</small>
+                            <span><strong>E-books captured</strong></span>
                         </div>
                         
-                        <h2>1000</h2>
+                        <h2>
+                            <?php if ($bookTotalResult = mysqli_query($conn,$bookTotal)) {
+                              $rowcount = mysqli_num_rows($bookTotalResult);
+                              print($rowcount);
+                            
+                            } ?>
+                        </h2>
                         <small>10 less</small>
                     </div>
                     <div class="card-chart danger">
@@ -205,58 +225,125 @@
                 </div>
             </div>
 
-            <div class="jobs">
-                <table>
-                    <tbody>
-                        <tr>
-                            <td>
-                                <span class="indicator"></span>
-                            </td>
-                            <td>Publisher experience designer</td>
-                            <td>Design</td>
-                            <td>Posted 6 days ago</td>
-                            <td>
-                                <button>8 applications</button>
-                            </td>
+            <div class="jobs"> <!----This is where you need to include the database list-->
+              <h2>Books <small><a href="bookDetails.php">View books</a><span class="las la-arrow-right"></span></small></h2>
+                <div class="table-responsive">
+                   <table class="table table-bordered text-center">
+                    <tr>
+                      <td>Book ID</td>
+                      <td>Publisher Email</td>
+                      <td>Book Title</td>
+                      <td>ISBN</td>
+                      <td>Edit</td>
+                    </tr>
+                    <tr>
+                     <?php
+                     
+                        while ($row = mysqli_fetch_assoc($result)) 
+                        {
+                          ?>
+                          <td><?php echo $row['Book_ID']; ?></td>
+                          <td><?php echo $row['PublisherEmail']; ?></td>
+                          <td><?php echo $row['PublicationTitle']; ?></td>
+                          <td><?php echo $row['Isbn']; ?></td>
+                          <td><a href="bookDetails.php" class="btn btn-primary">Edit</a></td>
                         </tr>
-                        <tr>
+                    <?php }?>
+                  <!--    <tbody>
+                          <tr>
+                              <td>
+                                  <div>
+                                    <span class="indicator even"></span>
+                                  </div>
+                              </td>
+                              <td>
+                                <div>Publisher experience designer</div>
+                              </td>
+                              <td><div>Design</div></td>
+                              <td><div>Posted 6 days ago</div></td>
+                              <td>
+                                  <div>
+                                    <button>8 applications</button>
+                                  </div>
+                              </td>
+                          </tr>
+                          <tr>
                             <td>
+                              <div>
                                 <span class="indicator"></span>
-                            </td>
-                            <td>Publisher experience designer</td>
-                            <td>Design</td>
-                            <td>Posted 6 days ago</td>
-                            <td>
+                              </div>
+                          </td>
+                          <td>
+                            <div>Publisher experience designer</div>
+                          </td>
+                          <td><div>Design</div></td>
+                          <td><div>Posted 6 days ago</div></td>
+                          <td>
+                              <div>
                                 <button>8 applications</button>
-                            </td>
-                        </tr>
-                        <tr>
+                              </div>
+                          </td>
+                          </tr>
+                          <tr>
                             <td>
+                              <div>
+                                <span class="indicator even"></span>
+                              </div>
+                          </td>
+                          <td>
+                            <div>Publisher experience designer</div>
+                          </td>
+                          <td><div>Design</div></td>
+                          <td><div>Posted 6 days ago</div></td>
+                          <td>
+                              <div>
+                                <button>8 applications</button>
+                              </div>
+                          </td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div>
                                 <span class="indicator"></span>
-                            </td>
-                            <td>Publisher experience designer</td>
-                            <td>Design</td>
-                            <td>Posted 6 days ago</td>
-                            <td>
+                              </div>
+                          </td>
+                          <td>
+                            <div>Publisher experience designer</div>
+                          </td>
+                          <td><div>Design</div></td>
+                          <td><div>Posted 6 days ago</div></td>
+                          <td>
+                              <div>
                                 <button>8 applications</button>
-                            </td>
-                        </tr>
-                        <tr>
+                              </div>
+                          </td>
+                          </tr>
+                          <tr>
                             <td>
-                                <span class="indicator"></span>
-                            </td>
-                            <td>Publisher experience designer</td>
-                            <td>Design</td>
-                            <td>Posted 6 days ago</td>
-                            <td>
+                              <div>
+                                <span class="indicator even"></span>
+                              </div>
+                          </td>
+                          <td>
+                            <div>Publisher experience designer</div>
+                          </td>
+                          <td><div>Design</div></td>
+                          <td><div>Posted 6 days ago</div></td>
+                          <td>
+                              <div>
                                 <button>8 applications</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                              </div>
+                          </td>
+                          </tr>
+                      </tbody> -->
+
+                  </table>
+                </div>
             </div>
           </div>
         </main>
       </div>
+
+      <label for="sidebar-toggle" class="body-label"></label>
   </body>
 </html>
