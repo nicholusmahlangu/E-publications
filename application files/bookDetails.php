@@ -10,6 +10,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Tab icon -->
+  <link href="../assets/img/favicon.webp" rel="icon">
   <link rel="stylesheet" href="../assets/css/bookDetails.css">
   <title>Book details</title>
 </head>

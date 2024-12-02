@@ -34,7 +34,7 @@
     </a>
 
      <!-- Admin Login Button -->
-     <a href="cataloguerlogin.html" class="admin-login-button">
+     <a href="cataloguerlogin.php" class="admin-login-button">
         <i class="bi bi-person-circle"></i> Catalogue Login
     </a>
 

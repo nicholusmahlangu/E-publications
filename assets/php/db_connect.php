@@ -1,5 +1,7 @@
 <?php
+session_start();
 include 'conn.php';
+include '../js/index.js';
 
 // Enable error reporting for debugging
 error_reporting(E_ALL);
@@ -24,6 +26,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $langauge_of_publication = isset($_POST['language_of_publication']) ? trim($_POST['language_of_publication']) : '';
     $english_translation = isset($_POST['english_translation_title']) ? trim($_POST['english_translation_title']) : '';
     $file = isset($_POST['file']) ? trim($_POST['file']) : '';
+    $to= isset($_POST['nicolasmahlangu75@gmail.com']);
+    $message = isset($_POST['Electronic has just been submitted!']);
+    //$headers=isset($_POST['From + $email']);
+    $subject = isset($_POST['SANB Informationsheet']);
 
     if (empty($author_name) || empty($email) || empty($author_name)|| empty($author_pseudonym) || empty($editor_name)|| empty($title_of_publication)|| empty($book_edition)||empty($impression) ||empty($isbn_electronic)||empty($set_isbn)||empty($publisher_name)||empty($publisher_address)||empty($publisher_year)||empty($price)||empty($fiction_or_non)||empty($genre)||empty($langauge_of_publication)||empty($english_translation) && !empty($file)) {
         echo "Please ensure that all fields are filled.";
@@ -51,17 +57,48 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Attempt to move the uploaded file
             if (move_uploaded_file($_FILES["file"]["tmp_name"], $targetFilePath)) {
                 if ($conn && $conn->ping()) {
-                    $stmt = $conn->prepare("INSERT INTO book_informationsheet(PublisherEmail, AuthorName, EditorName, AuthorPseudonym, PublicationTitle, BookEdition, Impression, Isbn, SetISBN, PublisherName, PublisherAddress, PublicationYear, Price, FictionOrNonFiction, Genre, PublicationLanguage, EnglishVersionTitle, FileUpload) 
-                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                    $stmt->bind_param("ssssssssssssssssss", $email, $author_name, $author_pseudonym, $editor_name, $title_of_publication, $book_edition, $impression, $isbn_electronic, $set_isbn, $publisher_name, $publisher_address, $publisher_year, $price, $fiction_or_non, $genre, $langauge_of_publication, $english_translation, $newFileName);
+                    
+                    $sql = "SELECT * FROM book_informationsheet WHERE Isbn = '$isbn_electronic'";
+                    $result = $conn->query($sql);
 
-                    if ($stmt->execute()) {
-                        echo "File uploaded and data saved successfully.";
-                    } else {
-                        echo "Database error: " . $conn->error;
+                    if ($result) {
+                        if (mysqli_num_rows($result) > 0) {
+                            echo "ISBN already exists in our database, please conatct our legal deposits team to get another ISBN";
+                        }else{
+                            
+                            $fileQuery = "SELECT * FROM book_informationsheet WHERE FileUpload = '$file'";
+                            $fileResult = $conn->query($fileQuery);
+
+                            if ($fileResult) {
+                                
+                                if (mysqli_num_rows($fileResult) > 0) {
+                                    echo "Electronic book already exists in our database!";
+                                }else{
+                                            $stmt = $conn->prepare("INSERT INTO book_informationsheet(PublisherEmail, AuthorName, EditorName, AuthorPseudonym, PublicationTitle, BookEdition, Impression, Isbn, SetISBN, PublisherName, PublisherAddress, PublicationYear, Price, FictionOrNonFiction, Genre, PublicationLanguage, EnglishVersionTitle, FileUpload) 
+                                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                                            $stmt->bind_param("ssssssssssssssssss", $email, $author_name, $author_pseudonym, $editor_name, $title_of_publication, $book_edition, $impression, $isbn_electronic, $set_isbn, $publisher_name, $publisher_address, $publisher_year, $price, $fiction_or_non, $genre, $langauge_of_publication, $english_translation, $newFileName);
+
+                                            if ($stmt->execute()) {
+                                                echo "File uploaded and data saved successfully.";
+                                                    if(mail("nicolasmahlangu75@gmail.com", "Electronic book Submission", "Good day. Please find the attached e-book", "From $email")){
+                                                        echo "Email sent!";
+                                                    }else{
+                                                        echo "Email did not go through";
+                                                    }
+
+                                            } else {
+                                                echo "Database error: " . $conn->error;
+                                            }
+                                }
+                            }else{
+                                echo "Please upload a proper file type!";
+                            }
+                        
+                            $stmt->close();
+                        }
                     }
 
-                    $stmt->close();
+                    
                 } else {
                     echo "Database connection error.";
                 }

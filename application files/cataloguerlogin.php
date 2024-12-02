@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login Page - EQPRS</title>
+    <title>Login Page - E-pubs</title>
 
     <!-- Tab Icon -->
     <link href="../assets/img/favicon.webp" rel="icon">
@@ -29,12 +29,12 @@
 <body>
 
     <!-- Home Button Icon -->
-    <a href="welcome.html" class="home-icon">
+    <a href="index.php" class="home-icon">
         <i class="bi bi-house-fill"></i> Home
     </a>
 
     <!-- Admin Login Button -->
-    <a href="adminlogin.html" class="admin-login-button">
+    <a href="adminlogin.php" class="admin-login-button">
         <i class="bi bi-person-circle"></i> Admin Login
     </a>
 
@@ -76,7 +76,7 @@
 
                 <!-- Forgot Password Link -->
                 <div class="mt-3">
-                    <a href="forgot_password.html" class="text-primary">Forgot Password?</a>
+                    <a href="forgot_password.php" class="text-primary">Forgot Password?</a>
                 </div>
 
                 <!-- Submit Button -->
@@ -87,7 +87,7 @@
                 <!-- Sign-Up Link -->
                 <div class="mt-3 text-center">
                     <span>Don't have an account?</span> 
-                    <a href="signup.html" class="text-primary">Sign Up</a>
+                    <a href="signup.php" class="text-primary">Sign Up</a>
                 </div>
             </form>
         </div>
