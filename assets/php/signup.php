@@ -1,4 +1,5 @@
 <?php
+session_start();
 include 'conn.php';
 
 // Enable error reporting for debugging
@@ -24,8 +25,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bind_param("ssss", $fullname, $email_address, $contact, $password);
 
         if ($stmt->execute()) {
-            echo "You registered successfully!";
-            header("Location:../../application files/admin_dashboard.html");
+            $_SESSION['status'] = "You registered successfully!";
+            header("Location:../../application files/signup.php");
         } else {
             echo "Database error: " . $conn->error; 
         }

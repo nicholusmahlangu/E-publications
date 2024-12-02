@@ -23,7 +23,7 @@
     <link href="../assets/vendor/animate.css/animate.min.css" rel="stylesheet"> <!-- Animation CSS -->
 
     <!-- Main CSS file -->
-    <link href="../assets/css/welcome.css" rel="stylesheet">
+    <link href="../assets/css/index.css" rel="stylesheet">
 
     <script>
         // JavaScript function for smooth scrolling
@@ -46,10 +46,10 @@
             <a href="welcome.html" class="logo"><img src="../assets/img/LogoL.jpeg" alt="" class="img-fluid" style="width:30%; height:30%"></a>
             <nav id="navbar" class="navbar">
                 <ul>
-                    <li><a href="welcome.html" href="#hero">Home</a></li>
+                    <li><a href="index.php" href="#hero">Home</a></li>
                     <li><a class="nav-link scrollto" href="#about">Overview</a></li>
-                    <li><a href="cataloguerlogin.html" class="getstarted">Log in</a></li>
-                    <li><a href="index.html" class="getstarted">Form</a></li>
+                    <li><a href="cataloguerlogin.php" class="getstarted">Log in</a></li>
+                    <li><a href="form.php" class="getstarted">Form</a></li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle"></i>
             </nav>

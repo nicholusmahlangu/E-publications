@@ -25,7 +25,7 @@ if (trim($username)!=""and trim($password)!= "") {
         // User authenticated successfully, set session variables
         $_SESSION['email'] = $username;
         // Redirect to dashboard or desired page
-        header("Location:../../application files/admin_dashboard.html");
+        header("Location:../../application files/adminDashboard.php");
         exit();
     } else {
         // Invalid credentials, display error message
