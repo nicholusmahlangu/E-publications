@@ -38,15 +38,16 @@
         <i class="bi bi-person-circle"></i> Catalogue Login
     </a>
 
-    <!-- Logo and Heading -->
-    <div class="container text-center logo-container">
-        <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo">
-        <h1 class="system-heading">Electronic Publications</h1>
-    </div>
-
     <!-- Login Form Section -->
     <div class="sid d-flex flex-wrap justify-content-between align-items-center">
-        <!-- Left Side with Illustration -->
+
+        <!-- Logo and Heading -->
+        <div class="container text-center logo-container">
+            <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo">
+            <h1 class="system-heading">Electronic Publications</h1>
+        </div>
+
+    <!-- Left Side with Illustration -->
         <div class="side-left">
             <img src="../assets/img/photo 5.png" alt="Illustration" class="img-fluid">
         </div>

@@ -1,9 +1,9 @@
 <?php 
-    include "../assets/php/conn.php";
+    require_once('../assets/php/conn.php');
     $book_id = $_GET['Book_ID'];
-        
-    if (isset($_POST['submit'])) {
-        
+
+    if ($_SERVER['REQUEST_METHOD'] == 'POST')  {
+        echo "it reaches this point";
         $publisher_email = $_POST["PublisherEmail"];
         $author_name = $_POST["AuthorName"];
         $author_pseudonym = $_POST["AuthorPseudonym"];
@@ -18,9 +18,10 @@
         $fiction_or_non = $_POST["FictionOrNonFiction"];
         $englishVersionTitle = $_POST["EnglishVersionTitle"];
         
-        $sql = "UPDATE `book_informationsheet` SET `BookEdition`='$book_edition',`Price` = '$price',`AuthorPseudonym`='$author_pseudonym',
-        `FictionOrNonFiction`='$fiction_or_non',`Impression`='$impression',`SetISBN`='$set_isbn',`EditorName`='$editor_name',`PublicationYear`='$publication_year',`EnglishVersionTitle`='$englishVersionTitle' WHERE Book_ID=$book_id";
-        $bookUpdate = mysqli_query($conn, $sql);
+        $sqlUpdate = "UPDATE `book_informationsheet` SET `BookEdition`='$book_edition',`Price` = '$price',`AuthorPseudonym`='$author_pseudonym',`FictionOrNonFiction`='$fiction_or_non',`Impression`='$impression',`SetISBN`='$set_isbn',`EditorName`='$editor_name',`PublicationYear`='$publication_year',`EnglishVersionTitle`='$englishVersionTitle' WHERE Book_ID=$book_id";
+        
+        //$sqlUpdate = "UPDATE `book_informationsheet` SET `BookEdition`='$book_edition' WHERE Book_ID = '$book_id'";
+        $bookUpdate = mysqli_query($conn, $sqlUpdate);
     
         if ($bookUpdate) {
             // header("Location: bookdetails.php");
@@ -39,7 +40,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-
+    
     <!-- Tab icon -->
     <link href="../assets/img/favicon.webp" rel="icon">
     <!-- Font Awesome -->
@@ -95,7 +96,7 @@
                     
                     <div class="col">
                         <label class="form-label"><strong>Book Edition:</strong></label>
-                        <input type="text" class="form-control" name="BookEdition" value="<?php echo $row['BookEdition'] ?>" readonly>
+                        <input type="text" class="form-control" name="BookEdition" value="<?php echo $row['BookEdition'] ?>">
                     </div>
                     
                     <div class="col">
