@@ -3,7 +3,6 @@
     $book_id = $_GET['Book_ID'];
 
     if ($_SERVER['REQUEST_METHOD'] == 'POST')  {
-        echo "it reaches this point";
         $publisher_email = $_POST["PublisherEmail"];
         $author_name = $_POST["AuthorName"];
         $author_pseudonym = $_POST["AuthorPseudonym"];
@@ -17,8 +16,9 @@
         $price = $_POST["Price"];
         $fiction_or_non = $_POST["FictionOrNonFiction"];
         $englishVersionTitle = $_POST["EnglishVersionTitle"];
-        
-        $sqlUpdate = "UPDATE `book_informationsheet` SET `BookEdition`='$book_edition',`Price` = '$price',`AuthorPseudonym`='$author_pseudonym',`FictionOrNonFiction`='$fiction_or_non',`Impression`='$impression',`SetISBN`='$set_isbn',`EditorName`='$editor_name',`PublicationYear`='$publication_year',`EnglishVersionTitle`='$englishVersionTitle' WHERE Book_ID=$book_id";
+        $genre = $_POST["Genre"];
+
+        $sqlUpdate = "UPDATE `book_informationsheet` SET `BookEdition`='$book_edition',`Price` = '$price',`AuthorPseudonym`='$author_pseudonym',`FictionOrNonFiction`='$fiction_or_non',`Impression`='$impression',`SetISBN`='$set_isbn',`EditorName`='$editor_name',`PublicationYear`='$publication_year',`EnglishVersionTitle`='$englishVersionTitle',`Genre`='$genre' WHERE Book_ID=$book_id";
         
         //$sqlUpdate = "UPDATE `book_informationsheet` SET `BookEdition`='$book_edition' WHERE Book_ID = '$book_id'";
         $bookUpdate = mysqli_query($conn, $sqlUpdate);
@@ -141,12 +141,12 @@
 
                     <div class="col">
                         <label class="form-label"><strong>Genre:</strong></label>
-                        <input type="text" class="form-control" name="genre" value="<?php echo $row['Genre'] ?>">
+                        <input type="text" class="form-control" name="Genre" value="<?php echo $row['Genre'] ?>">
                     </div>
 
                     <div class="col">
                         <label class="form-label"><strong>Language of Publication:</strong></label>
-                        <input type="text" class="form-control" name="publication_language" value="<?php echo $row['PublicationLanguage'] ?>" readonly>
+                        <input type="text" class="form-control" name="PublicationLanguage" value="<?php echo $row['PublicationLanguage'] ?>" readonly>
                     </div>
 
                     <div class="col">
@@ -175,7 +175,7 @@
         </div>
     </div>
 
-
+<script src="../assets/js/bookEdit.js"></script>
       <!-- Bootstrap -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
 </body>
