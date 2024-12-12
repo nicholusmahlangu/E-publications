@@ -1,18 +1,13 @@
 <?php
 // Start session
 session_start();
+
 // Database connection parameters
 include 'conn.php';
 
-// // Create connection
-// $conn = new mysqli($servername, $username, $password, $database);
-
-// Check connection
-// if ($conn->connect_error) {
-//     die("Connection failed: " . $conn->connect_error);
-// }
 $username = $_POST['email'];
 $password = $_POST['password'];
+
 // Check if the form is submitted
 if (trim($username)!=""and trim($password)!= "") {
     // Retrieve form data

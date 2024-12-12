@@ -19,9 +19,9 @@
   <div class="scrollable-table">
   <table class="table">
     <thead>
-      <t>
-        <th data-order="desc">Book ID</th>
-        <th data-order="desc">Publisher Email</th>
+      <tr>
+        <th>Book ID</th>
+        <th>Publisher Email</th>
         <th>Author Name</th>
         <th>Author Pseudonym</th>
         <th>Editor Name</th>

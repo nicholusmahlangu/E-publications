@@ -1,3 +1,72 @@
+<?php 
+
+session_start();
+
+// Include database connection
+include '../assets/php/conn.php';
+
+// Include the header
+include 'headerr.php';
+
+// Initialize error message
+$error_message = "";
+
+// Check if the form is submitted
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Retrieve and sanitize user inputs
+    $username = trim($_POST['email']);
+    $password = trim($_POST['password']);
+
+    // Validate input fields
+    if (!empty($username) && !empty($password)) {
+        try {
+            // Prepare a SQL statement to prevent SQL injection
+            $sql = $conn->prepare("SELECT * FROM users WHERE EmailAddress = ?");
+            $sql->bind_param("s", $username);
+
+            // Execute the query
+            $sql->execute();
+            $result = $sql->get_result();
+
+            // Check if the user exists
+            if ($result->num_rows > 0) {
+                // Fetch the user record
+                $user = $result->fetch_assoc();
+
+                // Verify the password
+                if (password_verify($password, $user['Password'])) {
+                    // Password is correct, set session variables
+                    $_SESSION['email'] = $username;
+
+                    // Redirect to the catalog dashboard
+                    header("Location: dashboard.php");
+                    exit();
+                } else {
+                    // Invalid password
+                    $error_message = "Invalid email or password.";
+                }
+            } else {
+                // User not found
+                $error_message = "Invalid email or password.";
+            }
+
+            // Close the statement
+            $sql->close();
+        } catch (Exception $e) {
+            // Log error for debugging and display a generic error message
+            error_log("Error during login: " . $e->getMessage());
+            $error_message = "An error occurred. Please try again later.";
+        }
+    } else {
+        $error_message = "Please fill in all fields.";
+    }
+
+    // Close the connection
+    $conn->close();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -28,25 +97,12 @@
 
 <body>
 
-    <!-- Home Button Icon -->
-    <a href="index.php" class="home-icon">
-        <i class="bi bi-house-fill"></i> Home
-    </a>
-
-    <!-- Admin Login Button -->
-    <a href="adminlogin.php" class="admin-login-button">
-        <i class="bi bi-person-circle"></i> Admin Login
-    </a>
-
     <!-- Logo and Heading -->
 
     <!-- Login Form Section -->
     <div class="sid d-flex flex-wrap justify-content-between align-items-center">
-        <!-- Left Side with Illustration -->
-        <div class="container text-center logo-container">
-            <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo">
-            <h1 class="system-heading">Electronic Publications</h1>
-        </div>
+    <!-- Left Side with Illustration -->
+        
         <div class="side-left">
             <img src="../assets/img/photo 5.png" alt="Illustration" class="img-fluid">
         </div>
@@ -55,7 +111,7 @@
         <div class="side-right">
             <h4 class="text-center mb-4">Cataloguer</h4>
 
-            <form class="sub-form" method="post" action="../assets/php/Login.php">
+            <form class="sub-form" method="post" action="">
                 <!-- Email Input -->
                 <div class="input-group mb-3">
                     <span class="input-group-text">
@@ -91,6 +147,15 @@
                 </div>
             </form>
         </div>
+                    <!-- Home Button Icon -->
+    <a href="index.php" class="home-icon">
+        <i class="bi bi-house-fill"></i> Home
+    </a>
+
+    <!-- Admin Login Button -->
+    <a href="adminlogin.php" class="admin-login-button">
+        <i class="bi bi-person-circle"></i> Admin Login
+    </a>
     </div>
 
     <script src="../assets/js/login.js"></script>
