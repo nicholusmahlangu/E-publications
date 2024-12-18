@@ -89,7 +89,7 @@ $totalPages = ceil($totalRecords / $limit);
       <nav class="col-md-3 col-lg-2 d-md-block sidebar">
         <h3 class="text-center py-3">Dashboard</h3>
         <ul class="nav flex-column">
-          <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
+          <li class="nav-item"><a href="dashboard.php" class="nav-link">Home</a></li>
           <li class="nav-item"><a href="view.php" class="nav-link">Document Management</a></li>
           <li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>
         </ul>

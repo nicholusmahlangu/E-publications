@@ -131,7 +131,7 @@
 
                     <div class="col">
                         <label class="form-label"><strong>Price:</strong></label>
-                        <input type="text" class="form-control" name="Price" value="<?php echo $row['Price'] ?>">
+                        <input type="number" step="any" step="0.01" pattern="^\d*(\.\d{0,2})?$" class="form-control" name="Price" value="<?php echo $row['Price'] ?>">
                     </div>
 
                     <div class="col">
