@@ -167,12 +167,12 @@
             </form>
         </div>
 
-        <div class="popup" id="popUp">
+        <!-- <div class="popup" id="popUp">
             <img src="../assets/img/istockphoto-1416145560-612x612.jpg">
             <h2>Update successful</h2>
             <p>Changes are successfully made!</p>
             <button type="button" class="btn-ok" onclick="closePopup()">Ok</button>
-        </div>
+        </div> -->
     </div>
 
 <script src="../assets/js/bookEdit.js"></script>

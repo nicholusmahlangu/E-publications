@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                                             if ($stmt->execute()) {
                                                 echo "File uploaded and data saved successfully.";
-                                                    if(mail("nicolasmahlangu75@gmail.com", "Electronic book Submission", "Good day. Please find the attached e-book", "From $email")){
+                                                    if(mail("nicolasmahlangu75@gmail.com", "Electronic book Submission", "Good day. Please find the attached e-book", "From: $email")){
                                                         echo "Email sent!";
                                                     }else{
                                                         echo "Email did not go through";
