@@ -26,10 +26,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $langauge_of_publication = isset($_POST['language_of_publication']) ? trim($_POST['language_of_publication']) : '';
     $english_translation = isset($_POST['english_translation_title']) ? trim($_POST['english_translation_title']) : '';
     $file = isset($_POST['file']) ? trim($_POST['file']) : '';
-    $to= isset($_POST['nicolasmahlangu75@gmail.com']);
-    $message = isset($_POST['Electronic has just been submitted!']);
-    //$headers=isset($_POST['From + $email']);
-    $subject = isset($_POST['SANB Informationsheet']);
+    // $to= "nicolasmahlangu75@gmail.com";
+    // $message = 'Electronic has just been submitted!';
+    // $headers= "From: $email";
+    // $subject = "SANB Informationsheet";
+    
 
     if (empty($author_name) || empty($email) || empty($author_name)|| empty($author_pseudonym) || empty($editor_name)|| empty($title_of_publication)|| empty($book_edition)||empty($impression) ||empty($isbn_electronic)||empty($set_isbn)||empty($publisher_name)||empty($publisher_address)||empty($publisher_year)||empty($price)||empty($fiction_or_non)||empty($genre)||empty($langauge_of_publication)||empty($english_translation) && !empty($file)) {
         echo "Please ensure that all fields are filled.";
@@ -80,11 +81,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                                             if ($stmt->execute()) {
                                                 echo "File uploaded and data saved successfully.";
-                                                    if(mail("nicolasmahlangu75@gmail.com", "Electronic book Submission", "Good day. Please find the attached e-book", "From: $email")){
-                                                        echo "Email sent!";
-                                                    }else{
-                                                        echo "Email did not go through";
-                                                    }
+                                                $to= $email;    
+                                                $subject = "SANB Informationsheet";
+                                                $headers= array(
+                                                    "MIME-Version" => "1.0",
+                                                    "Content-Type" => "text/html;charset=UTF-8",
+                                                    "From" => "nicolasmahlangu75@gmail.com",
+                                                    "Reply-To" => "nicolasmahlangu75@gmail.com"
+                                                );
+                                                $message = file_get_contents("form.php");
+    
+                                                $send = mail($to,$subject, $message, $headers);
+                                            
+                                                echo ($send ? "Mail is sent" : "An error occured");
 
                                             } else {
                                                 echo "Database error: " . $conn->error;
@@ -93,11 +102,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             }else{
                                 echo "Please upload a proper file type!";
                             }
-                        
                             $stmt->close();
                         }
                     }
-
                     
                 } else {
                     echo "Database connection error.";
