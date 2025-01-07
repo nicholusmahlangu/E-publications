@@ -26,15 +26,12 @@ $bookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet";
     <input type="checkbox" name="" id="sidebar-toggle">
 
     <div class="sidebar">
-      <div class="sidebar-brand">
+      <!-- <div class="sidebar-brand">
         <div class="brand-flex">
           <img src="../assets/img/NLSA-logo.png" width="40px" alt="" />
-          <div class="brand-icons">
-            <span class="las la-bell"></span>
-            <span class="las la-user-circle"></span>
-          </div>
+          
         </div>
-      </div>
+      </div> -->
 
       <div class="sidebar-main">
         <div class="sidebar-user">
