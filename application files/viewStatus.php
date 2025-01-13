@@ -22,7 +22,7 @@ $searchTerm = isset($_GET['search']) ? trim($_GET['search']) : '';
 
 // Query to fetch data with optional search
 $query = "SELECT Book_ID AS id, PublicationTitle AS title, Genre AS description, 
-          FileUpload AS file_path, downloads AS download_count, status 
+          FileUpload AS file_path, PublisherEmail AS PublisherEmail, status 
           FROM book_informationsheet";
 
 if ($searchTerm !== '') {
@@ -57,7 +57,7 @@ $totalPages = ceil($totalRecords / $limit);
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document Management</title>
+  <title>Status Management</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <style>
@@ -87,17 +87,16 @@ $totalPages = ceil($totalRecords / $limit);
     <div class="row">
       <!-- Sidebar -->
       <nav class="col-md-3 col-lg-2 d-md-block sidebar">
-        <h3 class="text-center py-3">Dashboard</h3>
+        <h3 class="text-center py-3">Cataloguer's Status</h3>
         <ul class="nav flex-column">
-          <li class="nav-item"><a href="dashboard.php" class="nav-link">Home</a></li>
-          <li class="nav-item"><a href="view.php" class="nav-link">Document Management</a></li>
+          <li class="nav-item"><a href="adminDashboard.php" class="nav-link">Home</a></li>
           <li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>
         </ul>
       </nav>
 
       <!-- Main Content -->
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-        <h1 class="mt-4">Document Management</h1>
+        <h1 class="mt-4">Status Management</h1>
 
         <!-- Search Bar -->
         <div class="input-group mb-4">
@@ -111,12 +110,12 @@ $totalPages = ceil($totalRecords / $limit);
             <thead>
               <tr>
                 <th>ID</th>
+                <th>PublisherEmail</th>
                 <th>Title</th>
                 <th>Description</th>
-                <th>File</th>
-                <th>Downloads</th>
                 <th>Status</th>
                 <th>Action</th>
+                
               </tr>
             </thead>
             <tbody>
@@ -126,18 +125,15 @@ $totalPages = ceil($totalRecords / $limit);
                 <?php foreach ($documents as $doc): ?>
                   <tr>
                     <td><?= htmlspecialchars($doc['id']) ?></td>
+                    <td><?= htmlspecialchars($doc['PublisherEmail']) ?></td>
                     <td><?= htmlspecialchars($doc['title']) ?></td>
                     <td><?= htmlspecialchars($doc['description']) ?></td>
-                    <td>
-                      <a href="download_document.php?Book_ID=<?= htmlspecialchars($doc['id']) ?>" class="btn btn-link">Download</a>
-                    </td>
-                    <td><?= htmlspecialchars($doc['download_count']) ?></td>
                     <td><?= htmlspecialchars($doc['status']) ?></td>
+                    
                     <td>
                       <form action="update_status.php" method="POST" class="d-inline">
                         <input type="hidden" name="Book_ID" value="<?= htmlspecialchars($doc['id']) ?>">
                         <select name="status" class="form-select form-select-sm" required>
-                          <option value="" <?= $doc['status'] === 'Select status' ? 'selected' : '' ?>>Select status</option>
                           <option value="Assigned" <?= $doc['status'] === 'Assigned' ? 'selected' : '' ?>>Assigned</option>
                           <option value="In Progress" <?= $doc['status'] === 'In Progress' ? 'selected' : '' ?>>In Progress</option>
                           <option value="Completed" <?= $doc['status'] === 'Completed' ? 'selected' : '' ?>>Completed</option>
