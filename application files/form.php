@@ -122,7 +122,7 @@
                 <input type="text" id="impression" name="impression" required placeholder="Enter Impression">
 
                 <label for="isbn_electronic">ISBN of Electronic Book:</label>
-                <input type="text" id="isbn_electronic" name="isbn_electronic" required pattern="\d{13}" placeholder="Enter 13-digit ISBN">
+                <input type="text" id="isbn_electronic" name="isbn_electronic" placeholder="Enter 13-digit ISBN">
 
                 <label for="set_isbn">Set ISBN:</label>
                 <input type="text" id="set_isbn" name="set_isbn" required placeholder="Enter Set ISBN">
