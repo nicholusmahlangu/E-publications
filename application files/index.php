@@ -6,8 +6,7 @@
     <title>Home</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
-
-    <!-- Tab icon -->
+    <!-- Tab icon -->     
     <link href="../assets/img/favicon.webp" rel="icon">
     
     <!-- Google fonts -->
