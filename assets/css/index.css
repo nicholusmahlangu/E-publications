@@ -34,7 +34,7 @@ a {
 }
 
 a:hover {
-  color: #06ab4f;
+  color: #ffffff;
   text-decoration: none;
 }
 
@@ -71,7 +71,7 @@ h6 {
 }
 
 .back-to-top:hover {
-  background: rgb(30, 176, 30);
+  background: rgb(255, 255, 255);
   color: #fff;
 }
 
@@ -1167,6 +1167,10 @@ body {
     line-height: 1;
   }
   
+  .img-fluid {
+    
+    background-position-x: -25px;
+  }
   .about .content p:last-child {
     margin-bottom: 0;
   }

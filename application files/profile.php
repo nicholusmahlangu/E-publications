@@ -104,7 +104,10 @@ $conn->close();
         }
     </style>
 </head>
+
+
 <body>
+    
     <div class="container">
         <h2 class="text-center mb-4">Your Profile</h2>
         <?php if (!empty($message)): ?>
@@ -131,5 +134,7 @@ $conn->close();
             </div>
         </form>
     </div>
+    
 </body>
+
 </html>

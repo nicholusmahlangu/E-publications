@@ -1,7 +1,10 @@
 <?php
+<<<<<<< HEAD
 // Start session for feedback messages
 session_start();
 
+=======
+>>>>>>> main
 // Database connection
 $host = 'localhost';
 $dbname = 'e-pubsdb';
@@ -15,6 +18,7 @@ try {
     die("Database connection failed: " . $e->getMessage());
 }
 
+<<<<<<< HEAD
 // Check if the request is POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Validate required POST fields
@@ -59,4 +63,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Redirect back to the viewStatus.php page
 header('Location: view.php');
 exit;
+=======
+// Validate POST data
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Book_ID'], $_POST['status'])) {
+    $bookId = $_POST['Book_ID'];
+    $status = $_POST['status'];
+
+    // Update the status
+    $query = "UPDATE book_informationsheet SET status = :status WHERE Book_ID = :bookId";
+    $stmt = $pdo->prepare($query);
+    $stmt->bindValue(':status', $status, PDO::PARAM_STR);
+    $stmt->bindValue(':bookId', $bookId, PDO::PARAM_INT);
+
+    if ($stmt->execute()) {
+        header('Location: view.php'); // Redirect back to the view page
+        exit;
+    } else {
+        echo "Error updating status.";
+    }
+} else {
+    echo "Invalid request.";
+}
+>>>>>>> main
 ?>

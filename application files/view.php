@@ -137,9 +137,16 @@ $totalPages = ceil($totalRecords / $limit);
                       <form action="update_status.php" method="POST" class="d-inline">
                         <input type="hidden" name="Book_ID" value="<?= htmlspecialchars($doc['id']) ?>">
                         <select name="status" class="form-select form-select-sm" required>
+<<<<<<< HEAD
                           <option value="Assigned" <?= $doc['status'] === 'Assigned' ? 'selected' : '' ?>>Assigned</option>
                           <option value="Pending" <?= $doc['status'] === 'Pending' ? 'selected' : '' ?>>Pending</option>
                           <option value="Reviewed" <?= $doc['status'] === 'Reviewed' ? 'selected' : '' ?>>Reviewed</option>
+=======
+                          <option value="" <?= $doc['status'] === 'Select status' ? 'selected' : '' ?>>Select status</option>
+                          <option value="Assigned" <?= $doc['status'] === 'Assigned' ? 'selected' : '' ?>>Assigned</option>
+                          <option value="In Progress" <?= $doc['status'] === 'In Progress' ? 'selected' : '' ?>>In Progress</option>
+                          <option value="Completed" <?= $doc['status'] === 'Completed' ? 'selected' : '' ?>>Completed</option>
+>>>>>>> main
                         </select>
                         <button type="submit" class="btn btn-sm btn-primary">Update</button>
                       </form>
