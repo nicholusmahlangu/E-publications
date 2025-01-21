@@ -3,6 +3,10 @@ session_start();
 include 'conn.php';
 include '../js/index.js';
 
+require "vendor/autoload.php";
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+
 // Enable error reporting for debugging
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
@@ -26,11 +30,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $langauge_of_publication = isset($_POST['language_of_publication']) ? trim($_POST['language_of_publication']) : '';
     $english_translation = isset($_POST['english_translation_title']) ? trim($_POST['english_translation_title']) : '';
     $file = isset($_POST['file']) ? trim($_POST['file']) : '';
-    // $to= "nicolasmahlangu75@gmail.com";
-    // $message = 'Electronic has just been submitted!';
-    // $headers= "From: $email";
-    // $subject = "SANB Informationsheet";
-    
 
     if (empty($author_name) || empty($email) || empty($author_name)|| empty($author_pseudonym) || empty($editor_name)|| empty($title_of_publication)|| empty($book_edition)||empty($impression) ||empty($isbn_electronic)||empty($set_isbn)||empty($publisher_name)||empty($publisher_address)||empty($publisher_year)||empty($price)||empty($fiction_or_non)||empty($genre)||empty($langauge_of_publication)||empty($english_translation) && !empty($file)) {
         echo "Please ensure that all fields are filled.";
@@ -83,21 +82,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                 echo "File uploaded and data saved successfully.";
                                                 $to= $email;    
                                                 $subject = "SANB Informationsheet";
-                                                $headers= array(
-                                                    "MIME-Version" => "1.0",
-                                                    "Content-Type" => "text/html;charset=UTF-8",
-                                                    "From" => "nicolasmahlangu75@gmail.com",
-                                                    "Reply-To" => "nicolasmahlangu75@gmail.com"
-                                                );
-                                                $message = file_get_contents("form.php");
-    
-                                                $send = mail($to,$subject, $message, $headers);
-                                            
-                                                echo ($send ? "Mail is sent" : "An error occured");
+                                                
+                                                $mail = new PHPMailer(true);
+                                                $mail->isSMTP();
+                                                $mail->SMTPAuth = true;
+
+                                                $mail->Host = "smtp.gmail.com";
+                                                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                                                $mail->Port = 587;
+                                                $mail->Username = "nicolasmahlangu75@gmail.com";
+                                                $mail->Password="ykbq ecat ctyl avbb ";
+
+                                                $mail->setFrom($email, $publisher_name);
+                                                $mail->addAddress("nicholus.mahlangu@nlsa.ac.za","Nicholus");
+
+                                                $mail->Subject= "Submission of Electronic book";
+                                                $mail->Body="Hi Admin A new book has been submitted $email";
+
+                                                $mail->send();
+                                                echo "email sent";
 
                                             } else {
                                                 echo "Database error: " . $conn->error;
                                             }
+
                                 }
                             }else{
                                 echo "Please upload a proper file type!";

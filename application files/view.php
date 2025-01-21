@@ -22,7 +22,7 @@ $searchTerm = isset($_GET['search']) ? trim($_GET['search']) : '';
 
 // Query to fetch data with optional search
 $query = "SELECT Book_ID AS id, PublicationTitle AS title, Genre AS description, 
-          FileUpload AS file_path, downloads AS download_count 
+          FileUpload AS file_path, downloads AS download_count, status 
           FROM book_informationsheet";
 
 if ($searchTerm !== '') {
@@ -115,20 +115,35 @@ $totalPages = ceil($totalRecords / $limit);
                 <th>Description</th>
                 <th>File</th>
                 <th>Downloads</th>
+                <th>Status</th>
                 <th>Action</th>
               </tr>
             </thead>
             <tbody>
               <?php if (empty($documents)): ?>
-                <tr><td colspan="6" class="text-center">No documents found.</td></tr>
+                <tr><td colspan="7" class="text-center">No documents found.</td></tr>
               <?php else: ?>
                 <?php foreach ($documents as $doc): ?>
                   <tr>
                     <td><?= htmlspecialchars($doc['id']) ?></td>
                     <td><?= htmlspecialchars($doc['title']) ?></td>
                     <td><?= htmlspecialchars($doc['description']) ?></td>
-                    <td><a href="download_document.php?Book_ID=<?= htmlspecialchars($doc['id']) ?>" class="btn btn-link">Download</a></td>
+                    <td>
+                      <a href="download_document.php?Book_ID=<?= htmlspecialchars($doc['id']) ?>" class="btn btn-link">Download</a>
+                    </td>
                     <td><?= htmlspecialchars($doc['download_count']) ?></td>
+                    <td><?= htmlspecialchars($doc['status']) ?></td>
+                    <td>
+                      <form action="update_status.php" method="POST" class="d-inline">
+                        <input type="hidden" name="Book_ID" value="<?= htmlspecialchars($doc['id']) ?>">
+                        <select name="status" class="form-select form-select-sm" required>
+                          <option value="Assigned" <?= $doc['status'] === 'Assigned' ? 'selected' : '' ?>>Assigned</option>
+                          <option value="Pending" <?= $doc['status'] === 'Pending' ? 'selected' : '' ?>>Pending</option>
+                          <option value="Reviewed" <?= $doc['status'] === 'Reviewed' ? 'selected' : '' ?>>Reviewed</option>
+                        </select>
+                        <button type="submit" class="btn btn-sm btn-primary">Update</button>
+                      </form>
+                    </td>
                   </tr>
                 <?php endforeach; ?>
               <?php endif; ?>

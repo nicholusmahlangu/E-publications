@@ -8,10 +8,10 @@
     <title><?php echo htmlspecialchars($pageTitle); ?></title>
 
     <!-- Tab icon -->
-    <link href="..assets/img/favicon.webp" rel="icon">
+    <link rel="icon" href="../assets/img/favicon.webp">
 
     <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Nunito|Poppins" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700|Nunito:400,700|Poppins:400,700" rel="stylesheet">
 
     <!-- Vendor CSS Files -->
     <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -30,20 +30,102 @@
         #header {
             background: linear-gradient(90deg, red, green, blue);
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 10px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 999;
         }
+
+        #header .logo img {
+            width: 120px;
+            height: auto;
+        }
+
+        #navbar {
+            display: flex;
+            align-items: center;
+        }
+
+        #navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            gap: 20px;
+        }
+
+        #navbar ul li {
+            position: relative;
+        }
+
+        #navbar ul li a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: 600;
+            padding: 10px 15px;
+            transition: color 0.3s, background-color 0.3s;
+            border-radius: 5px;
+        }
+
+        #navbar ul li a:hover,
         #navbar ul li a.active {
-            color: #ffffff;
-            font-weight: bold;
+            color: #000;
+            background-color: #fff;
+        }
+
+        .mobile-nav-toggle {
+            display: none;
+            font-size: 28px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        /* Mobile Styles */
+        @media (max-width: 768px) {
+            .mobile-nav-toggle {
+                display: block;
+            }
+
+            #navbar {
+                flex-direction: column;
+                align-items: flex-start;
+                position: fixed;
+                top: 60px;
+                right: -100%;
+                width: 100%;
+                background: linear-gradient(90deg, red, green, blue);
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                transition: right 0.4s;
+                overflow-y: auto;
+                padding: 20px;
+                z-index: 998;
+            }
+
+            #navbar.navbar-mobile {
+                right: 0;
+            }
+
+            #navbar ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            #navbar ul li a {
+                padding: 12px;
+                width: 100%;
+                text-align: left;
+            }
         }
     </style>
 </head>
 <body>
-    <header id="header" class="fixed-top animate__animated animate__fadeInDown">
+    <header id="header" class="animate__animated animate__fadeInDown">
         <div class="container d-flex align-items-center justify-content-between">
             <a href="welcome.html" class="logo">
-                <img src="../assets/img/NLSA-logo.png" alt="National Library Logo" class="img-fluid" style="width:30%; height:30%">
+                <img src="../assets/img/LogoL.jpeg" alt="National Library Logo">
             </a>
-            <nav id="navbar" class="navbar" role="navigation">
+            <nav id="navbar" class="navbar">
                 <ul>
                     <li><a href="index.php" class="active">Home</a></li>
                     <li><a class="nav-link scrollto" href="#about">Overview</a></li>
