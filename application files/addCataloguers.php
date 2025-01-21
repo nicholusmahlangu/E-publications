@@ -19,7 +19,11 @@
         <i class="bi bi-house-fill"></i> Admin Dashboard
     </a>
     <div class="wrapper">
+<<<<<<< HEAD
+        <h1>Sign Up</h1>
+=======
         <h2>Add Cataloguer</h2>
+>>>>>>> main
         <p id="error-text"></p>
         <?php 
             if (isset($_SESSION['status'])) {
@@ -67,7 +71,11 @@
                 </label>
                 <input type="password" name="confirm_password"  id="confirm-password-input" placeholder="Confirm Password">
             </div>
+<<<<<<< HEAD
+            <button type="submit" id="submit">ADD</button>
+=======
             <button type="submit" id="submit">Sign Up</button>
+>>>>>>> main
         </form>
         
     </div>

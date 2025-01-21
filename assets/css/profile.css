@@ -1,12 +1,19 @@
 /* General body background color */
 body {
+<<<<<<< HEAD
+    background-color: lightgreen; /* Green background for the page */
+=======
     background-color: rgb(13, 5, 39); /* Green background for the page */
+>>>>>>> main
     font-family: Arial, sans-serif;
     color: #333; /* Ensure text is readable */
     margin: 0;
     padding: 0;
+<<<<<<< HEAD
+=======
     place-content: center;
     
+>>>>>>> main
 }
 
 /* Heading background and style */
@@ -20,7 +27,11 @@ h2 {
 
 /* Form input fields background and style */
 .form-control {
+<<<<<<< HEAD
+    background-color: #ffeeee; /* Light red background for input fields */
+=======
     background-color: #24026e; /* Light red background for input fields */
+>>>>>>> main
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;

@@ -92,7 +92,7 @@ $bookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet";
                 </a>
               </li>
               <li>
-                <a href="">
+                <a href="calendar.php">
                   <span class="las la-calendar"></span>
                   Calendar
                 </a>
