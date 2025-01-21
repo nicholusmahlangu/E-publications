@@ -125,16 +125,10 @@
     <header id="header" class="animate__animated animate__fadeInDown">
         <div class="container d-flex align-items-center justify-content-between">
             <a href="welcome.html" class="logo">
-<<<<<<< HEAD
-                <img src="../assets/img/LogoL.jpeg" alt="National Library Logo">
-            </a>
-            <nav id="navbar" class="navbar">
-=======
                 <img src="../assets/img/NLSA-logo.png" alt="National Library Logo" class="img-fluid" style="width:50%; height:50%">
             </a>
 
             <nav id="navbar" class="navbar" role="navigation">
->>>>>>> main
                 <ul>
                     <li><a href="index.php" class="active">Home</a></li>
                     <li><a class="nav-link scrollto" href="#about">Overview</a></li>
