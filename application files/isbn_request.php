@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
 <div class="container mt-5">
-  <h1 class="text-center mb-4">Commetial ISBN Form</h1>
+  <h1 class="text-center mb-4">Commercial ISBN Form</h1>
 
   <!-- Display Success/Error Messages -->
   <?php if (!empty($successMessage)): ?>

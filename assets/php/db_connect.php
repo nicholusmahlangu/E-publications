@@ -69,6 +69,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 echo "ISBN must be 13 digits";
                             }
                             
+                            if($publisher_year > date('Y', $timestamp)){
+                                echo "Publication year must not be the same as the current year"; 
+                            }
                         }else{
                             
                             $fileQuery = "SELECT * FROM book_informationsheet WHERE FileUpload = '$file'";

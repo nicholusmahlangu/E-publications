@@ -79,11 +79,7 @@ $cataloguerResults = mysqli_query($conn, $cataloguerQuery);
                     </select>
                 </td>
                 <td>
-<<<<<<< HEAD
-                  <button type="submit" class="btn btn-primary btn-sm">Assign</button>
-=======
                     <button type="submit" class="btn btn-primary btn-sm">Assign</button>
->>>>>>> main
                   </form>
                 </td>
               </tr>
