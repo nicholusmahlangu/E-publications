@@ -1,6 +1,8 @@
 <?php
-session_start();
-
+if(!defined('nlsalockurl')){
+    header('Location: index.php');
+    die('');
+}
 // Database connection
 $servername = "localhost";
 $username = "root";

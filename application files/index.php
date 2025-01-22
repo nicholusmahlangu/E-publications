@@ -58,7 +58,9 @@
 
 <body>
     <!-- Include Header -->
-    <?php include 'headerr.php'; ?>
+    <?php 
+        define('nlsalockurl', True);
+    include 'headerr.php'; ?>
     
 
     <!-- ======= Hero Section ======= -->
