@@ -93,10 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             throw new Exception("Failed to prepare count query: " . $conn->error);
         }
 
-<<<<<<< HEAD
-=======
         // Bind parameters for the count query only if there are any
->>>>>>> fbb2c5f09ea03ab14d4e050378e23ae99d6d6d5f
         if (!empty($countTypes)) {
             $countStmt->bind_param($countTypes, ...$countParams);
         }
@@ -109,11 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         header('Content-Type: application/json');
         echo json_encode([
             'success' => true,
-<<<<<<< HEAD
-            'notifications' => $notifications,
-=======
             'documents' => $notifications,
->>>>>>> fbb2c5f09ea03ab14d4e050378e23ae99d6d6d5f
             'totalPages' => $totalPages,
             'currentPage' => $page
         ]);

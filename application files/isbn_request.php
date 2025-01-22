@@ -1,6 +1,12 @@
 <?php
 include '../assets/php/conn.php';
 
+require "vendor/autoload.php";
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // validate inputs
     $country = htmlspecialchars($_POST['country']);
@@ -36,6 +42,25 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmt->execute()) {
         $successMessage = "Form submitted successfully.";
+
+        $to= $publisherEmail;    
+        $subject = "Request for ISBN from a Self Publisher";
+          
+        $mail = new PHPMailer(true);
+        $mail->isSMTP();
+        $mail->SMTPAuth = true;
+        $mail->Host = "smtp.gmail.com";
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+        $mail->Username = "nicolasmahlangu75@gmail.com";
+        $mail->Password="ykbq ecat ctyl avbb ";
+        $mail->setFrom($publisherEmail, $publisherName);
+        $mail->addAddress("nicholus.mahlangu@nlsa.ac.za","Nicholus");
+        $mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
+        $mail->Subject= "$subject";
+        $mail->Body="Hi Kholofelo. A request for an ISBN has been sent for the book: $bookName by: $publisherName Email addresss: $publisherEmail. We mainly testing the system neh. Thank you";
+        $mail->send();
+        echo "email sent";
     } else {
         $errorMessage = "Error: " . $stmt->error;
     }
@@ -50,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Publisher ISBN Form</title>
+  <title>Self-publisher ISBN Request Form</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
@@ -60,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
 <div class="container mt-5">
-  <h1 class="text-center mb-4">Commercial ISBN Form</h1>
+  <h1 class="text-center mb-4">Self-publisher ISBN Request Form</h1>
 
   <!-- Display Success/Error Messages -->
   <?php if (!empty($successMessage)): ?>
@@ -159,7 +184,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
       <div class="invalid-feedback">Please enter a valid phone number.</div>
     </div>
-<div class="mb-3">
+
+    <!-- other Fields -->
+    <div class="mb-3">
       <label for="bookName" class="form-label">Title/Name of the Book(s)</label>
       <input type="text" id="bookName" name="bookName" class="form-control" required>
     </div>
@@ -172,28 +199,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <input type="text" id="authorAddress" name="authorAddress" class="form-control" required>
     </div>
     <div class="mb-3">
-      <label for="authorContact" class="form-label">Contact Number</label>
-      <input type="text" id="authorContact" name="authorContact" class="form-control" pattern="\d{10}" required>
-    </div>
-    <div class="mb-3">
-      <label for="authorEmail" class="form-label">Email Address</label>
+      <label for="authorEmail" class="form-label">Author Email Address</label>
       <input type="email" id="authorEmail" name="authorEmail" class="form-control" required>
     </div>
-    <h3 class="mt-4">South African Publisher / Self-Publisher Details</h3>
     <div class="mb-3">
-      <label for="publisherName" class="form-label">Name</label>
+      <label for="publisherName" class="form-label">Publisher Name</label>
       <input type="text" id="publisherName" name="publisherName" class="form-control" required>
     </div>
     <div class="mb-3">
-      <label for="publisherAddress" class="form-label">Full Physical Address</label>
+      <label for="publisherAddress" class="form-label">Publisher Address</label>
       <input type="text" id="publisherAddress" name="publisherAddress" class="form-control" required>
     </div>
     <div class="mb-3">
-      <label for="publisherContact" class="form-label">Contact Number</label>
-      <input type="text" id="publisherContact" name="publisherContact" class="form-control" pattern="\d{10}" required>
+      <label for="publisherContact" class="form-label">Publisher Contact</label>
+      <input type="text" id="publisherContact" name="publisherContact" class="form-control" required>
     </div>
     <div class="mb-3">
-      <label for="publisherEmail" class="form-label">Email Address</label>
+      <label for="publisherEmail" class="form-label">Publisher Email</label>
       <input type="email" id="publisherEmail" name="publisherEmail" class="form-control" required>
     </div>
     <div class="mb-3">
@@ -212,7 +234,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="mb-3">
       <label for="openAccess" class="form-label">Will your publications be available as Open Access?</label>
       <select id="openAccess" name="openAccess" class="form-select" required>
-        <option value="">—Please choose an option—</option>
         <option value="Yes">Yes</option>
         <option value="No">No</option>
       </select>
@@ -220,14 +241,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="mb-3">
       <label for="isbnRegistered" class="form-label">The ISBN should be registered against:</label>
       <select id="isbnRegistered" name="isbnRegistered" class="form-select" required>
-        <option value="">—Please choose an option—</option>
         <option value="Author">The Author</option>
+        <option value="Publisher">The Publisher</option>
       </select>
     </div>
     <div class="mb-3">
-      <label for="externalPlatforms" class="form-label">Which external platforms will you use for publishing your book?</label>
+      <label for="externalPlatforms" class="form-label">External Publishing Platforms</label>
       <input type="text" id="externalPlatforms" name="externalPlatforms" class="form-control" placeholder="e.g. Amazon" required>
     </div>
+
     <button type="submit" class="btn btn-primary">Submit</button>
   </form>
 </div>
