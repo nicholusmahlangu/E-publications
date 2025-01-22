@@ -102,11 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                 $mail->addAddress("nicholus.mahlangu@nlsa.ac.za","Nicholus");
 
                                                 $mail->Subject= "Submission of Electronic book";
-<<<<<<< HEAD
-                                                $mail->Body="Hi Admin A new book has been submitted $email";
-=======
                                                 $mail->Body="Hi Admin A new book has been submitted by $email";
->>>>>>> main
 
                                                 $mail->send();
                                                 echo "email sent";
