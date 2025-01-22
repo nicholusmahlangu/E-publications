@@ -1,5 +1,6 @@
 <?php
 include '../assets/php/conn.php';
+include 'forms_hearder.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // validate inputs
