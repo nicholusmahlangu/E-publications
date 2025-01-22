@@ -65,11 +65,7 @@ $cataloguerResults = mysqli_query($conn, $cataloguerQuery);
                 <td><?= htmlspecialchars($book['PublicationTitle']) ?></td>
                 <td><?= htmlspecialchars($book['Isbn']) ?></td>
                 <td>
-<<<<<<< HEAD
-                  <form action="assign_task.php" method="POST">
-=======
                   <form action="assign_task.php" method="POST" class="d-inline">
->>>>>>> main
                     <input type="hidden" name="Book_ID" value="<?= htmlspecialchars($book['Book_ID']) ?>">
                     <select name="cataloguer_id" class="form-select form-select-sm" required>
                       <option value="">Select Cataloguer</option>
@@ -83,11 +79,7 @@ $cataloguerResults = mysqli_query($conn, $cataloguerQuery);
                     </select>
                 </td>
                 <td>
-<<<<<<< HEAD
-                  <button type="submit" class="btn btn-primary btn-sm">Assign</button>
-=======
                     <button type="submit" class="btn btn-primary btn-sm">Assign</button>
->>>>>>> main
                   </form>
                 </td>
               </tr>
@@ -101,10 +93,7 @@ $cataloguerResults = mysqli_query($conn, $cataloguerQuery);
       </table>
     </div>
   </div>
-<<<<<<< HEAD
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-=======
->>>>>>> main
 </body>
 </html>
