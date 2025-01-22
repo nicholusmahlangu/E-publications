@@ -11,12 +11,13 @@ ini_set('display_errors', 1);
 
 // Handle AJAX request for notifications
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $limit = 5; // Number of notifications per page
+    $limit = 20; // Number of notifications per page
     $page = isset($_GET['page']) && is_numeric($_GET['page']) ? (int)$_GET['page'] : 1;
     $offset = ($page - 1) * $limit;
     $type = isset($_GET['type']) ? $_GET['type'] : 'all';
     $search = isset($_GET['search']) ? trim($_GET['search']) : '';
     $date = isset($_GET['date']) ? trim($_GET['date']) : '';
+    $cataloguer_id = isset($_SESSION['cataloguer_id']) ? (int)$_SESSION['cataloguer_id'] : null;
 
     try {
         // Base query with dynamic filters
@@ -25,6 +26,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $types = "";
 
         // Apply filters dynamically
+        if ($cataloguer_id) {
+            $query .= " AND (cataloguer_id = ? OR cataloguer_id IS NULL)";
+            $params[] = $cataloguer_id;
+            $types .= "i";
+        }
+
         if ($type !== 'all') {
             $query .= " AND type = ?";
             $params[] = $type;
@@ -55,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             throw new Exception("Failed to prepare query: " . $conn->error);
         }
 
-        // Bind parameters only if there are any
+        // Bind parameters
         if (!empty($types)) {
             $stmt->bind_param($types, ...$params);
         }
@@ -68,6 +75,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $countQuery = "SELECT COUNT(*) as total FROM notifications WHERE 1=1";
         $countParams = [];
         $countTypes = "";
+
+        if ($cataloguer_id) {
+            $countQuery .= " AND (cataloguer_id = ? OR cataloguer_id IS NULL)";
+            $countParams[] = $cataloguer_id;
+            $countTypes .= "i";
+        }
 
         if ($type !== 'all') {
             $countQuery .= " AND type = ?";
@@ -93,7 +106,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             throw new Exception("Failed to prepare count query: " . $conn->error);
         }
 
-        // Bind parameters for the count query only if there are any
         if (!empty($countTypes)) {
             $countStmt->bind_param($countTypes, ...$countParams);
         }
@@ -106,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         header('Content-Type: application/json');
         echo json_encode([
             'success' => true,
-            'documents' => $notifications,
+            'notifications' => $notifications,
             'totalPages' => $totalPages,
             'currentPage' => $page
         ]);
