@@ -1,10 +1,10 @@
 <?php
 include '../assets/php/conn.php';
-include 'forms_hearder.php';
 
 require "vendor/autoload.php";
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
+
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -42,6 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmt->execute()) {
         $successMessage = "Form submitted successfully.";
+
         $to= $publisherEmail;    
         $subject = "Request for ISBN from a Commercial Publisher";
           
@@ -74,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Publisher ISBN Form</title>
+  <title>Commercial Publisher Form</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
@@ -84,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
 <div class="container mt-5">
-  <h1 class="text-center mb-4">Commetial ISBN Form</h1>
+  <h1 class="text-center mb-4">Commercial ISBN Form</h1>
 
   <!-- Display Success/Error Messages -->
   <?php if (!empty($successMessage)): ?>
