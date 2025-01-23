@@ -80,6 +80,18 @@ $totalPages = ceil($totalRecords / $limit);
       background: #495057;
       border-radius: 5px;
     }
+    
+    @media (max-width: 768px) {
+      .sidebar {
+        position: fixed;
+        width: 100%;
+        height: auto;
+        z-index: 1000;
+      }
+      .main-content {
+        margin-left: 0;
+      }
+    }
   </style>
 </head>
 <body>
@@ -87,6 +99,11 @@ $totalPages = ceil($totalRecords / $limit);
     <div class="row">
       <!-- Sidebar -->
       <nav class="col-md-3 col-lg-2 d-md-block sidebar">
+
+        <h3 class="text-center py-3">Status</h3>
+        <ul class="nav flex-column">
+        <li class="nav-item"><a href="adminDashboard.php" class="nav-link">Home</a></li>
+          
         <h3 class="text-center py-3">Cataloguer's Status</h3>
         <ul class="nav flex-column">
           <li class="nav-item"><a href="adminDashboard.php" class="nav-link">Home</a></li>
@@ -97,6 +114,15 @@ $totalPages = ceil($totalRecords / $limit);
       <!-- Main Content -->
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
         <h1 class="mt-4">Status Management</h1>
+
+        <!-- Display Success/Error Messages -->
+        <?php if (isset($_SESSION['success'])): ?>
+          <div class="alert alert-success"><?= $_SESSION['success'] ?></div>
+          <?php unset($_SESSION['success']); ?>
+        <?php elseif (isset($_SESSION['error'])): ?>
+          <div class="alert alert-danger"><?= $_SESSION['error'] ?></div>
+          <?php unset($_SESSION['error']); ?>
+        <?php endif; ?>
 
         <!-- Search Bar -->
         <div class="input-group mb-4">
@@ -115,12 +141,11 @@ $totalPages = ceil($totalRecords / $limit);
                 <th>Description</th>
                 <th>Status</th>
                 <th>Action</th>
-                
               </tr>
             </thead>
             <tbody>
               <?php if (empty($documents)): ?>
-                <tr><td colspan="7" class="text-center">No documents found.</td></tr>
+                <tr><td colspan="6" class="text-center">No documents found.</td></tr>
               <?php else: ?>
                 <?php foreach ($documents as $doc): ?>
                   <tr>
@@ -129,14 +154,16 @@ $totalPages = ceil($totalRecords / $limit);
                     <td><?= htmlspecialchars($doc['title']) ?></td>
                     <td><?= htmlspecialchars($doc['description']) ?></td>
                     <td><?= htmlspecialchars($doc['status']) ?></td>
-                    
                     <td>
                       <form action="update_status.php" method="POST" class="d-inline">
                         <input type="hidden" name="Book_ID" value="<?= htmlspecialchars($doc['id']) ?>">
                         <select name="status" class="form-select form-select-sm" required>
                           <option value="Assigned" <?= $doc['status'] === 'Assigned' ? 'selected' : '' ?>>Assigned</option>
+                          <option value="In Progress" <?= $doc['status'] === 'Pending' ? 'selected' : '' ?>>Pending</option>
+                          <option value="Completed" <?= $doc['status'] === 'Reviewed' ? 'selected' : '' ?>>Reviewed</option>
                           <option value="In Progress" <?= $doc['status'] === 'In Progress' ? 'selected' : '' ?>>In Progress</option>
                           <option value="Completed" <?= $doc['status'] === 'Completed' ? 'selected' : '' ?>>Completed</option>
+
                         </select>
                         <button type="submit" class="btn btn-sm btn-primary">Update</button>
                       </form>
@@ -166,7 +193,8 @@ $totalPages = ceil($totalRecords / $limit);
     function search() {
       const searchInput = document.getElementById('search-input');
       const searchQuery = searchInput.value.trim();
-      window.location.href = `view.php?search=${encodeURIComponent(searchQuery)}`;
+      window.location.href = `?search=${encodeURIComponent(searchQuery)}`;
+
     }
   </script>
 </body>
