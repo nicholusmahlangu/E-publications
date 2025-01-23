@@ -1,5 +1,4 @@
 <?php
-
 require_once('../assets/php/adminDashboard.php');
 $query = "select * from book_informationsheet";
 $result = mysqli_query($conn,$query);
@@ -53,6 +52,12 @@ $bookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet";
               <span>Dashboard</span>
             </div>
             <ul>
+            <li>
+                <a href="">
+                  <span class="las la-chart-pie"></span>
+                  Analytics
+                </a>
+              </li>
               <li>
                 <a href="">
                   <span class="las la-user-edit"></span>
@@ -85,22 +90,11 @@ $bookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet";
                   E-Books
                 </a>
               </li>
-              <li>
-                <a href="">
-                  <span class="las la-chart-pie"></span>
-                  Analytics
-                </a>
-              </li>
+              
               <li>
                 <a href="calendar.php">
                   <span class="las la-calendar"></span>
                   Calendar
-                </a>
-              </li>
-              <li>
-                <a href="">
-                  <span class="las la-envelope"></span>
-                  Mailbox
                 </a>
               </li>
               <li>

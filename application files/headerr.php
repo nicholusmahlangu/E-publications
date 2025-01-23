@@ -124,7 +124,8 @@
 <body>
     <header id="header" class="animate__animated animate__fadeInDown">
         <div class="container d-flex align-items-center justify-content-between">
-            <a href="welcome.html" class="logo">
+            <a href="index.php" class="logo">
+
                 <img src="../assets/img/NLSA-logo.png" alt="National Library Logo" class="img-fluid" style="width:50%; height:50%">
             </a>
 
