@@ -58,10 +58,8 @@
 
 <body>
     <!-- Include Header -->
-    <?php 
-        define('nlsalockurl', True);
-    include 'headerr.php'; ?>
-    
+
+    <?php include 'headerr.php'; ?>
 
     <!-- ======= Hero Section ======= -->
     <section id="hero" class="animate__animated animate__fadeIn animate__delay-1s">

@@ -31,7 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             $params[] = $cataloguer_id;
             $types .= "i";
         }
-
         if ($type !== 'all') {
             $query .= " AND type = ?";
             $params[] = $type;
@@ -62,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             throw new Exception("Failed to prepare query: " . $conn->error);
         }
 
-        // Bind parameters
+        // Bind parameters only if there are any
         if (!empty($types)) {
             $stmt->bind_param($types, ...$params);
         }
@@ -75,6 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $countQuery = "SELECT COUNT(*) as total FROM notifications WHERE 1=1";
         $countParams = [];
         $countTypes = "";
+
 
         if ($cataloguer_id) {
             $countQuery .= " AND (cataloguer_id = ? OR cataloguer_id IS NULL)";
@@ -106,6 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             throw new Exception("Failed to prepare count query: " . $conn->error);
         }
 
+        // Bind parameters for the count query only if there are any
         if (!empty($countTypes)) {
             $countStmt->bind_param($countTypes, ...$countParams);
         }
@@ -119,6 +120,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         echo json_encode([
             'success' => true,
             'notifications' => $notifications,
+            'documents' => $notifications,
             'totalPages' => $totalPages,
             'currentPage' => $page
         ]);

@@ -69,6 +69,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 echo "ISBN must be 13 digits";
                             }
                             
+                            if($publisher_year > date('Y', $timestamp)){
+                                echo "Publication year must not be the same as the current year"; 
+                            }
                         }else{
                             
                             $fileQuery = "SELECT * FROM book_informationsheet WHERE FileUpload = '$file'";
@@ -102,8 +105,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                 $mail->addAddress("nicholus.mahlangu@nlsa.ac.za","Nicholus");
 
                                                 $mail->Subject= "Submission of Electronic book";
-                                                $mail->Body="Hi Admin A new book has been submitted by $email";
 
+                                                $mail->Body="Hi Admin. A new book titled: $title_of_publication (ISBN: $isbn_electronic) written by: $author_name  published on: $publisher_year has been submitted by $author_name Email address: $email";
                                                 $mail->send();
                                                 echo "email sent";
 
