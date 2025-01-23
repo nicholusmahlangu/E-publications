@@ -1,6 +1,11 @@
 <?php
 include '../assets/php/conn.php';
 
+require "vendor/autoload.php";
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\SMTP;
+
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // validate inputs
     $country = htmlspecialchars($_POST['country']);
@@ -36,6 +41,24 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($stmt->execute()) {
         $successMessage = "Form submitted successfully.";
+        $to= $publisherEmail;    
+        $subject = "Request for ISBN from a Commercial Publisher";
+          
+        $mail = new PHPMailer(true);
+        $mail->isSMTP();
+        $mail->SMTPAuth = true;
+        $mail->Host = "smtp.gmail.com";
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+        $mail->Username = "nicolasmahlangu75@gmail.com";
+        $mail->Password="ykbq ecat ctyl avbb ";
+        $mail->setFrom($publisherEmail, $publisherName);
+        $mail->addAddress("nicholus.mahlangu@nlsa.ac.za","Nicholus");
+        $mail->addAddress("motubatse.kgatle@nlsa.ac.za","motubatsi");
+        $mail->Subject= "$subject";
+        $mail->Body="Hi Motubatsi. A request for an ISBN has been sent for the book: $bookName by: $publisherName Email addresss: $publisherEmail";
+        $mail->send();
+        echo "email sent";
     } else {
         $errorMessage = "Error: " . $stmt->error;
     }
