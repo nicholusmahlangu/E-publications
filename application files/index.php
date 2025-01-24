@@ -6,9 +6,10 @@
     <title>Home</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
-    <!-- Tab icon -->     
+    <!-- 
+    Tab icon      
     <link href="../assets/img/favicon.webp" rel="icon">
-    
+    -->
     <!-- Google fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
     
@@ -26,7 +27,7 @@
     <style>
         /* Adding background image to the hero section */
         #hero {
-            background-image: url('../assets/img/images.jpeg.jpg');
+            background-image: url('../assets/img/BackgroundI.png');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
