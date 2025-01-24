@@ -1,4 +1,4 @@
-<?php
+<?php 
 // Function to build the calendar
 function build_calendar($month, $year, $events = []) {
     // Array containing names of all days in a week

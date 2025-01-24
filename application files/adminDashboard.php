@@ -1,5 +1,4 @@
 <?php
-
 require_once('../assets/php/adminDashboard.php');
 $query = "select * from book_informationsheet";
 $result = mysqli_query($conn,$query);
@@ -52,6 +51,7 @@ $bookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet";
             <div class="menu-head">
               <span>Dashboard</span>
             </div>
+
       </div>      
 <ul>
 <li class="other-options">
@@ -103,8 +103,6 @@ $bookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet";
     </a>
   </li>
 </ul>
-
-
           </div>
           </div>
         </div>
