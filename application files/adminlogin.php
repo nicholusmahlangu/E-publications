@@ -61,7 +61,7 @@
         <!-- Logo and Heading -->
         <div class="container text-center logo-container">
             
-            <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:30%; height:30%">
+            <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:22%; height:22%">
             <h1 class="system-heading">Electronic Publications</h1>
         </div>
 
