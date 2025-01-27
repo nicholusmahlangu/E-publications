@@ -131,7 +131,7 @@
         <h4>Forgot Password</h4>
         <p>Enter your email address below, and we’ll send you instructions to reset your password.</p>
 
-        <form action="#" method="POST" class="password-form">
+        <form action="../assets/php/send_password_reset.php" method="POST" class="password-form">
             <label for="email">Email Address:</label>
             <input type="email" id="email" name="email" placeholder="Enter your email" required>
 

@@ -1,8 +1,8 @@
 <?php
-if(!defined('nlsalockurl')){
-    header('Location: index.php');
-    die('');
-}
+// if(!defined('nlsalockurl')){
+//     header('Location: index.php');
+//     die('');
+// }
 // Database connection
 $servername = "localhost";
 $username = "root";
