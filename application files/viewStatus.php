@@ -102,11 +102,7 @@ $totalPages = ceil($totalRecords / $limit);
       <nav class="col-md-3 col-lg-2 d-md-block sidebar">
 
         <h3 class="text-center py-3">Status</h3>
-        <ul class="nav flex-column">
-        <li class="nav-item"><a href="adminDashboard.php" class="nav-link">Home</a></li>
-          
-        <h3 class="text-center py-3">Cataloguer's Status</h3>
-        <ul class="nav flex-column">
+       <ul class="nav flex-column">
           <li class="nav-item"><a href="adminDashboard.php" class="nav-link">Home</a></li>
           <li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>
         </ul>
