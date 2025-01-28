@@ -10,13 +10,18 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <style>
     body {
-      background-color: #f8f9fa;
+      background-image: url('../assets/img/BackgroundI.png');
+      background-size: cover;
+      background-position: center;
+      background-attachment: fixed;
+      color: #333;
     }
     .sidebar {
-      background-color: #343a40;
+      background-color: #233245;
       color: white;
       min-height: 100vh;
       width: 200px;
+      font-family: 'Poppins', sans-serif;
     }
     .sidebar a {
       color: white;
@@ -71,7 +76,7 @@
     }
   </style>
 </head>
-<body>
+<body background="assets/img/BackgroundI.png" style="background-size: cover; background-position: center;">
   
   <div class="container-fluid">
     <div class="row">
@@ -81,7 +86,6 @@
         <ul class="nav flex-column">
           <li class="nav-item"><a href="dashboard.php" class="nav-link">Dashboard</a></li>
           <li class="nav-item"><a href="profile.php" class="nav-link">Profile</a></li>
-
           <li class="nav-item"><a href="view.php" class="nav-link">Document Management</a></li>
           <li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>
         </ul>
@@ -102,6 +106,10 @@
           </div>
         </div>
 
+        <center>
+            <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:18%; height:18%">
+        </center>
+
         <!-- Profile Section -->
         <div class="mt-4">
           <h1>Welcome, <span id="FullName">[Loading...]</span></h1>
@@ -110,7 +118,7 @@
 
         <!-- Table Section -->
         <div class="table-responsive mt-4">
-          <table class="table table-bordered">
+          <table class="table table-bordered" style="background-color: #FFFFFF;">
             <thead>
               <tr>
                 <th>ID</th>
