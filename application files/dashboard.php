@@ -8,13 +8,18 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <style>
     body {
-      background-color: #f8f9fa;
+      background-image: url('../assets/img/BackgroundI.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333;
     }
     .sidebar {
-      background-color: #343a40;
+      background-color: #233245;
       color: white;
       min-height: 100vh;
       width: 200px;
+      font-family: 'Poppins', sans-serif;
     }
     .sidebar a {
       color: white;
@@ -22,6 +27,7 @@
       padding: 10px 15px;
       display: block;
       font-weight: bold;
+      
     }
     .sidebar a:hover {
       background: #495057;
@@ -69,7 +75,7 @@
     }
   </style>
 </head>
-<body>
+<body background="assets/img/BackgroundI.png" style="background-size: cover; background-position: center;">
   
   <div class="container-fluid">
     <div class="row">
@@ -99,6 +105,9 @@
             </ul>
           </div>
         </div>
+<center>
+  <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:18%; height:18%">
+</center>
 
         <!-- Profile Section -->
         <div class="mt-4">
@@ -108,7 +117,7 @@
 
         <!-- Table Section -->
         <div class="table-responsive mt-4">
-          <table class="table table-bordered">
+        <table class="table table-bordered" style="background-color: #FFFFFF;">
             <thead>
               <tr>
                 <th>ID</th>

@@ -102,39 +102,70 @@ $conn->close();
                 padding: 15px;
             }
         }
+
+        .sidebar {
+      background-color: #233245;
+      color: white;
+      min-height: 100vh;
+      width: 200px;
+    }
+    .sidebar a {
+      color: white;
+      text-decoration: none;
+      padding: 10px 15px;
+      display: block;
+      font-weight: bold;
+    }
+    .sidebar a:hover {
+      background: #495057;
+      border-radius: 5px;
+    }
     </style>
 </head>
 
 
 <body>
-    
-    <div class="container">
-        <h2 class="text-center mb-4">Your Profile</h2>
-        <?php if (!empty($message)): ?>
-            <div class="alert alert-info"><?= htmlspecialchars($message) ?></div>
-        <?php endif; ?>
-        <form action="profile.php" method="POST">
-            <div class="mb-3">
-                <label for="fullName" class="form-label">Full Name</label>
-                <input type="text" class="form-control" id="fullName" name="fullName" 
-                       value="<?= htmlspecialchars($profile['FullName'] ?? '') ?>" required>
-            </div>
-            <div class="mb-3">
-                <label for="email" class="form-label">Email Address</label>
-                <input type="email" class="form-control" id="email" name="email" 
-                       value="<?= htmlspecialchars($profile['EmailAddress'] ?? '') ?>" readonly>
-            </div>
-            <div class="mb-3">
-                <label for="contact" class="form-label">Contact Number</label>
-                <input type="text" class="form-control" id="contact" name="contact" 
-                       value="<?= htmlspecialchars($profile['Contact'] ?? '') ?>" required>
-            </div>
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary">Update Profile</button>
-            </div>
-        </form>
-    </div>
-    
+<!-- Sidebar -->
+<nav class="col-md-3 col-lg-2 d-md-block sidebar" style="position: fixed; top: 0; left: 0; height: 100vh;">
+<h3 class="text-center py-3">Dashboard</h3>
+<ul class="nav flex-column">
+<li class="nav-item"><a href="dashboard.php" class="nav-link">Dashboard</a></li>
+<li class="nav-item"><a href="profile.php" class="nav-link">Profile</a></li>
+<li class="nav-item"><a href="notifications.php" class="nav-link">Notifications</a></li>
+<li class="nav-item"><a href="view.php" class="nav-link">Document Management</a></li>
+<li class="nav-item"><a href="logout.php" class="nav-link">Logout</a></li>
+</ul>
+</nav>
+
+<center>
+<h1></h1>
+<img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo" style="width:18%; height:18%">
+</center>
+<div class="container" style="margin-left: 250px;">
+
+
+<h2 class="text-center mb-4">Your Profile</h2>
+<?php if (!empty($message)): ?>
+<div class="alert alert-info"><?= htmlspecialchars($message) ?></div>
+<?php endif; ?>
+<form action="profile.php" method="POST">
+<div class="mb-3">
+<label for="fullName" class="form-label">Full Name</label>
+<input type="text" class="form-control" id="fullName" name="fullName" value="<?= htmlspecialchars($profile['FullName'] ?? '') ?>" required>
+</div>
+<div class="mb-3">
+<label for="email" class="form-label">Email Address</label>
+<input type="email" class="form-control" id="email" name="email" value="<?= htmlspecialchars($profile['EmailAddress'] ?? '') ?>" readonly>
+</div>
+<div class="mb-3">
+<label for="contact" class="form-label">Contact Number</label>
+<input type="text" class="form-control" id="contact" name="contact" value="<?= htmlspecialchars($profile['Contact'] ?? '') ?>" required>
+</div>
+<div class="text-center">
+<button type="submit" class="btn btn-primary">Update Profile</button>
+</div>
+</form>
+</div>
 </body>
 
 </html>

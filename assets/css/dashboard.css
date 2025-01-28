@@ -25,7 +25,7 @@ body {
 }
 
 .sidebar a:hover {
-    background: #495057;
+    background: #d0d1d2;
     border-radius: 5px;
     padding: 5px;
 }
@@ -44,7 +44,7 @@ body {
 }
 
 button {
-    background: #007bff;
+    background: #fdce00;
     color: white;
     padding: 10px 20px;
     border: none;
@@ -53,5 +53,5 @@ button {
 }
 
 button:hover {
-    background: #0056b3;
+    background: #fdce00;
 }

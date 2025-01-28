@@ -21,6 +21,7 @@ $cataloguerResults = mysqli_query($conn, $cataloguerQuery);
   <style>
     body {
       background-color: #f8f9fa;
+      
     }
     .table-container {
       margin: 20px auto;
@@ -33,13 +34,45 @@ $cataloguerResults = mysqli_query($conn, $cataloguerQuery);
       vertical-align: middle;
       text-align: center;
     }
+
+    .back-button {
+background-color:rgb(28, 28, 28); /* green background */
+color: #fff; /* white text */
+padding: 5px 10px; /* add some padding */
+border: none; /* remove border */
+border-radius: 5px; /* rounded corners */
+cursor: pointer; /* change cursor on hover */
+transition: background-color 0.3s ease-in-out; /* smooth transition */
+display: inline-flex; /* add inline-flex display */
+align-items: center; /* center icon and text */
+font-size: 16px; /* set font size */
+}
+
+.back-button i {
+margin-right: 5px; /* add some space between icon and text */
+font-size: 18px; /* set font size for icon */
+}
+
+.back-button:hover {
+background-color:rgb(113, 111, 114); /* darker green on hover */
+}
+
+ 
+        
+
   </style>
+
+
+
 </head>
 <body>
         <!-- Home Button Icon -->
-        <a href="adminDashboard.php" class="home-icon">
-        <i class="bi bi-house-fill"></i> Admin Dashboard
-    </a>
+        <div class="back-button-container">
+<a href="adminDashboard.php" class="back-button">
+<i class="bi bi-arrow-left"></i>
+Admin Dashboard
+</a>
+</div>
   <div class="container table-container">
     <h1 class="mb-4 text-center">Book Details</h1>
     <div class="table-responsive">

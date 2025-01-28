@@ -18,13 +18,7 @@ html{
     color: var(--text-color);
     text-align: center;
 }
-body{
-    min-height: 100vh;
-    background-image: url(../img/images1.jpg);
-    background-size: 300px 100px;
-    background-repeat: no-repeat;
-    background-position: right;
-    overflow: hidden;
+
 }
 .wrapper{
     box-sizing: border-box;
@@ -131,3 +125,11 @@ form div.incorrect select{
 #error-text{
     color: #f06272;
 }
+
+.background-image {
+    background-image: url('assets/img/BackgroundI.png');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    margin: 0;
+    }

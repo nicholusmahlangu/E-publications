@@ -62,7 +62,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             align-items: center;
             height: 100vh;
             margin: 0;
-            background-color: #f4f4f4;
+             background: url("../assets/img/nlsa_buildings.png") no-repeat center center;
+            background-size: cover;
+            backdrop-filter: blur(6px);
         }
         .logout-container {
             max-width: 400px;
