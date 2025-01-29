@@ -15,7 +15,7 @@
 
 
     <!-- Main CSS -->
-    <link href="../assets/css/index.css" rel="stylesheet">
+     <!-- <link href="../assets/css/index.css" rel="stylesheet">-->
 
     <!-- Inline Styles -->
     <style>
@@ -37,18 +37,18 @@
             </a>
             <nav id="navbar" class="navbar" role="navigation">
                 <ul>
-                    <li><a href="isbn_request.php" class="getstarted">The Author</a></li>
-                    <li><a href="isbn_publisher.php" class="getstarted">The Publisher</a></li>
+                    <li><a href="isbn_request.php" class="getstarted">Self-publisher</a></li>
+                    <li><a href="isbn_publisher.php" class="getstarted">Commercial</a></li>
                     <li><a href="form.php" class="getstarted">Form view</a></li>
                 </ul>
-                <!-- <i class="bi bi-list mobile-nav-toggle" tabindex="0" role="button" aria-label="Toggle navigation"></i> -->
+                <i class="bi bi-list mobile-nav-toggle" tabindex="0" role="button" aria-label="Toggle navigation"></i>
             </nav>
         </div>
-    <!-- <script>
+     <script>
         document.querySelector('.mobile-nav-toggle').addEventListener('click', function () {
             const navbar = document.getElementById('navbar');
             navbar.classList.toggle('navbar-mobile');
         });
-    </script> -->
+    </script> 
 </body>
 </html>

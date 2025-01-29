@@ -1,3 +1,7 @@
+<?php 
+    session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,12 +12,52 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script defer type="text/javascript" src="../assets/js/signup.js"></script>
     <title>Sign Up</title>
+
+    <style>
+    body {
+      background-color: #f8f9fa;
+      
+    }
+
+
+    .back-button {
+background-color:rgb(28, 28, 28); /* green background */
+color: #fff; /* white text */
+padding: 5px 10px; /* add some padding */
+border: none; /* remove border */
+border-radius: 5px; /* rounded corners */
+cursor: pointer; /* change cursor on hover */
+transition: background-color 0.3s ease-in-out; /* smooth transition */
+display: inline-flex; /* add inline-flex display */
+align-items: center; /* center icon and text */
+font-size: 16px; /* set font size */
+}
+
+.back-button i {
+margin-right: 5px; /* add some space between icon and text */
+font-size: 18px; /* set font size for icon */
+}
+
+.back-button:hover {
+background-color:rgb(113, 111, 114); /* darker green on hover */
+}
+
+ 
+        
+
+  </style>
+
+    
 </head>
-<body>
+<body class="background-image">
+
         <!-- Home Button Icon -->
-        <a href="adminDashboard.php" class="home-icon">
-        <i class="bi bi-house-fill"></i> Admin Dashboard
-    </a>
+        <div class="back-button-container">
+<a href="adminDashboard.php" class="back-button">
+<i class="bi bi-arrow-left"></i>
+Admin Dashboard
+</a>
+</div>
     <div class="wrapper">
         <h2>Add Cataloguer</h2>
         <p id="error-text"></p>
@@ -63,9 +107,10 @@
                 </label>
                 <input type="password" name="confirm_password"  id="confirm-password-input" placeholder="Confirm Password">
             </div>
-            <button type="submit" id="submit">Sign Up</button>
+            <button type="submit" id="submit">ADD</button>
         </form>
         
     </div>
 </body>
+
 </html>

@@ -1,3 +1,4 @@
+<?php include 'forms_hearder.php';?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,17 +13,11 @@
        <!-- Inline Styles for Background -->
        <style>
         body {
-            font-family: 'Open Sans', sans-serif;
-            background: linear-gradient(135deg, red, green, yellow, blue, black);
-            background-size: 300% 300%; /* Creates a smooth gradient */
-            animation: backgroundAnimation 10s ease infinite; /* Smooth transition */
-            margin: 0;
-            padding: 20px;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            color: #fff;
+            background-image: url('../assets/img/BackgroundI.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333
         }
 
         @keyframes backgroundAnimation {
@@ -72,7 +67,7 @@
         h2 {
             margin-bottom: 20px;
             text-align: center;
-            color: #fff;
+            color: #233245;
         }
 
         .alert {
@@ -89,6 +84,11 @@
     </style>
 </head>
 <body>
+
+<center>
+<h1></h1>
+<!--<img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo" style="width:30%; height:30%">-->
+</center>
     <h2>Bibliography Information Form</h2>
        
         <!-- Display server-side error messages if any -->
