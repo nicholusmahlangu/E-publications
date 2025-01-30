@@ -1,52 +1,39 @@
-<?php
-
-include 'conn.php';
-require "vendor/autoload.php";
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-
-$email = $_POST["email"];
-
-$token = bin2hex(random_bytes(16));
-$token_hash = hash("sha256", $token);
-$expiry = date("Y-m-d H:i:s", time() + 60 * 30);
-
-// $mysqli = require __DIR__ ."/conn.php";
-
-$sql = "UPDATE users
-        SET reset_token_hashed = ?,
-            reset_token_expires_at = ?
-        WHERE EmailAddress = ?";
-
-$stmt = $conn->prepare($sql);
-$stmt->bind_param("sss",  $token_hash, $expiry,$email);
-
-$stmt->execute();
-
-if($conn->affected_rows){
-        $mail = new PHPMailer(true);
-        $mail->isSMTP();
-        $mail->SMTPAuth = true;
-        $mail->Host = "smtp.gmail.com";
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
-        $mail->Username = "nicolasmahlangu75@gmail.com";
-        $mail->Password="ykbq ecat ctyl avbb ";
-        $mail->setFrom("no-reply@nlsa.ac.za");
-        $mail->addAddress($email);
-        $mail->Subject= "Password Reset";
-        $mail->Body= <<<END
-
-        Click <a href="http://localhost:81/e-publications/assets/php/reset_password.php?token=$token">here<a/> to reset your password.
-        END;
-
-        try{
-            $mail->send();
-        }catch(Exception $ex){
-            echo "Mail could not be sent. Mailer error: {$mail->ErrorInfo}";
+<?php //if user click continue button in forgot password form
+    session_start();
+    include 'conn.php';
+    require "vendor/autoload.php";
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    $email = "";
+    $name = "";
+    $errors = array();
+    
+    if(isset($_POST['check-email'])){
+        $email = mysqli_real_escape_string($conn, $_POST['email']);
+        $check_email = "SELECT * FROM users WHERE email='$email'";
+        $run_sql = mysqli_query($conn, $check_email);
+        if(mysqli_num_rows($run_sql) > 0){
+            $code = rand(999999, 111111);
+            $insert_code = "UPDATE users SET Otp = $code WHERE email = '$email'";
+            $run_query =  mysqli_query($conn, $insert_code);
+            if($run_query){
+                $subject = "Password Reset Code";
+                $message = "Your password reset code is $code";
+                $sender = "From: nicholus.mahlangu@nlsa.ac.za";
+                if(mail($email, $subject, $message, $sender)){
+                    $info = "We've sent a passwrod reset otp to your email - $email";
+                    $_SESSION['info'] = $info;
+                    $_SESSION['email'] = $email;
+                    header('location: reset_password.php');
+                    exit();
+                }else{
+                    $errors['otp-error'] = "Failed while sending code!";
+                }
+            }else{
+                $errors['db-error'] = "Something went wrong!";
+            }
+        }else{
+            $errors['email'] = "This email address does not exist!";
         }
-        echo "email sent";
-
-}
-
+    }
 ?>
