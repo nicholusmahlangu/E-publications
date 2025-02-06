@@ -44,11 +44,11 @@
             $get_name = $row['FullName'];
             $get_email = $row['EmailAddress'];
             $date = getdate();
-            $mydate = $date['mon']."/".$date['mday']."/".$date['year'];
-            $time = strtotime('$mydate');
-            $newformat = date('YYYY-MM-DD hh:mm:ss');
+            $mydate = $date['mon']."/".$date['day']."/".$date['year'];
+            // $time = strtotime('$mydate');
+            // $newformat = date('Y-M-D hh:mm:ss');
 
-            $update_token = "UPDATE users SET verify_token ='$token',created_at ='$$newformat',verify_status =1  WHERE EmailAddress = '$get_email' LIMIT 1";
+            $update_token = "UPDATE users SET verify_token ='$token',created_at ='$mydate',verify_status =1  WHERE EmailAddress = '$get_email' LIMIT 1";
             $update_token_run = mysqli_query($conn,$update_token);           
 
             if($update_token_run){
@@ -75,6 +75,38 @@
         $confirm_password = mysqli_real_escape_string($conn, $_POST['confirm_password']);
         $token = mysqli_real_escape_string($conn, $_POST['password_token']);
         
+        if(!empty($token)){
 
+            if(!empty($email) && !empty($new_password) && !empty($confirm_password)){
+                $check_token = "SELECT verify_token FROM users WHERE verify_token LIMIT 1";
+                $check_token_run = mysqli_query($conn, $check_token);
+
+                if(mysqli_num_rows($check_token_run) > 0){
+                    if($new_password == $confirm_password){
+                        $update_password = "UPDATE users SET ";
+                    }
+                    else{
+                        $_SESSION['status'] = "Password and confirm Password does not match";
+                        header("Location: reset_password.php?token=$token&email=$email");
+                        exit(0);
+                    }
+                }
+                else{
+                    $_SESSION['status'] = "Invalid Token";
+                    header("Location: forgot_password.php?token=$token&email=$email");
+                    exit(0);
+                }
+            }
+            else{
+                $_POST['status'] = "All fields must be filled";
+                header("Location: forgot_password.php?token=$token&email=$email");
+                exit(0);
+            }
+        }
+
+    }else{
+        $_SESSION['status']="No Token Available";
+        header("Location: forgot_password.php");
+        exit(0);
     }
 ?>

@@ -27,8 +27,8 @@
                     <div class="card-body p-4">
                         <form action="" method="POST">
                         <div class="form-group mb-3">
-                                <label>Token</label>
-                                <input type="text" name="token" value="<?php if(isset($_GET['token'])){echo $_GET['token'];} ?>" class="form-control" placeholder="Enter Email Address">
+                              
+                                <input type="hidden" name="token" value="<?php if(isset($_GET['token'])){echo $_GET['token'];} ?>" class="form-control" placeholder="Enter Email Address">
                             </div>
                             <div class="form-group mb-3">
                                 <label>Email Address</label>
