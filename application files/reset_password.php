@@ -1,8 +1,17 @@
 <?php 
     session_start();
-    $page_title = "Password Change Update"
+    $page_title = "Change Password"
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Password</title>
+    <link href="../assets/img/favicon.webp" rel="icon">
+</head>
+<body>
 <div class="py-5">
     <div class="container">
         <div class="row" id="justify-content-center">
@@ -25,7 +34,7 @@
                     </div>
 
                     <div class="card-body p-4">
-                        <form action="" method="POST">
+                        <form action="send_password_reset.php" method="POST">
                         <div class="form-group mb-3">
                               
                                 <input type="hidden" name="token" value="<?php if(isset($_GET['token'])){echo $_GET['token'];} ?>" class="form-control" placeholder="Enter Email Address">
@@ -36,11 +45,11 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label>New Password</label>
-                                <input type="text" name="new_password" class="form-control" placeholder="Enter New Password">
+                                <input type="password" name="new_password" class="form-control" placeholder="Enter New Password">
                             </div>
                             <div class="form-group mb-3">
                                 <label>Confirm Password</label>
-                                <input type="text" name="confirm_password" class="form-control" placeholder="Confirm Password">
+                                <input type="password" name="confirm_password" class="form-control" placeholder="Confirm Password">
                             </div>
 
                             <div class="form-group mb-3">
@@ -56,3 +65,6 @@
         </div>
     </div>
 </div>
+</body>
+
+</html>
