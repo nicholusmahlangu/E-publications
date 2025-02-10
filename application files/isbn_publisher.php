@@ -55,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mail->Password="ykbq ecat ctyl avbb ";
         $mail->setFrom($publisherEmail, $publisherName);
         $mail->addAddress("nicholus.mahlangu@nlsa.ac.za","Nicholus");
-        $mail->addAddress("motubatse.kgatle@nlsa.ac.za","motubatsi");
+        //$mail->addAddress("motubatse.kgatle@nlsa.ac.za","motubatsi");
         $mail->Subject= "$subject";
         $mail->Body="Hi Motubatsi. A request for an ISBN has been sent for the book: $bookName by: $publisherName Email addresss: $publisherEmail";
         $mail->send();
@@ -74,7 +74,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Commercial Publisher Form</title>
+  <title>Commercial Publisher ISBN Request Form</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
@@ -84,7 +84,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
 <div class="container mt-5">
-  <h1 class="text-center mb-4">Commercial ISBN Form</h1>
+  <h1 class="text-center mb-4">Commercial Publisher ISBN Request Form</h1>
 
   <!-- Display Success/Error Messages -->
   <?php if (!empty($successMessage)): ?>
@@ -240,7 +240,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="mb-3">
       <label for="isbnRegistered" class="form-label">The ISBN should be registered against:</label>
       <select id="isbnRegistered" name="isbnRegistered" class="form-select" required>
-        <option value="Author">The Author</option>
+        <!--<option value="Author">The Author</option>-->
         <option value="Publisher">The Publisher</option>
       </select>
     </div>

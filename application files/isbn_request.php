@@ -1,5 +1,6 @@
 <?php
 include '../assets/php/conn.php';
+include 'forms_hearder.php';
 
 require "vendor/autoload.php";
 use PHPMailer\PHPMailer\PHPMailer;
@@ -56,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mail->Password="ykbq ecat ctyl avbb ";
         $mail->setFrom($publisherEmail, $publisherName);
         $mail->addAddress("nicholus.mahlangu@nlsa.ac.za","Nicholus");
-        $mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
+        //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
         $mail->Subject= "$subject";
         $mail->Body="Hi Kholofelo. A request for an ISBN has been sent for the book: $bookName by: $publisherName Email addresss: $publisherEmail. We mainly testing the system neh. Thank you";
         $mail->send();
@@ -242,7 +243,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <label for="isbnRegistered" class="form-label">The ISBN should be registered against:</label>
       <select id="isbnRegistered" name="isbnRegistered" class="form-select" required>
         <option value="Author">The Author</option>
-        <option value="Publisher">The Publisher</option>
+        <!--<option value="Publisher">The Publisher</option>-->
       </select>
     </div>
     <div class="mb-3">
