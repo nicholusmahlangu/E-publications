@@ -132,11 +132,11 @@
     <div class="forgot-password-container">
         <h4>Forgot Password</h4>
         <p>Enter your email address below, and we’ll send you instructions to reset your password.</p>
-        <form action="../assets/php/send_password_reset.php" method="POST" class="password-form" method="POST" autocomplete="">
+        <form action="send_password_reset.php" method="POST" class="password-form" method="POST" autocomplete="">
             <label for="email">Email Address:</label>
             <input type="email" id="email" name="email" placeholder="Enter your email" required>
 
-            <input type="submit" value="Send Reset Link" class="button">
+            <input type="submit" name="send_password_reset" value="Send Reset Link" class="button">
         </form>
 
         <div class="back-to-login">
