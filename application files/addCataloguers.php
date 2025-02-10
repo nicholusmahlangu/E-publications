@@ -107,7 +107,7 @@ Admin Dashboard
                 </label>
                 <input type="password" name="confirm_password"  id="confirm-password-input" placeholder="Confirm Password">
             </div>
-            <button type="submit" id="submit">ADD</button>
+            <button type="submit" id="submit">Add</button>
         </form>
         
     </div>

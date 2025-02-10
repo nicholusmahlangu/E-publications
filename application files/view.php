@@ -16,7 +16,7 @@ try {
 
 // Pagination and search
 $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
-$limit = 10;
+$limit = "20";
 $offset = ($page - 1) * $limit;
 $searchTerm = isset($_GET['search']) ? trim($_GET['search']) : '';
 
@@ -58,6 +58,7 @@ $totalPages = ceil($totalRecords / $limit);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document Management</title>
+  <link href="../assets/img/favicon.webp" rel="icon">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <style>
@@ -137,16 +138,9 @@ $totalPages = ceil($totalRecords / $limit);
                       <form action="update_status.php" method="POST" class="d-inline">
                         <input type="hidden" name="Book_ID" value="<?= htmlspecialchars($doc['id']) ?>">
                         <select name="status" class="form-select form-select-sm" required>
-<<<<<<< HEAD
                           <option value="Assigned" <?= $doc['status'] === 'Assigned' ? 'selected' : '' ?>>Assigned</option>
                           <option value="Pending" <?= $doc['status'] === 'Pending' ? 'selected' : '' ?>>Pending</option>
                           <option value="Reviewed" <?= $doc['status'] === 'Reviewed' ? 'selected' : '' ?>>Reviewed</option>
-=======
-                          <option value="" <?= $doc['status'] === 'Select status' ? 'selected' : '' ?>>Select status</option>
-                          <option value="Assigned" <?= $doc['status'] === 'Assigned' ? 'selected' : '' ?>>Assigned</option>
-                          <option value="In Progress" <?= $doc['status'] === 'In Progress' ? 'selected' : '' ?>>In Progress</option>
-                          <option value="Completed" <?= $doc['status'] === 'Completed' ? 'selected' : '' ?>>Completed</option>
->>>>>>> main
                         </select>
                         <button type="submit" class="btn btn-sm btn-primary">Update</button>
                       </form>
