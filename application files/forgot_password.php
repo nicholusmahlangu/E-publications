@@ -1,3 +1,5 @@
+<?php require_once "../assets/php/send_password_reset.php"; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -130,8 +132,7 @@
     <div class="forgot-password-container">
         <h4>Forgot Password</h4>
         <p>Enter your email address below, and we’ll send you instructions to reset your password.</p>
-
-        <form action="send_password_reset.php" method="POST" class="password-form">
+        <form action="send_password_reset.php" method="POST" class="password-form" method="POST" autocomplete="">
             <label for="email">Email Address:</label>
             <input type="email" id="email" name="email" placeholder="Enter your email" required>
 
