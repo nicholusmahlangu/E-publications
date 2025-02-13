@@ -93,21 +93,11 @@
                            placeholder="Enter your password" required>
                 </div>
 
-                <!-- Forgot Password Link -->
-                <div class="mt-3">
-                    <a href="forgot_password.php" class="text-primary">Forgot Password?</a>
-                </div>
-
                 <!-- Submit Button -->
                 <button type="submit" class="button1 btn btn-primary mt-4 w-100">
                     Admin Login
                 </button>
 
-                <!-- Sign-Up Link -->
-                <div class="mt-3 text-center">
-                    <span>Don't have an account?</span> 
-                    <a href="signup.php" class="text-primary">Sign Up</a>
-                </div>
             </form>
         </div>
     </div>

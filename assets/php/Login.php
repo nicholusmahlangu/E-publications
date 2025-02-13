@@ -14,7 +14,7 @@ include 'conn.php';
 $username = $_POST['email'];
 $password = $_POST['password'];
 // Check if the form is submitted
-if (trim($username)!="" and trim($password)!= "") {
+if (trim($username)!="" and trim($password)!="") {
     // Perform SQL query to check user credentials
     $password = md5('password');
     $sql = "SELECT * FROM users WHERE EmailAddress = '$username' AND Password = '$password'";
@@ -24,6 +24,7 @@ if (trim($username)!="" and trim($password)!= "") {
     if ($result->num_rows > 0) {
         // User authenticated successfully, set session variables
         $_SESSION['email'] = $username;
+        $_SESSION['password'] = $password;
         // Redirect to dashboard or desired page
         header("Location:../../application files/dashboard.php");
         exit();

@@ -102,7 +102,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                 $mail->Password="ykbq ecat ctyl avbb ";
 
                                                 $mail->setFrom($email, $publisher_name);
-                                                $mail->addAddress("nicholus.mahlangu@nlsa.ac.za","Nicholus");
+                                                $mail->addAddress("nicholus.mahlangu@nlsa.ac.za","Administrator");
 
                                                 $mail->Subject= "Submission of Electronic book";
 
