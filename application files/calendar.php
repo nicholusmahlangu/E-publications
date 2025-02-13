@@ -1,149 +1,156 @@
-<?php 
-// Function to build the calendar
-function build_calendar($month, $year, $events = []) {
-    // Array containing names of all days in a week
-    $daysOfWeek = array('Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday');
+<?php
+session_start();
+date_default_timezone_set('UTC');
 
-    // First day of the month
-    $firstDayOfMonth = mktime(0, 0, 0, $month, 1, $year);
+// Store predefined holidays
+$holidays = [
+    "2025-01-01" => "New Year’s Day",
+    "2025-07-04" => "Independence Day",
+    "2025-12-25" => "Christmas Day"
+];
 
-    // Number of days in the month
-    $numberDays = date('t', $firstDayOfMonth);
-
-    // Information about the first day of the month
-    $dateComponents = getdate($firstDayOfMonth);
-
-    // Name of the month
-    $monthName = $dateComponents['month'];
-
-    // Index value 0-6 of the first day of the month
-    $dayOfWeek = $dateComponents['wday'];
-
-    // Create the table tag opener and day headers
-    $calendar = "<table class='calendar'>";
-    $calendar .= "<caption>$monthName $year</caption>";
-    $calendar .= "<tr>";
-
-    // Create the calendar headers
-    foreach ($daysOfWeek as $day) {
-        $calendar .= "<th>$day</th>";
-    }
-
-    // Create the rest of the calendar
-    $calendar .= "</tr><tr>";
-
-    // Add empty cells for days before the start of the month
-    if ($dayOfWeek > 0) {
-        $calendar .= str_repeat("<td></td>", $dayOfWeek);
-    }
-
-    $currentDay = 1;
-
-    // Get the current month and year
-    $month = str_pad($month, 2, "0", STR_PAD_LEFT);
-
-    while ($currentDay <= $numberDays) {
-        // Seventh column (Saturday) reached. Start a new row.
-        if ($dayOfWeek == 7) {
-            $dayOfWeek = 0;
-            $calendar .= "</tr><tr>";
-        }
-
-        $currentDayRel = str_pad($currentDay, 2, "0", STR_PAD_LEFT);
-        $date = "$year-$month-$currentDayRel";
-
-        // Highlight today and check for events
-        $isToday = ($date === date('Y-m-d')) ? "today" : "";
-        $eventContent = isset($events[$date]) ? "<div class='event'>" . htmlspecialchars($events[$date]) . "</div>" : "";
-
-        $calendar .= "<td class='$isToday'>$currentDay $eventContent</td>";
-
-        // Increment counters
-        $currentDay++;
-        $dayOfWeek++;
-    }
-
-    // Complete the row of the last week in month, if necessary
-    if ($dayOfWeek != 7) {
-        $remainingDays = 7 - $dayOfWeek;
-        $calendar .= str_repeat("<td></td>", $remainingDays);
-    }
-
-    $calendar .= "</tr>";
-    $calendar .= "</table>";
-
-    return $calendar;
+// Handle Event Submission
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['event_date']) && isset($_POST['event_name'])) {
+    $_SESSION['events'][$_POST['event_date']] = $_POST['event_name'];
 }
 
-// Example events (replace with dynamic event fetching logic if connected to a database)
-$exampleEvents = [
-    "2025-01-09" => "Meeting with Team",
-    "2025-01-15" => "Project Deadline",
-    "2025-01-22" => "Birthday Celebration",
-];
+// Generate Calendar Function
+function generateCalendar($year, $month = null) {
+    global $holidays;
+    
+    $months = [
+        1 => "January", 2 => "February", 3 => "March", 4 => "April",
+        5 => "May", 6 => "June", 7 => "July", 8 => "August",
+        9 => "September", 10 => "October", 11 => "November", 12 => "December"
+    ];
+    
+    echo '<div class="row">';
+    
+    $monthsToShow = $month ? [$month => $months[$month]] : $months;
+    
+    foreach ($monthsToShow as $monthNum => $monthName) {
+        echo '<div class="col-md-4">';
+        echo '<div class="card mb-3">';
+        echo '<div class="card-header text-center"><strong>' . $monthName . ' ' . $year . '</strong></div>';
+        echo '<div class="card-body"><table class="table table-bordered">';
+        
+        // Days of the Week
+        echo '<tr class="bg-light"><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr><tr>';
+        
+        // Get first day of the month
+        $firstDay = date('w', strtotime("$year-$monthNum-01"));
+        $daysInMonth = cal_days_in_month(CAL_GREGORIAN, $monthNum, $year);
+        
+        // Print empty cells before first day
+        for ($i = 0; $i < $firstDay; $i++) echo '<td></td>';
+        
+        // Print actual days
+        for ($day = 1; $day <= $daysInMonth; $day++) {
+            $fullDate = "$year-$monthNum-$day";
+            $isHoliday = isset($holidays[$fullDate]);
+            $isWeekend = (date('N', strtotime($fullDate)) >= 6);
+            $isToday = ($fullDate == date('Y-m-d'));
+            $hasEvent = isset($_SESSION['events'][$fullDate]);
+
+            $cellClass = $isToday ? 'bg-warning' : ($isHoliday ? 'bg-danger text-white' : ($isWeekend ? 'bg-light' : ''));
+            $eventText = $hasEvent ? "<br><small><em>{$_SESSION['events'][$fullDate]}</em></small>" : "";
+
+            echo "<td class='day $cellClass' data-date='$fullDate'>$day $eventText</td>";
+
+            if (($day + $firstDay) % 7 == 0) echo '</tr><tr>'; // New row on Sunday
+        }
+
+        // Print empty cells at the end
+        while (($day + $firstDay) <= 35) {
+            echo '<td></td>';
+            $day++;
+        }
+
+        echo '</tr></table></div></div></div>';
+    }
+    
+    echo '</div>';
+}
+
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Responsive Event Calendar</title>
-    <!-- Tab icon -->     
-    <link href="../assets/img/favicon.webp" rel="icon">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>2025 Calendar with Events</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: Arial, sans-serif;
-        }
-        .calendar {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        .calendar caption {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .calendar th, .calendar td {
-            border: 1px solid #ddd;
-            padding: 15px;
-            text-align: center;
-            vertical-align: top;
-        }
-        .calendar th {
-            background-color: #f4f4f4;
-        }
-        .calendar td.today {
-            background-color: #cce5ff;
-        }
-        .calendar td .event {
-            margin-top: 10px;
-            padding: 5px;
-            background-color: #ffebcd;
-            border: 1px solid #ffa500;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            text-align: left;
-        }
-        @media (max-width: 768px) {
-            .calendar th, .calendar td {
-                padding: 8px;
-                font-size: 0.85rem;
-            }
-        }
+        .day { text-align: center; cursor: pointer; }
+        .day:hover { background-color: #e3f2fd; }
     </style>
 </head>
 <body>
-<div class="container">
-    <h1 class="text-center mt-3">Event Calendar</h1>
-    <div class="calendar-container">
-        <?php
-        // Render the calendar for the current month
-        echo build_calendar(date('m'), date('Y'), $exampleEvents);
-        ?>
+
+<div class="container mt-4">
+    <h2 class="text-center">2025 Calendar with Events</h2>
+    
+    <!-- Month Filter -->
+    <div class="text-center mb-3">
+        <label for="monthFilter">Select Month:</label>
+        <select id="monthFilter" class="form-select d-inline w-auto">
+            <option value="">All Year</option>
+            <?php for ($m = 1; $m <= 12; $m++): ?>
+                <option value="<?= $m ?>"><?= date('F', mktime(0, 0, 0, $m, 1, 2025)) ?></option>
+            <?php endfor; ?>
+        </select>
+    </div>
+
+    <!-- Calendar Display -->
+    <div id="calendarContainer">
+        <?php generateCalendar(2025); ?>
+    </div>
+
+    <!-- Event Form -->
+    <div class="card mt-4">
+        <div class="card-header">Add an Event</div>
+        <div class="card-body">
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="event_date" class="form-label">Select Date:</label>
+                    <input type="date" id="event_date" name="event_date" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="event_name" class="form-label">Event Name:</label>
+                    <input type="text" id="event_name" name="event_name" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Save Event</button>
+            </form>
+        </div>
     </div>
 </div>
+
+<script>
+$(document).ready(function () {
+    // Highlight today
+    $(".day").each(function () {
+        let today = new Date().toISOString().split('T')[0];
+        if ($(this).data("date") === today) {
+            $(this).css("background-color", "#ffeb3b");
+        }
+    });
+
+    // Click event on dates
+    $(".day").click(function () {
+        alert("You clicked on " + $(this).data("date"));
+    });
+
+    // Month filter using AJAX
+    $("#monthFilter").change(function () {
+        let selectedMonth = $(this).val();
+        $.post("calendar.php", { month: selectedMonth }, function (data) {
+            $("#calendarContainer").html($(data).find("#calendarContainer").html());
+        });
+    });
+});
+</script>
+
 </body>
 </html>

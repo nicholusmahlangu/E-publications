@@ -3,7 +3,7 @@ session_start();
 
 // Database connection
 $host = 'localhost';
-$dbname = 'e-pubsdb';
+$dbname = 'e-pubsdb'; // Ensure this is correct
 $username = 'root';
 $password = '';
 
@@ -16,11 +16,11 @@ try {
 
 // Pagination and search
 $page = isset($_GET['page']) ? max(1, (int)$_GET['page']) : 1;
-$limit = "20";
+$limit = 10;
 $offset = ($page - 1) * $limit;
 $searchTerm = isset($_GET['search']) ? trim($_GET['search']) : '';
 
-// Query to fetch data with cataloguer's name and ISBN
+// Query to fetch data with ISBN and Cataloguer Name
 $query = "SELECT 
             b.Book_ID AS id, 
             b.PublicationTitle AS title, 
@@ -28,14 +28,14 @@ $query = "SELECT
             b.ISBN AS isbn, 
             b.FileUpload AS file_path, 
             b.downloads AS download_count, 
-            a.status AS assignment_status, 
-            u.FullName AS cataloguer_name
+            b.status, 
+            u.FullName AS cataloguer_name 
           FROM book_informationsheet b
           LEFT JOIN assignments a ON b.Book_ID = a.book_id
           LEFT JOIN users u ON a.cataloguer_id = u.User_ID";
 
 if ($searchTerm !== '') {
-    $query .= " WHERE b.PublicationTitle LIKE :search OR b.Genre LIKE :search";
+    $query .= " WHERE b.PublicationTitle LIKE :search OR b.Genre LIKE :search OR b.ISBN LIKE :search";
 }
 $query .= " LIMIT :limit OFFSET :offset";
 
@@ -51,7 +51,7 @@ $documents = $stmt->fetchAll(PDO::FETCH_ASSOC);
 // Total record count for pagination
 $countQuery = "SELECT COUNT(*) as total FROM book_informationsheet";
 if ($searchTerm !== '') {
-    $countQuery .= " WHERE PublicationTitle LIKE :search OR Genre LIKE :search";
+    $countQuery .= " WHERE PublicationTitle LIKE :search OR Genre LIKE :search OR ISBN LIKE :search";
 }
 $countStmt = $pdo->prepare($countQuery);
 if ($searchTerm !== '') {
@@ -67,7 +67,6 @@ $totalPages = ceil($totalRecords / $limit);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document Management</title>
-  <link href="../assets/img/favicon.webp" rel="icon">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
   <style>
@@ -140,20 +139,21 @@ $totalPages = ceil($totalRecords / $limit);
                     <td><?= htmlspecialchars($doc['id']) ?></td>
                     <td><?= htmlspecialchars($doc['title']) ?></td>
                     <td><?= htmlspecialchars($doc['description']) ?></td>
-                    <td><?= htmlspecialchars($doc['isbn']) ?></td>
+                    <td><?= htmlspecialchars($doc['isbn'] ?? 'N/A') ?></td>
                     <td><?= htmlspecialchars($doc['cataloguer_name'] ?? 'N/A') ?></td>
                     <td>
                       <a href="download_document.php?Book_ID=<?= htmlspecialchars($doc['id']) ?>" class="btn btn-link">Download</a>
                     </td>
                     <td><?= htmlspecialchars($doc['download_count']) ?></td>
-                    <td><?= htmlspecialchars($doc['assignment_status'] ?? 'Unassigned') ?></td>
+                    <td><?= htmlspecialchars($doc['status']?? 'assigned') ?></td>
+
                     <td>
                       <form action="update_status.php" method="POST" class="d-inline">
                         <input type="hidden" name="Book_ID" value="<?= htmlspecialchars($doc['id']) ?>">
                         <select name="status" class="form-select form-select-sm" required>
-                          <option value="Assigned" <?= $doc['assignment_status'] === 'Assigned' ? 'selected' : '' ?>>Assigned</option>
-                          <option value="Pending" <?= $doc['assignment_status'] === 'Pending' ? 'selected' : '' ?>>Pending</option>
-                          <option value="Reviewed" <?= $doc['assignment_status'] === 'Reviewed' ? 'selected' : '' ?>>Reviewed</option>
+                          <option value="Assigned" <?= $doc['status'] === 'Assigned' ? 'selected' : '' ?>>Assigned</option>
+                          <option value="Pending" <?= $doc['status'] === 'Pending' ? 'selected' : '' ?>>Pending</option>
+                          <option value="Reviewed" <?= $doc['status'] === 'Reviewed' ? 'selected' : '' ?>>Reviewed</option>
                         </select>
                         <button type="submit" class="btn btn-sm btn-primary">Update</button>
                       </form>
