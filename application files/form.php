@@ -87,7 +87,6 @@
 </head>
 <body>
 
-
     <h2>Bibliography Information Form</h2>
        
         <!-- Display server-side error messages if any -->
