@@ -4,6 +4,10 @@ $query = "select * from book_informationsheet";
 $result = mysqli_query($conn,$query);
 
 $bookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet";
+
+$ReviewedBookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet WHERE status='Reviewed'";
+
+$PendingBookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet WHERE status='Pending'";
 ?>
 
 <!DOCTYPE html>
@@ -139,11 +143,9 @@ $bookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet";
                         <h2>
                             <?php if ($bookTotalResult = mysqli_query($conn,$bookTotal)) {
                               $rowcount = mysqli_num_rows($bookTotalResult);
-                              print($rowcount);
-                            
+                              print($rowcount);   
                             } ?>
                         </h2>
-                        <small>10 less</small>
                     </div>
                     <div class="card-chart danger">
                         <span class="las la-chart-line"></span>
@@ -155,12 +157,16 @@ $bookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet";
                 <div class="card-flex">
                     <div class="card-info">
                         <div class="card-head">
-                            <span>Books Verified</span>
-                            <small>Number of E-books</small>
+                            <span><strong>Books Verified</strong></span>
                         </div>
                         
-                        <h2>2000</h2>
-                        <small>10 less</small>
+                        <h2>
+                            <?php if ($ReviewedBookTotalResult = mysqli_query($conn,$ReviewedBookTotal)) {
+                              $rowcount = mysqli_num_rows($ReviewedBookTotalResult);
+                              print($rowcount);
+                            
+                            } ?>
+                        </h2>
                     </div>
                     <div class="card-chart success">
                         <span class="las la-chart-line"></span>
@@ -172,11 +178,14 @@ $bookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet";
                 <div class="card-flex">
                     <div class="card-info">
                         <div class="card-head">
-                            <span>Books uploaded on the server</span>
-                            <small>Number of E-books</small>
+                            <span><strong>Books still pending</strong></span>
                         </div>
-                        <h2>4000</h2>
-                        <small>10 less</small>
+                        <h2>
+                            <?php if ($PendingBookTotalResult = mysqli_query($conn,$PendingBookTotal)) {
+                              $rowcount = mysqli_num_rows($PendingBookTotalResult);
+                              print($rowcount);             
+                            } ?>
+                        </h2>
                     </div>
                     <div class="card-chart yellow">
                         <span class="las la-chart-line"></span>

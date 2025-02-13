@@ -1,6 +1,6 @@
 <?php
 include '../assets/php/conn.php';
-include 'forms_hearder.php';
+include 'forms_header.php';
 
 require "vendor/autoload.php";
 use PHPMailer\PHPMailer\PHPMailer;
@@ -80,6 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+  <style></style>
 </head>
 <body>
 

@@ -1,4 +1,4 @@
-<?php include 'forms_hearder.php';?>
+<?php include 'forms_header.php';?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -65,7 +65,9 @@
         }
 
         h2 {
-            margin-bottom: 20px;
+            margin-bottom: -5px;
+            padding-bottom: 20px;
+            /*margin-top: 1px;*/
             text-align: center;
             color: #233245;
         }
@@ -85,10 +87,6 @@
 </head>
 <body>
 
-<center>
-<h1></h1>
-<!--<img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo" style="width:30%; height:30%">-->
-</center>
     <h2>Bibliography Information Form</h2>
        
         <!-- Display server-side error messages if any -->

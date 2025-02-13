@@ -80,8 +80,8 @@
                 //$new_password = $_POST['new_password'];
                 if(mysqli_num_rows($check_token_run) > 0){
                     if($new_password === $confirm_password){
-                        $new_password = md5($new_password);
-                        $update_password = "UPDATE users SET password='$new_password' WHERE verify_token='$token' LIMIT 1";
+                        $new_password_hashed = md5($new_password);
+                        $update_password = "UPDATE users SET password='$new_password_hashed', created_at = now() WHERE verify_token='$token' LIMIT 1";
                         $update_password_run = mysqli_query($conn, $update_password);
                         
                          if ($update_password_run) {
@@ -91,7 +91,7 @@
                              $_SESSION['status'] = "New password Successfully Updated!!!";
                              header("Location: cataloguerlogin.php");
                              exit(0);
-                         }
+                        }
                          else{
                              $_SESSION['status'] = "Did not update password. Something went wrong.!";
                              header("Location: reset_password.php?token=$token&email=$email");
