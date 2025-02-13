@@ -28,7 +28,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Insert into the database
     $stmt = $conn->prepare(
-        "INSERT INTO publisher (
+        "INSERT INTO author (
             country, authorContact, bookName, authorFullName, authorAddress, authorEmail, 
             publisherName, publisherAddress, publisherContact, publisherEmail, 
             format, publicationDate, openAccess, isbnRegistered, externalPlatforms
