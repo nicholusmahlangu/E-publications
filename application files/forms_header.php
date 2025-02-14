@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Stay informed about NLSA services, vacancies, tenders, and events with our user-friendly platform.">
     <meta name="keywords" content="NLSA, Library, Vacancies, Tenders, News, Events">
-    <title>Forms header</title>
+    <title>Forms</title>
 
     <!-- Tab icon -->
     <link rel="icon" href="../assets/img/favicon.webp">

@@ -8,6 +8,8 @@ $bookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet";
 $ReviewedBookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet WHERE status='Reviewed'";
 
 $PendingBookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet WHERE status='Pending'";
+
+$UnassignedBookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet WHERE status NOT IN('Pending', 'Assigned', 'Reviewed')";
 ?>
 
 <!DOCTYPE html>
@@ -188,6 +190,25 @@ $PendingBookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet WHE
                         </h2>
                     </div>
                     <div class="card-chart yellow">
+                        <span class="las la-chart-line"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card-single">
+                <div class="card-flex">
+                    <div class="card-info">
+                        <div class="card-head">
+                            <span><strong>Books Unassigned</strong></span>
+                        </div>
+                        <h2>
+                            <?php if ($UnassignedBookTotalResult = mysqli_query($conn,$UnassignedBookTotal)) {
+                              $rowcount = mysqli_num_rows($UnassignedBookTotalResult);
+                              print($rowcount);             
+                            } ?>
+                        </h2>
+                    </div>
+                    <div class="card-chart success">
                         <span class="las la-chart-line"></span>
                     </div>
                 </div>

@@ -51,6 +51,7 @@ $cataloguerResults = mysqli_query($conn, $cataloguerQuery);
             <th>Author Name</th>
             <th>Book Title</th>
             <th>ISBN</th>
+            <th>Status</th>
             <th>Assign to</th>
             <th>Action</th>
           </tr>
@@ -64,6 +65,8 @@ $cataloguerResults = mysqli_query($conn, $cataloguerQuery);
                 <td><?= htmlspecialchars($book['AuthorName']) ?></td>
                 <td><?= htmlspecialchars($book['PublicationTitle']) ?></td>
                 <td><?= htmlspecialchars($book['Isbn']) ?></td>
+                <td><?= htmlspecialchars($book['status']) ?></td>
+                
                 <td>
                   <form action="assign_task.php" method="POST" class="d-inline">
                     <input type="hidden" name="Book_ID" value="<?= htmlspecialchars($book['Book_ID']) ?>">
