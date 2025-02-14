@@ -208,7 +208,7 @@ $UnassignedBookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet 
                             } ?>
                         </h2>
                     </div>
-                    <div class="card-chart yellow">
+                    <div class="card-chart success">
                         <span class="las la-chart-line"></span>
                     </div>
                 </div>
