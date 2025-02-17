@@ -86,7 +86,9 @@
     </style>
 </head>
 <body>
-
+<center>
+            <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:18%; height:18%">
+        </center>
     <h2>Bibliography Information Form</h2>
        
         <!-- Display server-side error messages if any -->

@@ -15,12 +15,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['Book_ID'], $_POST['ca
     }
 
     // Insert into Assignments table
-    $assignQuery = "INSERT INTO Assignments (book_id, cataloguer_id, status) 
-                    VALUES ('$bookId', '$cataloguerId', 'Assigned')";
+    $assignQuery = "INSERT INTO Assignments (book_id, cataloguer_id, status, assigned_at) 
+                    VALUES ('$bookId', '$cataloguerId', 'Assigned', NOW())";
     if (mysqli_query($conn, $assignQuery)) {
         // Update book status
         $updateBookQuery = "UPDATE book_informationsheet SET status = 'Assigned' WHERE Book_ID = '$bookId'";
         mysqli_query($conn, $updateBookQuery);
+
+        // Insert into notifications table
+        $title = "New Task Assigned";
+        $description = "A new task has been assigned for Book ID: $bookId.";
+        $notificationQuery = "INSERT INTO notifications (title, description, type, date, created_at, cataloguer_id) 
+                              VALUES ('$title', '$description', 'task', NOW(), NOW(), '$cataloguerId')";
+        mysqli_query($conn, $notificationQuery);
 
         header("Location: viewStatus.php");
         exit;

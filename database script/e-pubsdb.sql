@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 13, 2025 at 02:32 PM
+-- Generation Time: Feb 14, 2025 at 12:25 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -74,7 +74,8 @@ INSERT INTO `assignments` (`id`, `book_id`, `cataloguer_id`, `assigned_by`, `sta
 (13, 11, 13, NULL, 'Assigned', '2025-01-20 12:31:35', NULL),
 (14, 10, 13, NULL, 'Assigned', '2025-01-20 13:37:17', NULL),
 (15, 13, 1, NULL, 'Assigned', '2025-02-12 09:05:31', NULL),
-(16, 12, 1, NULL, 'Assigned', '2025-02-12 09:50:02', NULL);
+(16, 12, 1, NULL, 'Assigned', '2025-02-12 09:50:02', NULL),
+(25, 16, 1, NULL, 'Assigned', '2025-02-14 10:15:23', NULL);
 
 --
 -- Triggers `assignments`
@@ -176,7 +177,7 @@ CREATE TABLE `book_informationsheet` (
   `EnglishVersionTitle` varchar(100) NOT NULL,
   `FileUpload` varchar(255) NOT NULL,
   `downloads` int(11) DEFAULT 0,
-  `status` enum('Pending','Assigned','Reviewed') DEFAULT 'Pending'
+  `status` enum('Unassigned','Pending','Assigned','Reviewed') DEFAULT 'Unassigned'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -197,7 +198,9 @@ INSERT INTO `book_informationsheet` (`Book_ID`, `PublisherEmail`, `AuthorName`, 
 (11, 'Tintswalo@nlsa.ac.za', 'Asante', 'santeSana', 'jjbjbd', 'NLSA Development', 'brocker', 'impressed', '1010101010101', 'set', 'john wick', 'Sosha', '2025', 34.89, 'Nonfiction', 'learning', 'English', 'Not applicable', '678e322307b43_Week two November 2024 Timesheet.pdf', 0, 'Reviewed'),
 (12, 'n.mahlungu@outlook.com', 'Nicholus Mahlangu', 'Molebogeng Mahlangu', 'nick', 'Words of Knowledge', '11th', 'Knowledgeable', '6251678938362', 'tf673', 'Reitumetse Mahlangu', '1896 RDP Ext Hammanskraal 0407', '2020', 250.89, 'Nonfiction', 'Historical', 'English', 'Words of Knowledge', '67ac624bdabf3_S2_Capeto0002 - Extension - 124023009.pdf', 0, 'Reviewed'),
 (13, 'n.mahlungu@outlook.com', 'Nicholus Mahlangu', 'Molebogeng Mahlangu', 'nick', 'Words of Knowledge', '11th', 'Knowledgeable', '6251678938361', 'tf673', 'Reitumetse Mahlangu', '1896 RDP Ext Hammanskraal 0407', '2020', 250.89, 'Nonfiction', 'Historical', 'English', 'Words of Knowledge', '67ac639db935e_S2_Capeto0002 - Extension - 124023009.pdf', 0, 'Pending'),
-(14, 'Sie@gmail.com', 'Mahlangu', 'Tie', 'Sie', 'Que', 'Nock', 'impressed', '1234567890111', '6t76uu', 'Reitumetse Mahlangu', 'Johannes Mogase', '2025', 1000.76, 'Fiction', 'gr', 'Engllish', 'Telephones', '67aca08043d46_Leave Application Form_signed.pdf', 0, 'Pending');
+(14, 'Sie@gmail.com', 'Mahlangu', 'Tie', 'Sie', 'Que', 'Nock', 'impressed', '1234567890111', '6t76uu', 'Reitumetse Mahlangu', 'Johannes Mogase', '2025', 1000.76, 'Fiction', 'gr', 'Engllish', 'Telephones', '67aca08043d46_Leave Application Form_signed.pdf', 0, 'Pending'),
+(15, 'n.mahlungu@outlook.com', 'Reitumetse Mahlangu', 'Dikeledi Makgoba', 'reitu', 'The chronicles of Origins', '5th edition', 'Educational', '1232425762549', '45323', 'Nick Williams', '234 Johannes Mogase', '2016', 123.78, 'Fiction', 'Wisdom', 'English', 'The Chronicles of Origins', '67af127625cbe_S2_Capeto0002 - Extension - 124023009.pdf', 0, 'Unassigned'),
+(16, 'n.mahlungu@outlook.com', 'Keletso Mmulutsi', 'Maphota Shiburi', 'Kele', 'NLSA Architecture', 'Nock', 'impressed', '1232425762547', '13 digits', 'Reitumetse Mahlangu', 'Johannes Mogase', '2015', 138.89, 'Nonfiction', 'Flex', 'English', 'Words of Knowledge', '67af176b650fa_Contact Information (Responses) - Form responses 1.pdf', 0, 'Assigned');
 
 -- --------------------------------------------------------
 
@@ -366,7 +369,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `assignments`
 --
 ALTER TABLE `assignments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `author`
@@ -378,7 +381,7 @@ ALTER TABLE `author`
 -- AUTO_INCREMENT for table `book_informationsheet`
 --
 ALTER TABLE `book_informationsheet`
-  MODIFY `Book_ID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `Book_ID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `notifications`

@@ -90,6 +90,16 @@ $totalPages = ceil($totalRecords / $limit);
       border-radius: 5px;
     }
   </style>
+    <script>
+    function checkStatus(selectElement, buttonId) {
+        var updateButton = document.getElementById(buttonId);
+        if (selectElement.value === "Reviewed") {
+            updateButton.disabled = true;
+        } else {
+            updateButton.disabled = false;
+        }
+    }
+  </script>
 </head>
 <body>
   <div class="container-fluid">
@@ -114,7 +124,7 @@ $totalPages = ceil($totalRecords / $limit);
           <button class="btn btn-primary" onclick="search()">Search</button>
         </div>
 
-        <!-- Table -->
+        <!-- Table - we need to include the assigned analytics to admin dashboard NB Nick-->
         <div class="table-responsive">
           <table class="table table-bordered">
             <thead>
@@ -155,7 +165,7 @@ $totalPages = ceil($totalRecords / $limit);
                           <option value="Pending" <?= $doc['status'] === 'Pending' ? 'selected' : '' ?>>Pending</option>
                           <option value="Reviewed" <?= $doc['status'] === 'Reviewed' ? 'selected' : '' ?>>Reviewed</option>
                         </select>
-                        <button type="submit" class="btn btn-sm btn-primary">Update</button>
+                        <button type="submit" id="updateBtn<?= $doc['id'] ?>" class="btn btn-sm btn-primary" <?= $doc['status'] === 'Reviewed' ? 'disabled' : '' ?>>Update</button>
                       </form>
                     </td>
                   </tr>

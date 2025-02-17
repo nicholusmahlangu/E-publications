@@ -5,8 +5,17 @@ date_default_timezone_set('UTC');
 // Store predefined holidays
 $holidays = [
     "2025-01-01" => "New Year’s Day",
-    "2025-07-04" => "Independence Day",
-    "2025-12-25" => "Christmas Day"
+    "2025-03-21" => "Human Rights Day",
+    "2025-04-18" => "Good Friday",
+    "2025-04-21" => "Family Day",
+    "2025-04-27" => "Freedom Day",
+    "2025-05-01" => "Workers' Day",
+    "2025-06-16" => "Youth Day",
+    "2025-08-09" => "National Women’s Day",
+    "2025-09-24" => "Heritage Day",
+    "2025-12-16" => "Day of Reconciliation",
+    "2025-12-25" => "Christmas Day",
+    "2025-12-26" => "Day of Goodwill"
 ];
 
 // Handle Event Submission
@@ -90,6 +99,7 @@ function generateCalendar($year, $month = null) {
 <body>
 
 <div class="container mt-4">
+    <a href="adminDashboard.php" class="btn btn-secondary mb-3">&larr; Back to Dashboard</a>
     <h2 class="text-center">2025 Calendar with Events</h2>
     
     <!-- Month Filter -->

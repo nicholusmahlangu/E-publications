@@ -91,7 +91,7 @@
         </ul>
       </nav>
 
-      <!-- Main Content -->
+      <!-- Main Content  Nick we should add another data analytic to admin for the assigned task-->
       <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 main-content">
         <!-- Notification Dropdown -->
         <div class="notification-dropdown">
@@ -127,7 +127,6 @@
                 <th>File</th>
                 <th>Email</th>
                 <th>ISBN</th>
-                <th>Downloads</th>
               </tr>
             </thead>
             <tbody id="documents-table">
@@ -179,7 +178,6 @@
                 <td><a href="view.php?doc_id=${doc.id}" class="btn btn-primary">View Details</a></td>
                 <td>${doc.email || "N/A"}</td>
                 <td>${doc.isbn || "N/A"}</td>
-                <td><button class="btn btn-success" onclick="downloadDocument(${doc.id})">Download <i class="bi bi-download"></i></button></td>
               </tr>`).join("");
           } else {
             tableBody.innerHTML = '<tr><td colspan="7" class="text-center">No documents found.</td></tr>';

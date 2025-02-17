@@ -50,6 +50,9 @@ background-color:rgb(113, 111, 114); /* darker green on hover */
     
 </head>
 <body class="background-image">
+<center>
+            <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:18%; height:18%">
+        </center>
 
         <!-- Home Button Icon -->
         <div class="back-button-container">

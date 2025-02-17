@@ -91,6 +91,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
 <div class="container mt-5">
+<center>
+            <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:18%; height:18%">
+        </center>
   <h1 class="text-center mb-4">Self-publisher ISBN Request Form</h1>
 
   <!-- Display Success/Error Messages -->

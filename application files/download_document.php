@@ -1,8 +1,6 @@
 <?php
-// if(!defined('nlsalockurl')){
-//     header('Location: index.php');
-//     die('');
-// }
+session_start(); // Start session for security
+
 // Database connection
 $servername = "localhost";
 $username = "root";
@@ -13,11 +11,11 @@ try {
     $pdo = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8mb4", $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    die(json_encode(['success' => false, 'message' => 'Database connection failed: ' . $e->getMessage()]));
+    die(json_encode(['success' => false, 'message' => 'Database connection failed.']));
 }
 
 // Validate and sanitize the Book_ID parameter
-if (!isset($_GET['Book_ID']) || !is_numeric($_GET['Book_ID'])) {
+if (!isset($_GET['Book_ID']) || !filter_var($_GET['Book_ID'], FILTER_VALIDATE_INT)) {
     die(json_encode(['success' => false, 'message' => 'Invalid Book ID.']));
 }
 
@@ -34,8 +32,7 @@ if (!$document || empty($document['file_path'])) {
     die(json_encode(['success' => false, 'message' => 'File not found in the database.']));
 }
 
-
-$filePath = realpath(__DIR__ . "/../uploads/" . $document['file_path']); // Ensuring proper directory resolution
+$filePath = realpath(__DIR__ . "/../uploads/" . basename($document['file_path'])); // Secure file path resolution
 
 if (!$filePath || !file_exists($filePath)) {
     die(json_encode(['success' => false, 'message' => 'File does not exist on the server.']));
