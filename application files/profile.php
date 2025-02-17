@@ -98,6 +98,30 @@ $conn->close();
             background-color: #0056b3;
             border-color: #004085;
         }
+        .body {
+            width: 100%;
+        }
+
+        .panel {
+            border: 1px solid red;
+            background-color: blue;
+            margin: 50px;
+        }
+        img {
+            width: 100%;
+        }
+
+        .logo {
+            background-color: red;
+            border: 1px solid yellow;
+            width: 100px;
+
+        }
+.back-btn {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
         @media (max-width: 768px) {
             .container {
                 margin: 20px auto;
@@ -107,8 +131,17 @@ $conn->close();
     </style>
 </head>
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
 <body>
+<a href="dashboard.php" class="btn btn-secondary back-btn">&larr; Back</a>
+<div class="panel">
+<center>
+            <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:18%; height:18%">
+        </center>
+        </div>
+    </div>
+
     
     <div class="container">
         <h2 class="text-center mb-4">Your Profile</h2>

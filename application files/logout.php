@@ -55,47 +55,111 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
     <style>
+        /* Global Styling */
         body {
-            font-family: Arial, sans-serif;
+            font-family: "Poppins", sans-serif;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
+            justify-content: center;
             height: 100vh;
             margin: 0;
-            background-color: #f4f4f4;
-        }
-        .logout-container {
-            max-width: 400px;
-            padding: 30px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            background-color: #ffffff;
+            background-color: #f5f5f5;
             text-align: center;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
         }
-        .logout-container h1 {
-            font-size: 24px;
+
+        /* Back Button */
+        .back-button {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 16px;
+            text-decoration: none;
+            color: #333;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: 0.3s ease;
+            font-weight: 500;
+        }
+
+        .back-button:hover {
+            color: #007bff;
+        }
+
+        /* Logo Styling */
+        .logo-container {
+            width: 100%;
+            text-align: center;
             margin-bottom: 20px;
         }
+
+        .logo-img {
+            width: 18%;
+            max-width: 150px;
+            height: auto;
+        }
+
+        /* Logout Container */
+        .logout-container {
+            max-width: 400px;
+            width: 100%;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 22px;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        /* Logout Button */
         button {
-            padding: 10px 20px;
+            width: 100%;
+            padding: 12px;
             font-size: 16px;
             border: none;
             border-radius: 5px;
-            background-color: #007bff;
+            background: #007bff;
             color: white;
+            font-weight: 600;
             cursor: pointer;
+            transition: 0.3s ease;
         }
+
         button:hover {
-            background-color: #0056b3;
+            background: #0056b3;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logout-container {
+                padding: 20px;
+                width: 90%;
+            }
+            .logo-img {
+                width: 25%;
+            }
         }
     </style>
 </head>
 <body>
+
+    <!-- Back Button -->
+    <a href="javascript:history.back()" class="back-button">← Back</a>
+
+    <!-- Logo -->
+    <div class="logo-container">
+        <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo">
+    </div>
+
+    <!-- Logout Confirmation -->
     <div class="logout-container">
         <h1>Are you sure you want to log out?</h1>
         <form action="index.php" method="POST">
-            <!-- CSRF Token -->
             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrf_token); ?>">
             <button type="submit">Logout</button>
         </form>
