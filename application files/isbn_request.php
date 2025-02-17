@@ -86,12 +86,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     h1{
       margin-top: 60px;
     }
+    .logo-img{
+      margin-top: 60px;
+    }
+    body {
+            background-image: url('../assets/img/BackgroundI.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333
+        }
 </style>
 </head>
 <body>
 
 <div class="container mt-5">
-<center>
+        <center>
             <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:18%; height:18%">
         </center>
   <h1 class="text-center mb-4">Self-publisher ISBN Request Form</h1>
