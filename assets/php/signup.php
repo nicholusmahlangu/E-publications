@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Attempt to move the uploaded file
     if ($conn && $conn->ping()) {
-        $password = md5('password');
+        //$password = md5('password');
         $stmt = $conn->prepare("INSERT INTO users(FullName, EmailAddress, Contact, Password)
                     VALUES (?, ?, ?, ?)");
         $stmt->bind_param("ssss", $fullname, $email_address, $contact, $password);

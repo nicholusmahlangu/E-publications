@@ -60,7 +60,7 @@
                       <ion-icon name="mail"></ion-icon>
                     </span>
                     <input type="email" id="email" name="email" class="form-control" 
-                           placeholder="Enter your email" required>
+                           placeholder="Enter your email" >
                 </div>
 
                 <!-- Password Input -->
@@ -69,7 +69,7 @@
                       <ion-icon name="lock-closed"></ion-icon>
                     </span>
                     <input type="password" id="password" name="password" class="form-control" 
-                           placeholder="Enter your password" required>
+                           placeholder="Enter your password" >
                 </div>
 
                 <!-- Forgot Password Link -->
