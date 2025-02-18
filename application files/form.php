@@ -83,14 +83,18 @@
             border-radius: 5px;
             text-align: center;
         }
+        .logo-img{
+            margin-top: 60px;
+        }
     </style>
 </head>
 <body>
+
 <center>
-            <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:18%; height:18%">
+            <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:70%; height:50%">
         </center>
     <h2>Bibliography Information Form</h2>
-       
+    
         <!-- Display server-side error messages if any -->
         <?php if (isset($_SESSION['error_message'])): ?>
             <div class="alert alert-danger">

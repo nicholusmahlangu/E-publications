@@ -12,9 +12,65 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script defer type="text/javascript" src="../assets/js/signup.js"></script>
     <title>Sign Up</title>
+    <style>
+      .body {
+            width: 100%;
+        }
+
+        .panel {
+            border: 1px solid red;
+            background-color: blue;
+            margin: 50px;
+        }
+        img {
+            width: 100%;
+        }
+
+        .logo {
+            background-color: red;
+            border: 1px solid yellow;
+            width: 100px;
+
+        }
+      .back-button {
+background-color:rgb(28, 28, 28); /* green background */
+color: #fff; /* white text */
+padding: 5px 10px; /* add some padding */
+border: none; /* remove border */
+border-radius: 5px; /* rounded corners */
+cursor: pointer; /* change cursor on hover */
+transition: background-color 0.3s ease-in-out; /* smooth transition */
+display: inline-flex; /* add inline-flex display */
+align-items: center; /* center icon and text */
+font-size: 16px; /* set font size */
+}
+
+.back-button i {
+margin-right: 5px; /* add some space between icon and text */
+font-size: 18px; /* set font size for icon */
+}
+
+.back-button:hover {
+background-color:rgb(113, 111, 114); /* darker green on hover */
+}
+
+ 
+    </style>
+
 </head>
 <body>
     <div class="wrapper">
+    <center>
+            <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:18%; height:18%">
+        </center>
+
+        <!-- Home Button Icon -->
+        <div class="back-button-container">
+<a href="adminDashboard.php" class="back-button">
+<i class="bi bi-arrow-left"></i>
+Admin Dashboard
+</a>
+</div>
         <h1>Sign Up</h1>
         <p id="error-text"></p>
         <?php 

@@ -84,6 +84,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     h1{
       margin-top: 60px;
     }
+    .logo-img{
+      margin-top: 60px;
+    }
+    body {
+            background-image: url('../assets/img/BackgroundI.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333
+        }
   </style>
 </head>
 <body>
