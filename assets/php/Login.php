@@ -14,9 +14,9 @@ include 'conn.php';
 $username = $_POST['email'];
 $password = $_POST['password'];
 // Check if the form is submitted
-if (trim($username)!="" and trim($password)!="") {
+if (trim($username)!="" || trim($password)!="") {
     // Perform SQL query to check user credentials
-    $password = md5('password');
+    //$password = md5('password');
     $sql = "SELECT * FROM users WHERE EmailAddress = '$username' AND Password = '$password'";
     $result = $conn->query($sql);
     
@@ -32,6 +32,8 @@ if (trim($username)!="" and trim($password)!="") {
         // Invalid credentials, display error message
         echo "Invalid email or password.";
     }
+}else{
+    echo "Please input the correct login credentials!";
 }
 
 // Close connection

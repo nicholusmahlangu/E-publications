@@ -1,4 +1,5 @@
 <?php
+require_once('session_config.php');
 require_once('../assets/php/adminDashboard.php');
 $query = "select * from book_informationsheet";
 $result = mysqli_query($conn,$query);
