@@ -79,7 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $mail->Subject= "$subject";
           $mail->Body="Your request for an ISBN as a Commercial publisher has been sent to one of our NLSA ISBN Administrators for the book: $bookName by: $publisherName Email addresss: $publisherEmail. We mainly testing the system neh. Thank you";
           echo "email sent";
-        }
+      }
     } else {
         $errorMessage = "Error: " . $stmt->error;
     }

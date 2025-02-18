@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
           $mail->Subject= "$subject";
           $mail->Body="Your request for an ISBN as a Self Publisher has been sent to one of our NLSA ISBN Administrators for the book: $bookName by: $publisherName Email addresss: $publisherEmail. We mainly testing the system neh. Thank you";
-          echo "email sent";
+          echo "Please check your mail. Email sent!";
         }
     } else {
         $errorMessage = "Error: " . $stmt->error;
