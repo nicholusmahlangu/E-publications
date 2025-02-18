@@ -41,6 +41,9 @@
             color: #fff;
             text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
         }
+        .form_links{
+            list-style-type: none;
+        }
     </style>
 
     <script>
@@ -81,7 +84,7 @@
                     <h2 class="animate__animated animate__fadeInLeft">Overview</h2>
                     <h3>Learn More <span>About the E-publications</span></h3>
                     <p>The E-Pubs will help different publishers file their books and receive ISBNs for each book.</p>
-                    <ul>
+                    <ul class="form_links">
                     <li><a href="isbn_request.php" class="getstarted">ISBN Request Form for Self-publishers</a></li>
                     <li><a href="isbn_publisher.php" class="getstarted">ISBN Request Form for Commercial publishers</a></li>
                     <li><a href="form.php" class="getstarted">SANB Information Form</a></li>

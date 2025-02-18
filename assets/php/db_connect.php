@@ -107,9 +107,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                 $mail->Subject= "Submission of Electronic book";
 
                                                 $mail->Body="Hi Admin. A new book titled: $title_of_publication (ISBN: $isbn_electronic) written by: $author_name  published on: $publisher_year has been submitted by $author_name Email address: $email";
-                                                $mail->send();
-                                                echo "email sent";
+                                                
+                                                if ($mail->send()) {
+                                                    $to= $email;    
+                                                $subject = "Electronic Book Successfully Submitted";
+                                                
+                                                $mail = new PHPMailer(true);
+                                                $mail->isSMTP();
+                                                $mail->SMTPAuth = true;
 
+                                                $mail->Host = "smtp.gmail.com";
+                                                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                                                $mail->Port = 587;
+                                                $mail->Username = "nicolasmahlangu75@gmail.com";
+                                                $mail->Password="ykbq ecat ctyl avbb ";
+
+                                                $mail->setFrom($email, $publisher_name);
+                                                $mail->addAddress($email,$publisher_name);
+
+                                                $mail->Subject= "Submission of Electronic book";
+
+                                                $mail->Body="Hi $publisher_name. You have succesfully submitted a new book titled: $title_of_publication (ISBN: $isbn_electronic) Price: R$price to the National Library of South Africa(NLSA)  published on: $publisher_year has been submitted by $publisher_name Email address: $email";
+                                                $mail->send();
+                                                echo "Please check your mail, a submission confirmation will be sent!";
+
+                                                }
+                                               
                                             } else {
                                                 echo "Database error: " . $conn->error;
                                             }
