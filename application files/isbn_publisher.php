@@ -58,8 +58,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         //$mail->addAddress("motubatse.kgatle@nlsa.ac.za","motubatsi");
         $mail->Subject= "$subject";
         $mail->Body="Hi Motubatsi. A request for an ISBN has been sent for the book: $bookName by: $publisherName Email addresss: $publisherEmail";
-        $mail->send();
-        echo "email sent";
+        
+        if ($mail->send()) {
+          $successMessage = "Form submitted successfully.";
+
+          $to= $publisherEmail;    
+          $subject = "ISBN Request Sent Successfully";
+          
+          $mail = new PHPMailer(true);
+          $mail->isSMTP();
+          $mail->SMTPAuth = true;
+          $mail->Host = "smtp.gmail.com";
+          $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+          $mail->Port = 587;
+          $mail->Username = "nicolasmahlangu75@gmail.com";
+          $mail->Password="ykbq ecat ctyl avbb ";
+          $mail->setFrom($publisherEmail, $publisherName);
+          $mail->addAddress($publisherEmail,$publisherName);
+          //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
+          $mail->Subject= "$subject";
+          $mail->Body="Your request for an ISBN as a Commercial publisher has been sent to one of our NLSA ISBN Administrators for the book: $bookName by: $publisherName Email addresss: $publisherEmail. We mainly testing the system neh. Thank you";
+          echo "email sent";
+        }
     } else {
         $errorMessage = "Error: " . $stmt->error;
     }
