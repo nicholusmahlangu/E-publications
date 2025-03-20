@@ -87,7 +87,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                             $stmt->bind_param("ssssssssssssssssss", $email, $author_name, $author_pseudonym, $editor_name, $title_of_publication, $book_edition, $impression, $isbn_electronic, $set_isbn, $publisher_name, $publisher_address, $publisher_year, $price, $fiction_or_non, $genre, $langauge_of_publication, $english_translation, $newFileName);
 
                                             if ($stmt->execute()) {
-                                                echo "File uploaded and data saved successfully.";
+                                                //echo "File uploaded and data saved successfully.";
                                                 $to= $email;    
                                                 $subject = "SANB Informationsheet";
                                                 
@@ -133,6 +133,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                                                 }
                                                
+                                                header("Location:../../application files/book_submitted.php");
                                             } else {
                                                 echo "Database error: " . $conn->error;
                                             }

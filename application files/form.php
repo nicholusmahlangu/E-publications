@@ -154,7 +154,7 @@
                 <input type="text" id="genre" name="genre" required placeholder="Enter Genre">
 
                 <label for="language_of_publication">Language of Publication:</label>
-                <input type="text" id="language_of_publication" name="language_of_publication" required placeholder="Enter Language">
+                <input type="text" id="language_of_publication" name="language_of_publication" placeholder="Enter Language">
 
                 <label for="english_translation_title">English Translation of Title:</label>
                 <input type="text" id="english_translation_title" name="english_translation_title" required placeholder="Enter Translation (if any)">
