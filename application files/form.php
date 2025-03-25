@@ -1,4 +1,6 @@
-<?php include 'forms_header.php';?>
+<?php include 'forms_header.php';
+include '../assets/php/conn.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,7 +12,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 
    <!-- JavaScript Validation -->
-   <script defer src="../assets/js/validation.js"></script>
+   <!--<script defer src="../assets/js/validation.js"></script>-->
 
        <!-- Inline Styles for Background -->
        <style>
@@ -22,27 +24,14 @@
             color: #333
         }
 
-        @keyframes backgroundAnimation {
+       /* @keyframes backgroundAnimation {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
-        }
+        }*/
 
-        form {
-            max-width: 600px;
-            width: 100%;
-            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            color: #333;
-        }
 
-        label {
-            font-weight: bold;
-            margin-top: 10px;
-            display: block;
-        }
+
 
         input, select, button {
             width: 100%;
@@ -67,11 +56,10 @@
         }
 
         h2 {
-            margin-bottom: -5px;
+            margin-top: 60px;
             padding-bottom: 20px;
             /*margin-top: 1px;*/
             text-align: center;
-            color: #233245;
         }
 
         .alert {
@@ -86,16 +74,16 @@
             text-align: center;
         }
         .logo-img{
-            margin-top: 60px;
+            margin-top: 110px;
         }
     </style>
 </head>
 <body>
 
 <center>
-            <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:70%; height:50%">
+            <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:24%; height:20%">
         </center>
-    <h2>Bibliography Information Form</h2>
+    <h2 class="text-center mb-4">Bibliography Information Form</h2>
     
         <!-- Display server-side error messages if any -->
         <?php if (isset($_SESSION['error_message'])): ?>
@@ -106,9 +94,18 @@
         <?php endif; ?>
         
             <form id ="" action="../assets/php/db_connect.php" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
-                <label for="isbn_electronic">ISBN:</label>
+
+            <label for="ISBNtype"> Book ISBN formats type:</label>
+                <select id="ISBNtype" name="ISBNtype" required>
+                    <option value="" disabled selected>Select ISBN Format</option>
+                    <option value="Electronic">Electronic</option>
+                    <option value="Print">Print</option>
+                    <option value="Mobi">Mobi</option>
+                    <option value="Epub">Epub</option>
+                </select>
+                <label for="isbn_electronic">ISBN of a Book:</label>
                 <input type="text" id="isbn_electronic" name="isbn_electronic" required pattern="\d{13}" placeholder="Enter 13-digit ISBN">
-            
+
                 <label for="email">Email Address:</label>
                 <input type="email" id="email" name="email" required placeholder="example@example.com">
 

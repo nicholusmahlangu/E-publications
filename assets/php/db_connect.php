@@ -30,8 +30,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $langauge_of_publication = isset($_POST['language_of_publication']) ? trim($_POST['language_of_publication']) : '';
     $english_translation = isset($_POST['english_translation_title']) ? trim($_POST['english_translation_title']) : '';
     $file = isset($_POST['file']) ? trim($_POST['file']) : '';
+    $ISBNtype = isset($_POST['ISBNtype']) ? trim($_POST['ISBNtype']) : '';
 
-    if (empty($author_name) || empty($email) || empty($author_name)|| empty($author_pseudonym) || empty($editor_name)|| empty($title_of_publication)|| empty($book_edition)||empty($impression) ||empty($isbn_electronic)||empty($set_isbn)||empty($publisher_name)||empty($publisher_address)||empty($publisher_year)||empty($price)||empty($fiction_or_non)||empty($genre)||empty($langauge_of_publication)||empty($english_translation) && !empty($file)) {
+    if (empty($author_name) || empty($email) || empty($author_name)|| empty($author_pseudonym) || empty($editor_name)|| empty($title_of_publication)|| empty($book_edition)||empty($impression) ||empty($isbn_electronic)||empty($set_isbn)||empty($publisher_name)||empty($publisher_address)||empty($publisher_year)||empty($price)||empty($fiction_or_non)||empty($genre)||empty($langauge_of_publication)||empty($ISBNtype)||empty($english_translation) && !empty($file)) {
         echo "Please ensure that all fields are filled.";
         exit;
     }
@@ -82,9 +83,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 if (mysqli_num_rows($fileResult) > 0) {
                                     echo "Electronic book already exists in our database!";
                                 }else{
-                                            $stmt = $conn->prepare("INSERT INTO book_informationsheet(PublisherEmail, AuthorName, EditorName, AuthorPseudonym, PublicationTitle, BookEdition, Impression, Isbn, SetISBN, PublisherName, PublisherAddress, PublicationYear, Price, FictionOrNonFiction, Genre, PublicationLanguage, EnglishVersionTitle, FileUpload) 
-                                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
-                                            $stmt->bind_param("ssssssssssssssssss", $email, $author_name, $author_pseudonym, $editor_name, $title_of_publication, $book_edition, $impression, $isbn_electronic, $set_isbn, $publisher_name, $publisher_address, $publisher_year, $price, $fiction_or_non, $genre, $langauge_of_publication, $english_translation, $newFileName);
+                                            $stmt = $conn->prepare("INSERT INTO book_informationsheet(PublisherEmail, AuthorName, EditorName, AuthorPseudonym, PublicationTitle, BookEdition, Impression, Isbn, SetISBN, PublisherName, PublisherAddress, PublicationYear, Price, FictionOrNonFiction, Genre, PublicationLanguage, EnglishVersionTitle, FileUpload, ISBNtype) 
+                                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
+                                            $stmt->bind_param("sssssssssssssssssss", $email, $author_name, $author_pseudonym, $editor_name, $title_of_publication, $book_edition, $impression, $isbn_electronic, $set_isbn, $publisher_name, $publisher_address, $publisher_year, $price, $fiction_or_non, $genre, $langauge_of_publication, $english_translation, $newFileName, $ISBNtype);
 
                                             if ($stmt->execute()) {
                                                 echo "File uploaded and data saved successfully.";
