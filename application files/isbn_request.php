@@ -1,94 +1,159 @@
 <?php
-include 'forms_header.php';
-include '../assets/php/conn.php';
+    include 'forms_header.php';
+    include '../assets/php/conn.php';
 
-require "vendor/autoload.php";
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
+    require "vendor/autoload.php";
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
 
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        // validate inputs
+        $country           = htmlspecialchars($_POST['country']);
+        $bookName          = htmlspecialchars($_POST['bookName']);
+        $publisherName     = htmlspecialchars($_POST['publisherName']);
+        $publisherAddress  = htmlspecialchars($_POST['publisherAddress']);
+        $publisherContact  = htmlspecialchars($_POST['publisherContact']);
+        $publisherEmail    = htmlspecialchars($_POST['publisherEmail']);
+        $format            = htmlspecialchars($_POST['format']);
+        $publicationDate   = htmlspecialchars($_POST['publicationDate']);
+        $externalPlatforms = htmlspecialchars($_POST['externalPlatforms']);
 
+        // Insert into the database
+        $stmt = $conn->prepare(
+            "INSERT INTO author (
+            country, bookName,publisherName, publisherAddress, publisherContact, publisherEmail,
+            format, publicationDate, externalPlatforms
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+        );
+        $stmt->bind_param(
+            "sssssssss",
+            $country, $bookName,
+            $publisherName, $publisherAddress, $publisherContact, $publisherEmail,
+            $format, $publicationDate, $externalPlatforms
+        );
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // validate inputs
-    $country = htmlspecialchars($_POST['country']);
-    $authorContact = htmlspecialchars($_POST['authorContact']);
-    $bookName = htmlspecialchars($_POST['bookName']);
-    $authorFullName = htmlspecialchars($_POST['authorFullName']);
-    $authorAddress = htmlspecialchars($_POST['authorAddress']);
-    $authorEmail = htmlspecialchars($_POST['authorEmail']);
-    $publisherName = htmlspecialchars($_POST['publisherName']);
-    $publisherAddress = htmlspecialchars($_POST['publisherAddress']);
-    $publisherContact = htmlspecialchars($_POST['publisherContact']);
-    $publisherEmail = htmlspecialchars($_POST['publisherEmail']);
-    $format = htmlspecialchars($_POST['format']);
-    $publicationDate = htmlspecialchars($_POST['publicationDate']);
-    $openAccess = htmlspecialchars($_POST['openAccess']);
-    $isbnRegistered = htmlspecialchars($_POST['isbnRegistered']);
-    $externalPlatforms = htmlspecialchars($_POST['externalPlatforms']);
+        if ($stmt->execute()) {
+            $successMessage = "Form submitted successfully.";
 
-    // Insert into the database
-    $stmt = $conn->prepare(
-        "INSERT INTO author (
-            country, authorContact, bookName, authorFullName, authorAddress, authorEmail, 
-            publisherName, publisherAddress, publisherContact, publisherEmail, 
-            format, publicationDate, openAccess, isbnRegistered, externalPlatforms
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-    );
-    $stmt->bind_param(
-        "sssssssssssssss",
-        $country, $authorContact, $bookName, $authorFullName, $authorAddress, $authorEmail,
-        $publisherName, $publisherAddress, $publisherContact, $publisherEmail,
-        $format, $publicationDate, $openAccess, $isbnRegistered, $externalPlatforms
-    );
+            $to      = $publisherEmail;
+            $subject = "Request for ISBN from a Self Publisher";
+            // $headers .= "From: ".strip_tags("nicholus.mahlangu@nlsa.ac.za"). "\r\n";
+            // $headers .= "Reply-To: ".strip_tags("nicholus.mahlangu@nlsa.ac.za")."\r\n";
+            // $headers .= "CC:";
+            // $headers .= "MIME-Version: 1.0\r\n";
+            // $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
-    if ($stmt->execute()) {
-        $successMessage = "Form submitted successfully.";
+            $mail = new PHPMailer(true);
+            $mail->isSMTP();
+            $mail->SMTPAuth   = true;
+            $mail->Host       = "smtp.gmail.com";
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port       = 587;
+            $mail->Username   = "nicolasmahlangu75@gmail.com";
+            $mail->Password   = "ykbq ecat ctyl avbb ";
+            $mail->setFrom($publisherEmail, $publisherName);
+            $mail->addAddress("nicholus.mahlangu@nlsa.ac.za", "Nicholus");
+            //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
+            $mail->Subject = "$subject";
+            // $mail->Body="<html><body>";
+            $mail->Body = <<<HTML
 
-        $to= $publisherEmail;    
-        $subject = "Request for ISBN from a Self Publisher";
-          
-        $mail = new PHPMailer(true);
-        $mail->isSMTP();
-        $mail->SMTPAuth = true;
-        $mail->Host = "smtp.gmail.com";
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
-        $mail->Username = "nicolasmahlangu75@gmail.com";
-        $mail->Password="ykbq ecat ctyl avbb ";
-        $mail->setFrom($publisherEmail, $publisherName);
-        $mail->addAddress("nicholus.mahlangu@nlsa.ac.za","Nicholus");
-        //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
-        $mail->Subject= "$subject";
-        $mail->Body="Hi Kholofelo. A request for an ISBN has been sent for the book: $bookName by: $publisherName Email addresss: $publisherEmail. We mainly testing the system neh. Thank you";
-        
-        if ($mail->send()) {
-          $successMessage = "Form submitted successfully.";
+              <body>
+                  <div>
+                    <table cellpadding="0" cellspacing="0" width="640" align="center" border="1">
+                      <thead>
+                          <tr>
+                              <th>Country</th>
+                              <th>Book Title</th>
+                              <th>Publisher Name</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                          <td><?php echo $country; ?></td>
+                          <td><?php echo $bookName; ?></td>
+                          <td><?php echo $publisherName; ?></td>
+                          </tr>
+                      </tbody>
 
-          $to= $publisherEmail;    
-          $subject = "ISBN Request Sent Successfully";
-          
-          $mail = new PHPMailer(true);
-          $mail->isSMTP();
-          $mail->SMTPAuth = true;
-          $mail->Host = "smtp.gmail.com";
-          $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-          $mail->Port = 587;
-          $mail->Username = "nicolasmahlangu75@gmail.com";
-          $mail->Password="ykbq ecat ctyl avbb ";
-          $mail->setFrom($publisherEmail, $publisherName);
-          $mail->addAddress($publisherEmail,$publisherName);
-          //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
-          $mail->Subject= "$subject";
-          $mail->Body="Your request for an ISBN as a Self Publisher has been sent to one of our NLSA ISBN Administrators for the book: $bookName by: $publisherName Email addresss: $publisherEmail. We mainly testing the system neh. Thank you";
-          echo "Please check your mail. Email sent!";
+                    </table>
+                  </div>     
+        </body>  
+HTML;
+    // $mail->Body.="</html></body>";
+    // To send HTML mail, the Content-type header must be set
+            $headers = 'MIME-Version: 1.0' . "\r\n";
+            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
+
+    // <html>
+    // <head>
+    //     <title>Review Request Reminder</title>
+    // </head>
+    // <body>
+    //     <p>Here are the cases requiring your review in December:</p>
+    //     <table border="1" cellspacing="3" width="60%">
+
+    //             <thead>
+    //               <tr>
+    //                 <th>Country</th>
+    //                 <th>Book Title</th>
+    //                 <th>Publisher Full Name</th>
+    //                 <th>Publisher Address</th>
+    //                 <th>Publisher Contact</th>
+    //                 <th>Publisher Email</th>
+    //                 <th>Format</th>
+    //                 <th>Estimated Publication Date</th>
+    //                 <th>External Publishing Platforms</th>
+    //               </tr>
+    //             </thead>
+
+    //             <tbody>
+    //               <tr>
+    //                 <td>{$country}</td>
+    //                 <td>{$bookName}</td>
+    //                 <td>{$publisherName}</td>
+    //                 <td>{$publisherAddress}</td>
+    //                 <td>{$publisherContact}</td>
+    //                 <td>{$publisherEmail}</td>
+    //                 <td>{$format}</td>
+    //                 <td>{$publicationDate</td>
+    //                 <td>{$externalPlatforms}</td>
+    //               </tr>
+    //             <tbody>
+    //     </table>
+    // </body>
+    // </html>
+    // ';
+    // $result = mail($to, $subject, $message, $headers);
+
+            if ($mail->send()) {
+                $successMessage = "Form submitted successfully.";
+
+                $to      = $publisherEmail;
+                $subject = "ISBN Request Sent Successfully";
+
+                $mail = new PHPMailer(true);
+                $mail->isSMTP();
+                $mail->SMTPAuth   = true;
+                $mail->Host       = "smtp.gmail.com";
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port       = 587;
+                $mail->Username   = "nicolasmahlangu75@gmail.com";
+                $mail->Password   = "ykbq ecat ctyl avbb ";
+                $mail->setFrom($publisherEmail, $publisherName);
+                $mail->addAddress($publisherEmail, $publisherName);
+                //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
+                $mail->Subject = "$subject";
+                $mail->Body    = "Your request for an ISBN as a Self Publisher has been sent to one of our NLSA ISBN Administrators for the book: $bookName by: $publisherName Email addresss: $publisherEmail. We mainly testing the system neh. Thank you";
+                echo "Please check your mail. Email sent!";
+            }
+        } else {
+            $errorMessage = "Error: " . $stmt->error;
         }
-    } else {
-        $errorMessage = "Error: " . $stmt->error;
-    }
 
-    $stmt->close();
-    $conn->close();
-}
+        $stmt->close();
+        $conn->close();
+    }
 ?>
 
 <!DOCTYPE html>
@@ -127,10 +192,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <h1 class="text-center mb-4">Self-publisher ISBN Request Form</h1>
 
   <!-- Display Success/Error Messages -->
-  <?php if (!empty($successMessage)): ?>
-    <div class="alert alert-success"><?= htmlspecialchars($successMessage) ?></div>
-  <?php elseif (!empty($errorMessage)): ?>
-    <div class="alert alert-danger"><?= htmlspecialchars($errorMessage) ?></div>
+  <?php if (! empty($successMessage)): ?>
+    <div class="alert alert-success"><?php echo htmlspecialchars($successMessage)?></div>
+  <?php elseif (! empty($errorMessage)): ?>
+    <div class="alert alert-danger"><?php echo htmlspecialchars($errorMessage)?></div>
   <?php endif; ?>
 
   <form id="isbnForm" action="" method="POST" class="needs-validation" novalidate>
@@ -214,33 +279,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class="invalid-feedback">Please select a country.</div>
     </div>
 
-    <!-- Contact Number -->
-    <div class="mb-3">
-      <label for="authorContact" class="form-label">Author Contact Number</label>
-      <div class="input-group">
-        <span class="input-group-text" id="countryCode">+1</span>
-        <input type="text" id="authorContact" name="authorContact" class="form-control" pattern="\d{7,15}" placeholder="Enter phone number" required>
-      </div>
-      <div class="invalid-feedback">Please enter a valid phone number.</div>
-    </div>
-
     <!-- other Fields -->
     <div class="mb-3">
       <label for="bookName" class="form-label">Title/Name of the Book(s)</label>
       <input type="text" id="bookName" name="bookName" class="form-control" required>
     </div>
-    <div class="mb-3">
-      <label for="authorFullName" class="form-label">Author Full Name</label>
-      <input type="text" id="authorFullName" name="authorFullName" class="form-control" required>
-    </div>
-    <div class="mb-3">
-      <label for="authorAddress" class="form-label">Full Physical Address</label>
-      <input type="text" id="authorAddress" name="authorAddress" class="form-control" required>
-    </div>
-    <div class="mb-3">
-      <label for="authorEmail" class="form-label">Author Email Address</label>
-      <input type="email" id="authorEmail" name="authorEmail" class="form-control" required>
-    </div>
+
     <div class="mb-3">
       <label for="publisherName" class="form-label">Publisher Name</label>
       <input type="text" id="publisherName" name="publisherName" class="form-control" required>
@@ -270,20 +314,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <label for="publicationDate" class="form-label">Estimated Publication Date</label>
       <input type="text" id="publicationDate" name="publicationDate" class="form-control datepicker" required>
     </div>
-    <div class="mb-3">
-      <label for="openAccess" class="form-label">Will your publications be available as Open Access?</label>
-      <select id="openAccess" name="openAccess" class="form-select" required>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>
-    </div>
-    <div class="mb-3">
-      <label for="isbnRegistered" class="form-label">The ISBN should be registered against:</label>
-      <select id="isbnRegistered" name="isbnRegistered" class="form-select" required>
-        <option value="Author">The Author</option>
-        <!--<option value="Publisher">The Publisher</option>-->
-      </select>
-    </div>
+
     <div class="mb-3">
       <label for="externalPlatforms" class="form-label">External Publishing Platforms</label>
       <input type="text" id="externalPlatforms" name="externalPlatforms" class="form-control" placeholder="e.g. Amazon" required>

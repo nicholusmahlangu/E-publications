@@ -28,6 +28,7 @@ $query = "SELECT
             b.ISBN AS isbn, 
             b.FileUpload AS file_path, 
             b.downloads AS download_count, 
+            b.publicationyear,
             b.status, 
             u.FullName AS cataloguer_name 
           FROM book_informationsheet b
@@ -35,7 +36,7 @@ $query = "SELECT
           LEFT JOIN users u ON a.cataloguer_id = u.User_ID";
 
 if ($searchTerm !== '') {
-    $query .= " WHERE b.PublicationTitle LIKE :search OR b.Genre LIKE :search OR b.ISBN LIKE :search";
+    $query .= " WHERE b.PublicationTitle LIKE :search OR b.Genre LIKE :search OR b.ISBN LIKE :search OR b.Book_ID LIKE :search OR u.fullname LIKE :search OR b.publicationyear LIKE :search OR b.status LIKE :search";
 }
 $query .= " LIMIT :limit OFFSET :offset";
 
@@ -121,7 +122,7 @@ $totalPages = ceil($totalRecords / $limit);
 
         <!-- Search Bar -->
         <div class="input-group mb-4">
-          <input type="text" id="search-input" class="form-control" placeholder="Search documents..." value="<?= htmlspecialchars($searchTerm) ?>">
+          <input type="text" id="search-input" class="form-control" placeholder="Search documents using any keyword..." value="<?= htmlspecialchars($searchTerm) ?>">
           <button class="btn btn-primary" onclick="search()">Search</button>
         </div>
 
@@ -137,6 +138,7 @@ $totalPages = ceil($totalRecords / $limit);
                 <th>Cataloguer</th>
                 <th>File</th>
                 <th>Downloads</th>
+                <th>Publication Year</th>
                 <th>Status</th>
                 <th>Action</th>
               </tr>
@@ -156,6 +158,7 @@ $totalPages = ceil($totalRecords / $limit);
                       <a href="download_document.php?Book_ID=<?= htmlspecialchars($doc['id']) ?>" class="btn btn-link">Download</a>
                     </td>
                     <td><?= htmlspecialchars($doc['download_count']) ?></td>
+                    <td><?= htmlspecialchars($doc['publicationyear']) ?></td>
                     <td><?= htmlspecialchars($doc['status']?? 'assigned') ?></td>
 
                     <td>

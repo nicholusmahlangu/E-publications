@@ -128,16 +128,14 @@
 
             <nav id="navbar" class="navbar" role="navigation">
                 <ul>
-                <li><a href="index.php" class="getstarted">E-pubs - Home</</li>
-                    <li><a href="form.php" class="getstarted">SANB Information Form</</li>
-                    <li><a href="https://www.nlsa.ac.za/" class="getstarted">NLSA Website</a></li>
+                <!--      <li><a href="index.php" class="getstarted">E-pubs - Home</</li> -->
+                     <li><a href="form.php" class="getstarted">SANB Information Form</</li>
                 </ul>
                 <i class="bi bi-list mobile-nav-toggle" tabindex="0" role="button" aria-label="Toggle navigation"></i>
             </nav>
         </div>
     </header>
 
-    
     <script>
         document.querySelector('.mobile-nav-toggle').addEventListener('click', function () {
             const navbar = document.getElementById('navbar');
@@ -145,8 +143,6 @@
         });
     </script>
 
-    
+
 </body>
 </html>
-
-

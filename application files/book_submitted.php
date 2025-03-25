@@ -6,13 +6,13 @@
     <title>book submitted</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
-    <!-- 
-    Tab icon      
+    <!--
+    Tab icon
     <link href="../assets/img/favicon.webp" rel="icon">
     -->
     <!-- Google fonts -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-    
+
     <!-- Vendor CSS Files -->
     <link href="../assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="../assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -23,7 +23,8 @@
     <link href="../assets/vendor/animate.css/animate.min.css" rel="stylesheet"> <!-- Animation CSS -->
 
     <!-- Main CSS file -->
-    <link href="../assets/css/index.css" rel="stylesheet">
+    <link href="../assets/css/book_submitted.css" rel="stylesheet">
+
     <style>
         /* Adding background image to the hero section */
         #hero {
@@ -51,14 +52,14 @@
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
           anchor.addEventListener('click', function (e) {
             e.preventDefault();
-    
+
             document.querySelector(this.getAttribute('href')).scrollIntoView({
               behavior: 'smooth'
             });
           });
         });
     </script>
-</head> 
+</head>
 
 <body>
     <!--Include Header -->
@@ -67,31 +68,11 @@
     <!-- ======= Hero Section ======= -->
     <section id="hero" class="animate__animated animate__fadeIn animate__delay-1s">
         <div class="hero-container">
-            <h1>Book has been successfully submitted</h1>
+            <h1 class="submit_message">E-Book has been successfully submitted</h1>
             <a href="https://www.nlsa.ac.za/" class="btn-get-started scrollto animate__animated animate__pulse animate__infinite">Want to visit the NLSA website? Click Here</a>
         </div>
     </section>
 
-    <!-- <main id="main"> 
-        <section id="about" class="about">
-            <div class="container">
-                <div class="section-title">
-                    <h2 class="animate__animated animate__fadeInLeft">Overview</h2>
-                    <h3>Learn More <span>About the E-publications</span></h3>
-                    <p>The E-Pubs will help different publishers file their books and receive ISBNs for each book.</p>
-                    <ul class="form_links">
-                    <li><a href="isbn_request.php" class="getstarted">ISBN Request Form for Self-publishers</a></li>
-                    <li><a href="isbn_publisher.php" class="getstarted">ISBN Request Form for Commercial publishers</a></li>
-                    <li><a href="form.php" class="getstarted">SANB Information Form</a></li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-         Additional Sections Here -->
-
-    <!-- </main> --> 
-    
-    <!-- Include Footer -->
      <footer id="footer" class="animate__animated animate__fadeInUp">
 
 <div class="container d-md-flex py-4">
@@ -100,7 +81,7 @@
             Copyright <strong><span>NLSA</span></strong>. All Rights Reserved
         </div>
     </div>
-    
+
 
     <!-- Social Media Icons -->
     <div class="social-links text-center text-md-end pt-3 pt-md-0">
