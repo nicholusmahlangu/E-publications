@@ -6,17 +6,51 @@
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // validate inputs
-        $country           = htmlspecialchars($_POST['country']);
-        $bookName          = htmlspecialchars($_POST['bookName']);
-        $publisherName     = htmlspecialchars($_POST['publisherName']);
-        $publisherAddress  = htmlspecialchars($_POST['publisherAddress']);
-        $publisherContact  = htmlspecialchars($_POST['publisherContact']);
-        $publisherEmail    = htmlspecialchars($_POST['publisherEmail']);
-        $format            = htmlspecialchars($_POST['format']);
-        $publicationDate   = htmlspecialchars($_POST['publicationDate']);
-        $externalPlatforms = htmlspecialchars($_POST['externalPlatforms']);
+function isValidSouthAfricanID($id_number) {
+  if (!preg_match('/^\d{13}$/', $id_number)) {
+      return false;
+  }
+
+  $dob = substr($id_number, 0, 6);
+  $citizen = substr($id_number, 10, 1);
+  $checksum = substr($id_number, -1);
+
+  // Validate date of birth
+  $year = substr($dob, 0, 2);
+  $month = substr($dob, 2, 2);
+  $day = substr($dob, 4, 2);
+  $full_year = ($year < date('y')) ? '20' . $year : '19' . $year;
+  if (!checkdate($month, $day, $full_year)) {
+      return false;
+  }
+
+  // Validate citizenship (must be 0 for South Africans)
+  if ($citizen !== '0') {
+      return false;
+  }
+
+  // Validate using Luhn Algorithm
+  return luhnCheck($id_number);
+}
+
+function luhnCheck($number) {
+  $sum = 0;
+  $alt = false;
+  $digits = str_split(strrev($number));
+  foreach ($digits as $i => $digit) {
+      $num = (int) $digit;
+      if ($alt) {
+          $num *= 2;
+          if ($num > 9) {
+              $num -= 9;
+          }
+      }
+      $sum += $num;
+      $alt = !$alt;
+  }
+  return ($sum % 10) === 0;
+}
+
 
         // Insert into the database
         $stmt = $conn->prepare(
@@ -32,16 +66,43 @@
             $format, $publicationDate, $externalPlatforms
         );
 
-        if ($stmt->execute()) {
-            $successMessage = "Form submitted successfully.";
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // validate inputs
+    $id_number = $_POST['id_number'];
+    $country = htmlspecialchars($_POST['country']);
+    $authorContact = htmlspecialchars($_POST['authorContact']);
+    $bookName = htmlspecialchars($_POST['bookName']);
+    $authorFullName = htmlspecialchars($_POST['authorFullName']);
+    $authorAddress = htmlspecialchars($_POST['authorAddress']);
+    $authorEmail = htmlspecialchars($_POST['authorEmail']);
+    $publisherName = htmlspecialchars($_POST['publisherName']);
+    $publisherAddress = htmlspecialchars($_POST['publisherAddress']);
+    $publisherContact = htmlspecialchars($_POST['publisherContact']);
+    $publisherEmail = htmlspecialchars($_POST['publisherEmail']);
+    $format = htmlspecialchars($_POST['format']);
+    $publicationDate = htmlspecialchars($_POST['publicationDate']);
+    $openAccess = htmlspecialchars($_POST['openAccess']);
+    $isbnRegistered = htmlspecialchars($_POST['isbnRegistered']);
+    $externalPlatforms = htmlspecialchars($_POST['externalPlatforms']);
 
-            $to      = $publisherEmail;
-            $subject = "Request for ISBN from a Self Publisher";
-            // $headers .= "From: ".strip_tags("nicholus.mahlangu@nlsa.ac.za"). "\r\n";
-            // $headers .= "Reply-To: ".strip_tags("nicholus.mahlangu@nlsa.ac.za")."\r\n";
-            // $headers .= "CC:";
-            // $headers .= "MIME-Version: 1.0\r\n";
-            // $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
+    if (!isValidSouthAfricanID($id_number)) {
+      die("Invalid South African ID number.");
+  }
+
+    // Insert into the database
+    $stmt = $conn->prepare(
+        "INSERT INTO author (
+            idNumber, country, authorContact, bookName, authorFullName, authorAddress, authorEmail, 
+            publisherName, publisherAddress, publisherContact, publisherEmail, 
+            format, publicationDate, openAccess, isbnRegistered, externalPlatforms
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    );
+    $stmt->bind_param(
+        "ssssssssssssssss",
+        $id_number, $country, $authorContact, $bookName, $authorFullName, $authorAddress, $authorEmail,
+        $publisherName, $publisherAddress, $publisherContact, $publisherEmail,
+        $format, $publicationDate, $openAccess, $isbnRegistered, $externalPlatforms
+    );
 
             $mail = new PHPMailer(true);
             $mail->isSMTP();
@@ -79,7 +140,7 @@
                     </table>
                   </div>     
         </body>  
-HTML;
+      HTML;
     // $mail->Body.="</html></body>";
     // To send HTML mail, the Content-type header must be set
             $headers = 'MIME-Version: 1.0' . "\r\n";
@@ -187,7 +248,7 @@ HTML;
 
 <div class="container mt-5">
         <center>
-            <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:18%; height:18%">
+            <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:25%; height:20%">
         </center>
   <h1 class="text-center mb-4">Self-publisher ISBN Request Form</h1>
 
@@ -280,6 +341,10 @@ HTML;
     </div>
 
     <!-- other Fields -->
+    <div class="mb-5">
+    <label for="id_number" class="form-label">ID Number:</label>
+    <input type="text" name="id_number" required pattern="\d{13}" title="Enter a valid 13-digit South African ID number." class="form-control" required>
+    </div>
     <div class="mb-3">
       <label for="bookName" class="form-label">Title/Name of the Book(s)</label>
       <input type="text" id="bookName" name="bookName" class="form-control" required>
