@@ -1,40 +1,45 @@
 <?php
-// Start session
 session_start();
-// Database connection parameters
 include 'conn.php';
 
-// // Create connection
-// $conn = new mysqli($servername, $username, $password, $database);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = trim($_POST['email'] ?? '');
+    $password = trim($_POST['password'] ?? '');
 
-// Check connection
-// if ($conn->connect_error) {
-//     die("Connection failed: " . $conn->connect_error);
-// }
-$username = $_POST['email'];
-$password = $_POST['password'];
-// Check if the form is submitted
-if (trim($username)!="" || trim($password)!="") {
-    // Perform SQL query to check user credentials
-    //$password = md5('password');
-    $sql = "SELECT * FROM users WHERE EmailAddress = '$username' AND Password = '$password'";
-    $result = $conn->query($sql);
-    
-    // Check if user exists
-    if ($result->num_rows > 0) {
-        // User authenticated successfully, set session variables
-        $_SESSION['email'] = $username;
-        $_SESSION['password'] = $password;
-        // Redirect to dashboard or desired page
-        header("Location:../../application files/dashboard.php");
-        exit();
-    } else {
-        // Invalid credentials, display error message
-        echo "Invalid email or password.";
+    if ($username === "" || $password === "") {
+        echo "Please input the correct login credentials!";
+        exit;
     }
-}else{
-    echo "Please input the correct login credentials!";
-}
 
-// Close connection
-$conn->close();
+    if ($conn && $conn->ping()) {
+        // Use prepared statement with error checking
+        $stmt = $conn->prepare("SELECT User_ID, EmailAddress, Password FROM users WHERE EmailAddress = ?");
+        if ($stmt === false) {
+            die("Prepare failed: " . htmlspecialchars($conn->error));
+        }
+        
+        $stmt->bind_param("s", $username);
+        $stmt->execute();
+        $result = $stmt->get_result();
+
+        if ($result->num_rows > 0) {
+            $row = $result->fetch_assoc();
+            // Verify password
+            if (password_verify($password, $row['Password'])) {
+                // Set session variables
+                $_SESSION['email'] = $row['EmailAddress'];
+                $_SESSION['user_id'] = $row['User_ID']; // store user id instead of password
+                header("Location: ../../application files/dashboard.php");
+                exit;
+            }
+        }
+        echo "Invalid email or password.";
+        exit;
+    } else {
+        echo "Database connection error.";
+        exit;
+    }
+} else {
+    echo "Invalid request method.";
+    exit;
+}
