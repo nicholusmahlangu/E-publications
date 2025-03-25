@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 14, 2025 at 12:25 PM
+-- Generation Time: Feb 18, 2025 at 07:49 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -63,19 +63,9 @@ CREATE TABLE `assignments` (
 --
 
 INSERT INTO `assignments` (`id`, `book_id`, `cataloguer_id`, `assigned_by`, `status`, `assigned_at`, `completed_at`) VALUES
-(4, 5, 5, NULL, 'Reviewed', '2025-01-08 06:51:27', NULL),
-(5, 1, 2, NULL, 'Assigned', '2025-01-08 07:48:26', NULL),
-(6, 4, 11, NULL, 'Assigned', '2025-01-08 08:45:22', NULL),
-(7, 3, 7, NULL, 'Reviewed', '2025-01-08 08:48:45', NULL),
-(8, 2, 12, NULL, 'Assigned', '2025-01-15 11:15:49', NULL),
-(9, 1, 2, NULL, 'Assigned', '2025-01-16 09:02:24', NULL),
-(11, 6, 13, NULL, 'Assigned', '2025-01-17 12:50:07', NULL),
-(12, 7, 13, NULL, 'Assigned', '2025-01-17 13:17:41', NULL),
-(13, 11, 13, NULL, 'Assigned', '2025-01-20 12:31:35', NULL),
-(14, 10, 13, NULL, 'Assigned', '2025-01-20 13:37:17', NULL),
-(15, 13, 1, NULL, 'Assigned', '2025-02-12 09:05:31', NULL),
-(16, 12, 1, NULL, 'Assigned', '2025-02-12 09:50:02', NULL),
-(25, 16, 1, NULL, 'Assigned', '2025-02-14 10:15:23', NULL);
+(26, 17, 15, NULL, 'Assigned', '2025-02-17 13:30:00', NULL),
+(27, 18, 15, NULL, 'Assigned', '2025-02-17 13:31:46', NULL),
+(28, 19, 16, NULL, 'Assigned', '2025-02-17 13:31:57', NULL);
 
 --
 -- Triggers `assignments`
@@ -148,7 +138,7 @@ CREATE TABLE `author` (
 --
 
 INSERT INTO `author` (`id`, `country`, `bookName`, `authorFullName`, `authorAddress`, `authorContact`, `authorEmail`, `publisherName`, `publisherAddress`, `publisherContact`, `publisherEmail`, `format`, `publicationDate`, `openAccess`, `isbnRegistered`, `externalPlatforms`, `created_at`) VALUES
-(1, '', 'h', 'Davis', 'Skral', '1111111111', '$2y$10$UlE29zXf4MiGdiphmctGk.xtAn4fh0rB/vlpJDK3mz3tDlFqB8Xza', 'd', 'd', '1111111111', '$2y$10$EaNHPTwdsxUK2McAC3rG4.psoSZOg6bbZ9IgJCSIFLIqHM9f/3rC.', '', '0000-00-00', 'Yes', '', 'Amazon', '2025-01-15 10:24:01');
+(2, 'South Africa', 'Honour', 'William Smith', '2588 New Eerstrust Block D', '0713991678', 'nicolasmahlangu75@gmail.com', 'Molebogang Mahlangu', '1896 Orchards New Road Avenue', '0812346754', 'linkiesebola345@gmail.com', '', '2025-02-26', 'Yes', 'Author', 'Microsoft Azure', '2025-02-17 13:41:45');
 
 -- --------------------------------------------------------
 
@@ -185,22 +175,10 @@ CREATE TABLE `book_informationsheet` (
 --
 
 INSERT INTO `book_informationsheet` (`Book_ID`, `PublisherEmail`, `AuthorName`, `AuthorPseudonym`, `EditorName`, `PublicationTitle`, `BookEdition`, `Impression`, `Isbn`, `SetISBN`, `PublisherName`, `PublisherAddress`, `PublicationYear`, `Price`, `FictionOrNonFiction`, `Genre`, `PublicationLanguage`, `EnglishVersionTitle`, `FileUpload`, `downloads`, `status`) VALUES
-(1, 'nicholus.mahlangu@nlsa.ac.za', 'Nick', 'Nick', '2341', 'Chronicles of a genuine character', '8th edition', 'Educational', '2147483647', '13 digits', 'Maphota Shiburi', 'Johannes Mogase', '2019', 130.34, 'Fiction', 'Academical', 'Chronicles of a genuine character', 'Chronicles of a genuine character', '6733218cdd8c3_Contact Information (Responses) - Form responses 1.pdf', 6, 'Pending'),
-(2, 'maphota@nlsa.ac.za', 'Maphota Shiburi', 'dhbhgyhd', 'Reitumetse Mahlangu', 'Word of wisdom', '8th', 'Enlightenment', '2147483647', 'gdftftd', 'Nick', 'Skral', '2017', 111.45, 'Nonfiction', 'Educational', 'English', 'Word of wisdom', '67629cc956fda_Week four November 2024 Timesheet.pdf', 0, 'Reviewed'),
-(3, 'maphota@nlsa.ac.za', 'Eugene Williams', 'bghd', 'Maphota Shiburi', 'Chronicles of a genuine character', '6th', 'Enlightenment', '2147483647', 'gdftftd', 'Nick', 'Skral', '2017', 123.67, 'Nonfiction', 'Enlighten', 'English', 'Chronicles of a genuine character', '6762a3518c2ac_Week four November 2024 Timesheet.pdf', 0, 'Reviewed'),
-(4, 'maphota@nlsa.ac.za', 'dddd', 'dhbhgyhd', 'jjbjbd', 'cc', 'dhhd', 'hdgygd', '2147483647', 'gdftftd', 'Nick', 'Skral', '2017', 111.45, 'Nonfiction', 'fhghgf', 'hfgyf', 'fvgf', '6762cc9b67718_Week four November 2024 Timesheet.pdf', 0, 'Reviewed'),
-(5, 'Simzo477@gmail.com', 'Maphota', 'David', 'Nicholus', 'NLSA Development', 'limited', 'impressed', '2147483647', 'ISBN set', 'Siemon', 'Pretoria', '2024', 129.67, 'Fiction', 'learning', 'English', 'NLSA Development', '677d27582df1d_Week Two Dec 2024 Timesheet.pdf', 2, 'Pending'),
-(6, 'Jr@gmail.com', 'jr', 'sante', 'rj', 'enock', 'limited', 'expressed', '2147483647', 'ISBN set', 'Siemon', 'Pretoria', '2024', 34.89, 'Fiction', 'learning', 'English', 'enock', '678a508996adc_Jan 2025 Timesheet.pdf', 0, 'Reviewed'),
-(7, 'johncena@NLSA.ac.za', 'john', 'Sie', 'cena', 'wrestling', 'brock', 'impressed', '2147483647', 'set', 'john wick', 'Pretoria', '2025', 89.56, 'Nonfiction', 'learning', 'English', 'applicable', '678a583ec96a6_Week one Dec 2024 Timesheet.pdf', 1, 'Reviewed'),
-(8, 'NLSA@nlsa.a.za', 'NLSA', 'Siemon', 'wick', 'coder', 'brocker', 'impressed', '2147483647', 'set', 'john wick', 'Pretoria', '2025', 86.45, 'Nonfiction', 'learning', 'English', 'applicable', '678e17d56b573_Week Three Dec 2024 Timesheet.pdf', 0, 'Pending'),
-(9, 'Library@nlsa.a.za', 'NLSA', 'Siemon', 'wick', 'coder', 'brocker', 'impressed', '2147483647', 'set', 'john wick', 'Pretoria', '2025', 23.78, 'Fiction', 'learning', 'English', 'Applicable', '678e1e201f4f6_Jan 2025 Timesheet.pdf', 0, 'Pending'),
-(10, 'Libraryloop@nlsa.a.za', 'dddd', 'sante', 'jjbjbd', 'NLSA Development', 'brocker', 'impressed', '2147483647', 'set', 'john wick', 'Sosha', '2025', 45.97, 'Nonfiction', 'learning', 'English', 'Not applicable', '678e313a5809d_Jan 2025 Timesheet.pdf', 1, 'Assigned'),
-(11, 'Tintswalo@nlsa.ac.za', 'Asante', 'santeSana', 'jjbjbd', 'NLSA Development', 'brocker', 'impressed', '1010101010101', 'set', 'john wick', 'Sosha', '2025', 34.89, 'Nonfiction', 'learning', 'English', 'Not applicable', '678e322307b43_Week two November 2024 Timesheet.pdf', 0, 'Reviewed'),
-(12, 'n.mahlungu@outlook.com', 'Nicholus Mahlangu', 'Molebogeng Mahlangu', 'nick', 'Words of Knowledge', '11th', 'Knowledgeable', '6251678938362', 'tf673', 'Reitumetse Mahlangu', '1896 RDP Ext Hammanskraal 0407', '2020', 250.89, 'Nonfiction', 'Historical', 'English', 'Words of Knowledge', '67ac624bdabf3_S2_Capeto0002 - Extension - 124023009.pdf', 0, 'Reviewed'),
-(13, 'n.mahlungu@outlook.com', 'Nicholus Mahlangu', 'Molebogeng Mahlangu', 'nick', 'Words of Knowledge', '11th', 'Knowledgeable', '6251678938361', 'tf673', 'Reitumetse Mahlangu', '1896 RDP Ext Hammanskraal 0407', '2020', 250.89, 'Nonfiction', 'Historical', 'English', 'Words of Knowledge', '67ac639db935e_S2_Capeto0002 - Extension - 124023009.pdf', 0, 'Pending'),
-(14, 'Sie@gmail.com', 'Mahlangu', 'Tie', 'Sie', 'Que', 'Nock', 'impressed', '1234567890111', '6t76uu', 'Reitumetse Mahlangu', 'Johannes Mogase', '2025', 1000.76, 'Fiction', 'gr', 'Engllish', 'Telephones', '67aca08043d46_Leave Application Form_signed.pdf', 0, 'Pending'),
-(15, 'n.mahlungu@outlook.com', 'Reitumetse Mahlangu', 'Dikeledi Makgoba', 'reitu', 'The chronicles of Origins', '5th edition', 'Educational', '1232425762549', '45323', 'Nick Williams', '234 Johannes Mogase', '2016', 123.78, 'Fiction', 'Wisdom', 'English', 'The Chronicles of Origins', '67af127625cbe_S2_Capeto0002 - Extension - 124023009.pdf', 0, 'Unassigned'),
-(16, 'n.mahlungu@outlook.com', 'Keletso Mmulutsi', 'Maphota Shiburi', 'Kele', 'NLSA Architecture', 'Nock', 'impressed', '1232425762547', '13 digits', 'Reitumetse Mahlangu', 'Johannes Mogase', '2015', 138.89, 'Nonfiction', 'Flex', 'English', 'Words of Knowledge', '67af176b650fa_Contact Information (Responses) - Form responses 1.pdf', 0, 'Assigned');
+(17, 'n.mahlungu@outlook.com', 'Nicholas Makgoba', 'Molebogeng Mahlangu', 'niMk', 'The chronicles of Honour', '2nd', 'Knowledgeable', '2147483648765', '13 digits', 'Reitumetse Mahlangu', '1896 RDP Ext Hammanskraal 0407', '2018', 156.78, 'Fiction', 'Academic', 'English', 'The chronicles of Honour', '67b32e373a0e9_Contact Information (Responses) - Form responses 1.pdf', 1, 'Pending'),
+(18, 'n.mahlungu@outlook.com', 'Nicholas Makgoba', 'Molebogeng Mahlangu', 'niMk', 'The chronicles of Humility', '2nd', 'Knowledgeable', '2147483648768', '13 digits', 'Reitumetse Mahlangu', '1896 RDP Ext Hammanskraal 0407', '2018', 156.78, 'Fiction', 'Academic', 'English', 'The chronicles of Humility', '67b32eeee49eb_Contact Information (Responses) - Form responses 1.pdf', 0, 'Reviewed'),
+(19, 'n.mahlungu@outlook.com', 'Nicholas Makgoba', 'Molebogeng Mahlangu', 'niMk', 'The chronicles of Africa', '2nd', 'Knowledgeable', '2147483648764', '13 digits', 'Reitumetse Mahlangu', '1896 RDP Ext Hammanskraal 0407', '2018', 156.78, 'Fiction', 'Academic', 'English', 'The chronicles of Africa', '67b32f6baeb14_Contact Information (Responses) - Form responses 1.pdf', 0, 'Assigned'),
+(20, 'n.mahlungu@outlook.com', 'Nicholas Makgoba', 'Molebogeng Mahlangu', 'niMk', 'The chronicles of Venecular', '2nd', 'Knowledgeable', '2147483648762', '13 digits', 'Reitumetse Mahlangu', '1896 RDP Ext Hammanskraal 0407', '2018', 156.78, 'Fiction', 'Academic', 'English', 'The chronicles of Venecular', '67b330cd814f0_Contact Information (Responses) - Form responses 1.pdf', 0, 'Unassigned');
 
 -- --------------------------------------------------------
 
@@ -224,10 +202,9 @@ CREATE TABLE `notifications` (
 --
 
 INSERT INTO `notifications` (`id`, `title`, `description`, `type`, `date`, `file_path`, `created_at`, `cataloguer_id`) VALUES
-(4, 'Test Notification', 'This is a test.', 'alert', '2024-11-30', NULL, '2024-11-29 07:40:24', NULL),
-(5, 'New Task Assigned', 'A new task has been assigned for Book ID: 7.', '', NULL, NULL, '2025-01-17 13:17:41', 13),
-(6, 'New Task Assigned', 'A new task has been assigned for Book ID: 11.', '', NULL, NULL, '2025-01-20 12:31:35', 13),
-(7, 'New Task Assigned', 'A new task has been assigned for Book ID: 10.', '', NULL, NULL, '2025-01-20 13:37:17', 13);
+(8, 'New Task Assigned', 'A new task has been assigned for Book ID: 17.', '', '2025-02-17', NULL, '2025-02-17 13:30:00', 15),
+(9, 'New Task Assigned', 'A new task has been assigned for Book ID: 18.', '', '2025-02-17', NULL, '2025-02-17 13:31:46', 15),
+(10, 'New Task Assigned', 'A new task has been assigned for Book ID: 19.', '', '2025-02-17', NULL, '2025-02-17 13:31:57', 16);
 
 -- --------------------------------------------------------
 
@@ -256,16 +233,6 @@ CREATE TABLE `publisher` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `publisher`
---
-
-INSERT INTO `publisher` (`id`, `country`, `idNumber`, `bookName`, `authorFullName`, `authorAddress`, `authorContact`, `authorEmail`, `publisherName`, `publisherAddress`, `publisherContact`, `publisherEmail`, `format`, `publicationDate`, `openAccess`, `isbnRegistered`, `externalPlatforms`, `created_at`) VALUES
-(1, '', '', 'Sie', 'Siemon', 'Pretoria', '1234567890', '$2y$10$8oma09MaFEko8due62GH9egaksp4qdp/Wx/A3qH9C6jdfdfbAgUCO', 'Maphota', 'Sosha', '0123456789', '$2y$10$MdtiALpIrVMRvHa.2R.hjuov2/9HFmF7VQFYXJ3o8SIDOfCaLn2Tu', '', '0000-00-00', 'No', 'Publisher', 'NLSA', '2025-01-15 10:26:15'),
-(2, '', '', 'Simon', '', '', '', '$2y$10$JljaZuXbHdKDHiKmk75qheUTQ0mPbuPgATTM3NlwV4rTRneiZyENe', '', '', '', '$2y$10$sJwoQu1C1TUY4eH1ctpB3.8LIV/xC4fKbKHzi8bdwDo9mBThTvkF2', '', '0000-00-00', '', '', '', '2025-01-17 07:45:11'),
-(3, 'South Africa', '', 'Self-publisher ISBN Request Form is working', 'Nicholus Mahlangu', '225 Johannes Mogase Pretoria 0001', '0766180918', 'nicolasmahlangu6@gmail.com', 'Nicholus Mahlangu', '1896 Orchards New Road Avenue', '0711218836', 'nicholus.mahlangu@nlsa.ac.za', '', '2025-02-19', 'Yes', '', 'Amazon', '2025-02-12 06:52:36'),
-(4, 'South Africa', '', 'Self-publisher ISBN Request Form is working', 'Busisiwe Mahlangu', '225 Johannes Mogase Pretoria 0001', '0711218836', 'nicolasmahlangu6@gmail.com', 'Nicholus Mahlangu', '1896 Orchards New Road Avenue', '0711218836', 'nicholus.mahlangu@nlsa.ac.za', '', '2025-02-13', 'Yes', 'Publisher', 'Amazon', '2025-02-12 06:57:10');
-
 -- --------------------------------------------------------
 
 --
@@ -288,20 +255,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`User_ID`, `FullName`, `EmailAddress`, `Contact`, `Password`, `verify_token`, `verify_status`, `created_at`) VALUES
-(1, 'Nicholus Mahlangu', 'nicholus.mahlangu@nlsa.ac.za', '0711218836', '2de0ea0e2f615118dc69f054e55a17c6', '7cc5042dd36aaf219c33e804433eb055nlsa', 1, '2025-02-13 10:55:36'),
-(2, 'simon', 'Sie@gmail.com', '0699609675', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, NULL, NULL),
-(3, 'Simon', 'Sie@nlsa.ac.za', '0699609675', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, NULL, NULL),
-(4, 'Simon', 'Sie@nlsa.ac.za', '0699609675', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, NULL, NULL),
-(5, 'sie', 'Siemon@gmail.com', 'Sie@gmail.', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, NULL, NULL),
-(6, 'simon', 'Simon@gmail.com', 'Sie@gmail.', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, NULL, NULL),
-(7, 'www', 'Siemzo@gmail.com', '0699609675', '$2y$10$BVdhuHtQgzfy5ltsfDxvA.qTkmNSy4ecGY4Fow.OeO9QsJvVAaDIW', NULL, NULL, NULL),
-(8, 'Simon Shiburi', 'shiburisimon2@gmail.com', '09990909', '$2y$10$Jyoc.cSTZ1HVCOc8mNig8ujMKup62R3eQxgK2CHE05IKt9kf6973S', NULL, NULL, NULL),
-(9, 'Maphota', 'Siem@gmail.com', '0699609675', '$2y$10$3zEfDVLriWS6G3CISBpdXOEmD866x5zfv5aqPzmPEb0/FU1kfeGrS', NULL, NULL, NULL),
-(10, 'Maphota', 'maphota.shiburi@nlsa.ac.za', '099909', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, NULL, NULL),
-(11, 'Keletso Mmulutsi', 'keletso@nlsa.ac.za', '0763452617', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, NULL, NULL),
-(12, 'Maphota', 'ShiburiMaphota@nlsa.ac.za', '0711111111', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, NULL, NULL),
-(13, 'AsanteSie', 'Asante@nlsa.ac.za', '0888888888', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, NULL, NULL),
-(14, 'Nick Williams', 'nicholus.mahlangu@nlsa.ac.za', '0766180918', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, NULL, NULL);
+(15, 'Nicholus Mahlangu', 'nicholus.mahlangu@nlsa.ac.za', '0766180918', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, NULL, NULL),
+(16, 'Reitumetse Mahlangu', 'n.mahlungu@outlook.com', '0711218836', '5f4dcc3b5aa765d61d8327deb882cf99', NULL, NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -369,25 +324,25 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT for table `assignments`
 --
 ALTER TABLE `assignments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `author`
 --
 ALTER TABLE `author`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `book_informationsheet`
 --
 ALTER TABLE `book_informationsheet`
-  MODIFY `Book_ID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `Book_ID` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `notifications`
 --
 ALTER TABLE `notifications`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `publisher`
@@ -399,7 +354,7 @@ ALTER TABLE `publisher`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `User_ID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- Constraints for dumped tables

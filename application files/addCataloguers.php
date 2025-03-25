@@ -1,7 +1,3 @@
-<?php 
-    session_start();
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,11 +12,10 @@
     <style>
     body {
       background-color: #f8f9fa;
-      
     }
 
 
-    .back-button {
+.back-button {
 background-color:rgb(28, 28, 28); /* green background */
 color: #fff; /* white text */
 padding: 5px 10px; /* add some padding */
@@ -41,10 +36,6 @@ font-size: 18px; /* set font size for icon */
 .back-button:hover {
 background-color:rgb(113, 111, 114); /* darker green on hover */
 }
-
- 
-        
-
   </style>
 
     

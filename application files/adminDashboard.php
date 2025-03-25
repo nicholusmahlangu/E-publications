@@ -1,4 +1,5 @@
 <?php
+require_once('session_config.php');
 require_once('../assets/php/adminDashboard.php');
 $query = "select * from book_informationsheet";
 $result = mysqli_query($conn,$query);
@@ -10,6 +11,9 @@ $ReviewedBookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet WH
 $PendingBookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet WHERE status='Pending'";
 
 $UnassignedBookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet WHERE status NOT IN('Pending', 'Assigned', 'Reviewed')";
+
+$AssignedBookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet WHERE status IN('Assigned')";
+
 ?>
 
 <!DOCTYPE html>
@@ -60,11 +64,11 @@ $UnassignedBookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet 
 
       </div>      
 <ul>
-<li class="other-options">
+<!-- <li class="other-options">
     <a href="#">
       <span class="las la-chart-pie"></span> Analytics
     </a>
-  </li>
+  </li> -->
   <li class="dropdown">
     <a href="#" class="dropdown-button">
       <span class="las la-user-edit"></span> User Management +
@@ -209,6 +213,24 @@ $UnassignedBookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet 
                         </h2>
                     </div>
                     <div class="card-chart success">
+                        <span class="las la-chart-line"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-single">
+                <div class="card-flex">
+                    <div class="card-info">
+                        <div class="card-head">
+                            <span><strong>Books Assigned</strong></span>
+                        </div>
+                        <h2>
+                            <?php if ($AssignedBookTotalResult = mysqli_query($conn,$AssignedBookTotal)) {
+                              $rowcount = mysqli_num_rows($AssignedBookTotalResult);
+                              print($rowcount);             
+                            } ?>
+                        </h2>
+                    </div>
+                    <div class="card-chart yellow">
                         <span class="las la-chart-line"></span>
                     </div>
                 </div>

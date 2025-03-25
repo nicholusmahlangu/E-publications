@@ -1,14 +1,21 @@
-<?php include 'forms_header.php';?>
+<?php include 'forms_header.php';
+include '../assets/php/conn.php';
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bibliography Information Form</title>
-    <link href="../assets/img/favicon.webp" rel="icon">
-    <link rel="stylesheet" href="../assets/css/styles.css">
+    <!--<title>Bibliography Information Form</title>
+    <link href="../assets/img/favicon.webp" rel="icon">-->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <!--<link rel="stylesheet" href="../assets/css/styles.css">-->
    <!-- JavaScript Validation -->
-   <script defer src="../assets/js/validation.js"></script>
+   <!--<script defer src="../assets/js/validation.js"></script>-->
 
        <!-- Inline Styles for Background -->
        <style>
@@ -20,27 +27,14 @@
             color: #333
         }
 
-        @keyframes backgroundAnimation {
+       /* @keyframes backgroundAnimation {
             0% { background-position: 0% 50%; }
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
-        }
+        }*/
 
-        form {
-            max-width: 600px;
-            width: 100%;
-            background-color: rgba(255, 255, 255, 0.9); /* Semi-transparent white background */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            color: #333;
-        }
 
-        label {
-            font-weight: bold;
-            margin-top: 10px;
-            display: block;
-        }
+
 
         input, select, button {
             width: 100%;
@@ -65,11 +59,10 @@
         }
 
         h2 {
-            margin-bottom: -5px;
+            margin-top: 60px;
             padding-bottom: 20px;
             /*margin-top: 1px;*/
             text-align: center;
-            color: #233245;
         }
 
         .alert {
@@ -83,14 +76,18 @@
             border-radius: 5px;
             text-align: center;
         }
+        .logo-img{
+            margin-top: 110px;
+        }
     </style>
 </head>
 <body>
+
 <center>
-            <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:18%; height:18%">
+            <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:24%; height:20%">
         </center>
-    <h2>Bibliography Information Form</h2>
-       
+    <h2 class="text-center mb-4">Bibliography Information Form</h2>
+    
         <!-- Display server-side error messages if any -->
         <?php if (isset($_SESSION['error_message'])): ?>
             <div class="alert alert-danger">
@@ -100,6 +97,18 @@
         <?php endif; ?>
         
             <form id ="" action="../assets/php/db_connect.php" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+
+            <label for="ISBNtype"> Book ISBN formats type:</label>
+                <select id="ISBNtype" name="ISBNtype" required>
+                    <option value="" disabled selected>Select ISBN Format</option>
+                    <option value="Electronic">Electronic</option>
+                    <option value="Print">Print</option>
+                    <option value="Mobi">Mobi</option>
+                    <option value="Epub">Epub</option>
+                </select>
+                <label for="isbn_electronic">ISBN of a Book:</label>
+                <input type="text" id="isbn_electronic" name="isbn_electronic" required pattern="\d{13}" placeholder="Enter 13-digit ISBN">
+
                 <label for="email">Email Address:</label>
                 <input type="email" id="email" name="email" required placeholder="example@example.com">
 
@@ -120,9 +129,6 @@
 
                 <label for="impression">Impression:</label>
                 <input type="text" id="impression" name="impression" required placeholder="Enter Impression">
-
-                <label for="isbn_electronic">ISBN of Electronic Book:</label>
-                <input type="text" id="isbn_electronic" name="isbn_electronic" required pattern="\d{13}" placeholder="Enter 13-digit ISBN">
 
                 <label for="set_isbn">Set ISBN:</label>
                 <input type="text" id="set_isbn" name="set_isbn" required placeholder="Enter Set ISBN">
