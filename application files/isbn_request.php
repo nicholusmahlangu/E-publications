@@ -16,13 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $authorFullName = htmlspecialchars($_POST['authorFullName']);
     $authorAddress = htmlspecialchars($_POST['authorAddress']);
     $authorEmail = htmlspecialchars($_POST['authorEmail']);
-    $publisherName = htmlspecialchars($_POST['publisherName']);
-    $publisherAddress = htmlspecialchars($_POST['publisherAddress']);
-    $publisherContact = htmlspecialchars($_POST['publisherContact']);
-    $publisherEmail = htmlspecialchars($_POST['publisherEmail']);
     $format = htmlspecialchars($_POST['format']);
     $publicationDate = htmlspecialchars($_POST['publicationDate']);
-    $openAccess = htmlspecialchars($_POST['openAccess']);
     $isbnRegistered = htmlspecialchars($_POST['isbnRegistered']);
     $externalPlatforms = htmlspecialchars($_POST['externalPlatforms']);
 
@@ -30,21 +25,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $conn->prepare(
         "INSERT INTO author (
             country, authorContact, bookName, authorFullName, authorAddress, authorEmail, 
-            publisherName, publisherAddress, publisherContact, publisherEmail, 
-            format, publicationDate, openAccess, isbnRegistered, externalPlatforms
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            format, publicationDate, isbnRegistered, externalPlatforms
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
     );
     $stmt->bind_param(
-        "sssssssssssssss",
+        "ssssssssss",
         $country, $authorContact, $bookName, $authorFullName, $authorAddress, $authorEmail,
-        $publisherName, $publisherAddress, $publisherContact, $publisherEmail,
-        $format, $publicationDate, $openAccess, $isbnRegistered, $externalPlatforms
+        $format, $publicationDate, $isbnRegistered, $externalPlatforms
     );
 
     if ($stmt->execute()) {
         $successMessage = "Form submitted successfully.";
 
-        $to= $publisherEmail;    
+        $to= $authorEmail;    
         $subject = "Request for ISBN from a Self Publisher";
           
         $mail = new PHPMailer(true);
@@ -55,16 +48,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mail->Port = 587;
         $mail->Username = "nicolasmahlangu75@gmail.com";
         $mail->Password="ykbq ecat ctyl avbb ";
-        $mail->setFrom($publisherEmail, $publisherName);
+        $mail->setFrom($authorEmail, $authorFullName);
         $mail->addAddress("nicholus.mahlangu@nlsa.ac.za","Nicholus");
         //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
         $mail->Subject= "$subject";
-        $mail->Body="Hi Kholofelo. A request for an ISBN has been sent for the book: $bookName by: $publisherName Email addresss: $publisherEmail. We mainly testing the system neh. Thank you";
+        $mail->Body="Hi Kholofelo. A request for an ISBN has been sent for the book: $bookName by: $authorFullName Email addresss: $authorEmail. We mainly testing the system neh. Thank you";
         
         if ($mail->send()) {
           $successMessage = "Form submitted successfully.";
 
-          $to= $publisherEmail;    
+          $to= $authorEmail;    
           $subject = "ISBN Request Sent Successfully";
           
           $mail = new PHPMailer(true);
@@ -75,8 +68,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $mail->Port = 587;
           $mail->Username = "nicolasmahlangu75@gmail.com";
           $mail->Password="ykbq ecat ctyl avbb ";
-          $mail->setFrom($publisherEmail, $publisherName);
-          $mail->addAddress($publisherEmail,$publisherName);
+          $mail->setFrom($authorEmail, $authorFullName);
+          $mail->addAddress($authorEmail,$authorFullName);
           //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
           $mail->Subject= "$subject";
           $mail->Body="Your request for an ISBN as a Self Publisher has been sent to one of our NLSA ISBN Administrators for the book: $bookName by: $publisherName Email addresss: $publisherEmail. We mainly testing the system neh. Thank you";
@@ -235,32 +228,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <div class="mb-3">
       <label for="authorAddress" class="form-label">Full Physical Address</label>
-      <input type="text" id="authorAddress" name="authorAddress" class="form-control" required>
+      <input type="text" id="authorStreet" name="authorStreet" placeholder="Street eg. 12 Church Street" class="form-control" required>
+      <input type="text" id="authorCity" name="authorCity" placeholder="City" class="form-control" required>
+      <input type="text" id="authorPostalCode" name="authorPostalCode" placeholder="Postal Code" class="form-control" required>
+      <input type="hidden" id="authorAddress" name="authorAddress">
     </div>
     <div class="mb-3">
       <label for="authorEmail" class="form-label">Author Email Address</label>
       <input type="email" id="authorEmail" name="authorEmail" class="form-control" required>
     </div>
-    <div class="mb-3">
-      <label for="publisherName" class="form-label">Publisher Name</label>
-      <input type="text" id="publisherName" name="publisherName" class="form-control" required>
-    </div>
-    <div class="mb-3">
-      <label for="publisherAddress" class="form-label">Publisher Address</label>
-      <input type="text" id="publisherAddress" name="publisherAddress" class="form-control" required>
-    </div>
-    <div class="mb-3">
-      <label for="publisherContact" class="form-label">Publisher Contact</label>
-      <input type="text" id="publisherContact" name="publisherContact" class="form-control" required>
-    </div>
-    <div class="mb-3">
-      <label for="publisherEmail" class="form-label">Publisher Email</label>
-      <input type="email" id="publisherEmail" name="publisherEmail" class="form-control" required>
-    </div>
+    
     <div class="mb-3">
       <label for="format" class="form-label">Format</label>
       <select id="format" name="format" class="form-select" required>
-        <option value="">—Please choose an option—</option>
+        <option value="" disabled selected>—Please choose an option—</option>
         <option value="Hardcover">Print</option>
         <option value="Paperback">Electronic</option>
         <option value="Digital">Both</option>
@@ -270,13 +251,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <label for="publicationDate" class="form-label">Estimated Publication Date</label>
       <input type="text" id="publicationDate" name="publicationDate" class="form-control datepicker" required>
     </div>
-    <div class="mb-3">
-      <label for="openAccess" class="form-label">Will your publications be available as Open Access?</label>
-      <select id="openAccess" name="openAccess" class="form-select" required>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>
-    </div>
+    
     <div class="mb-3">
       <label for="isbnRegistered" class="form-label">The ISBN should be registered against:</label>
       <select id="isbnRegistered" name="isbnRegistered" class="form-select" required>
@@ -302,13 +277,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   });
 
   // Initialize datepicker
+  
   $('.datepicker').datepicker({
-    format: 'yyyy-mm-dd',
-    autoclose: true,
-    todayHighlight: true,
-    startDate: new Date() // Restrict to today and future dates
-  });
-
+  format: 'yyyy-mm-dd',
+  autoclose: true,
+  todayHighlight: true,
+  startDate: new Date(), // Restrict to today and future dates
+  endDate: new Date(new Date().setDate(new Date().getDate() + 90)) // Restrict to 90 days from today
+});
   // Bootstrap form validation
   (() => {
     'use strict';
@@ -323,6 +299,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }, false);
     });
   })();
+
+  document.querySelector('#isbnForm').addEventListener('submit', function(event) {
+  // Get the values of the address fields
+  const street = document.getElementById('authorStreet').value;
+  const city = document.getElementById('authorCity').value;
+  const postalCode = document.getElementById('authorPostalCode').value;
+
+  // Concatenate the values with spaces between them
+  const fullAddress = `${street}, ${city}, ${postalCode}`;
+
+  // Set the concatenated string into the hidden input field
+  document.getElementById('authorAddress').value = fullAddress;
+});
 </script>
 </body>
 </html>
