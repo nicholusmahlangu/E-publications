@@ -10,6 +10,50 @@ function isValidSouthAfricanID($id_number) {
   if (!preg_match('/^\d{13}$/', $id_number)) {
       return false;
   }
+<<<<<<< HEAD
+=======
+
+  $dob = substr($id_number, 0, 6);
+  $citizen = substr($id_number, 10, 1);
+  $checksum = substr($id_number, -1);
+
+  // Validate date of birth
+  $year = substr($dob, 0, 2);
+  $month = substr($dob, 2, 2);
+  $day = substr($dob, 4, 2);
+  $full_year = ($year < date('y')) ? '20' . $year : '19' . $year;
+  if (!checkdate($month, $day, $full_year)) {
+      return false;
+  }
+
+  // Validate citizenship (must be 0 for South Africans)
+  if ($citizen !== '0') {
+      return false;
+  }
+
+  // Validate using Luhn Algorithm
+  return luhnCheck($id_number);
+}
+
+function luhnCheck($number) {
+  $sum = 0;
+  $alt = false;
+  $digits = str_split(strrev($number));
+  foreach ($digits as $i => $digit) {
+      $num = (int) $digit;
+      if ($alt) {
+          $num *= 2;
+          if ($num > 9) {
+              $num -= 9;
+          }
+      }
+      $sum += $num;
+      $alt = !$alt;
+  }
+  return ($sum % 10) === 0;
+}
+
+>>>>>>> 1d76fef (ID, functionality, login verification, password harshing, Forms font, size and proper header across and etc 25 March 2025)
 
   $dob = substr($id_number, 0, 6);
   $citizen = substr($id_number, 10, 1);
@@ -102,6 +146,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Insert into the database
     $stmt = $conn->prepare(
         "INSERT INTO author (
+<<<<<<< HEAD
             idNumber, country, authorContact, bookName, authorFullName, authorAddress, authorEmail,  
             format, publicationDate, isbnRegistered, externalPlatforms
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
@@ -111,6 +156,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id_number, $country, $authorContact, $bookName, $authorFullName, $authorAddress, $authorEmail,
         $format, $publicationDate, $isbnRegistered, $externalPlatforms
 
+=======
+            idNumber, country, authorContact, bookName, authorFullName, authorAddress, authorEmail, 
+            publisherName, publisherAddress, publisherContact, publisherEmail, 
+            format, publicationDate, openAccess, isbnRegistered, externalPlatforms
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    );
+    $stmt->bind_param(
+        "ssssssssssssssss",
+        $id_number, $country, $authorContact, $bookName, $authorFullName, $authorAddress, $authorEmail,
+        $publisherName, $publisherAddress, $publisherContact, $publisherEmail,
+        $format, $publicationDate, $openAccess, $isbnRegistered, $externalPlatforms
+>>>>>>> 1d76fef (ID, functionality, login verification, password harshing, Forms font, size and proper header across and etc 25 March 2025)
     );
 
             $subject = "Request for ISBN from a Self Publisher";

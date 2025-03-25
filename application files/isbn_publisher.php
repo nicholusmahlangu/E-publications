@@ -73,6 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Insert into the database
     $stmt = $conn->prepare(
         "INSERT INTO publisher (
+<<<<<<< HEAD
             idNumber, country, bookName,
             publisherName, publisherAddress, publisherContact, publisherEmail, 
             format, publicationDate, isbnRegistered, externalPlatforms
@@ -81,6 +82,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param(
         "sssssssssss",
         $id_number, $country, $bookName,
+=======
+            idNumber, country, authorContact, bookName, authorFullName, authorAddress, authorEmail, 
+            publisherName, publisherAddress, publisherContact, publisherEmail, 
+            format, publicationDate, openAccess, isbnRegistered, externalPlatforms
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    );
+    $stmt->bind_param(
+        "ssssssssssssssss",
+        $id_number, $country, $authorContact, $bookName, $authorFullName, $authorAddress, $authorEmail,
+>>>>>>> 1d76fef (ID, functionality, login verification, password harshing, Forms font, size and proper header across and etc 25 March 2025)
         $publisherName, $publisherAddress, $publisherContact, $publisherEmail,
         $format, $publicationDate, $isbnRegistered, $externalPlatforms
     );
