@@ -51,7 +51,6 @@ function luhnCheck($number) {
   return ($sum % 10) === 0;
 }
 
-
         // Insert into the database
         $stmt = $conn->prepare(
             "INSERT INTO author (
@@ -70,19 +69,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // validate inputs
     $id_number = $_POST['id_number'];
     $country = htmlspecialchars($_POST['country']);
-    $authorContact = htmlspecialchars($_POST['authorContact']);
     $bookName = htmlspecialchars($_POST['bookName']);
-    $authorFullName = htmlspecialchars($_POST['authorFullName']);
-    $authorAddress = htmlspecialchars($_POST['authorAddress']);
-    $authorEmail = htmlspecialchars($_POST['authorEmail']);
     $publisherName = htmlspecialchars($_POST['publisherName']);
     $publisherAddress = htmlspecialchars($_POST['publisherAddress']);
     $publisherContact = htmlspecialchars($_POST['publisherContact']);
     $publisherEmail = htmlspecialchars($_POST['publisherEmail']);
     $format = htmlspecialchars($_POST['format']);
     $publicationDate = htmlspecialchars($_POST['publicationDate']);
-    $openAccess = htmlspecialchars($_POST['openAccess']);
-    $isbnRegistered = htmlspecialchars($_POST['isbnRegistered']);
     $externalPlatforms = htmlspecialchars($_POST['externalPlatforms']);
 
     if (!isValidSouthAfricanID($id_number)) {
@@ -92,20 +85,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Insert into the database
     $stmt = $conn->prepare(
         "INSERT INTO author (
-            idNumber, country, authorContact, bookName, authorFullName, authorAddress, authorEmail, 
+            idNumber, country, bookName,
             publisherName, publisherAddress, publisherContact, publisherEmail, 
-            format, publicationDate, openAccess, isbnRegistered, externalPlatforms
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            format, publicationDate, externalPlatforms
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
     );
     $stmt->bind_param(
-        "ssssssssssssssss",
-        $id_number, $country, $authorContact, $bookName, $authorFullName, $authorAddress, $authorEmail,
+        "ssssssssss",
+        $id_number, $country, $bookName,
         $publisherName, $publisherAddress, $publisherContact, $publisherEmail,
-        $format, $publicationDate, $openAccess, $isbnRegistered, $externalPlatforms
+        $format, $publicationDate, $externalPlatforms
     );
 
+    $subject = "Request for ISBN from a Self Publisher";
             $mail = new PHPMailer(true);
             $mail->isSMTP();
+            $mail->isHTML(true);
             $mail->SMTPAuth   = true;
             $mail->Host       = "smtp.gmail.com";
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
@@ -116,76 +111,52 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->addAddress("nicholus.mahlangu@nlsa.ac.za", "Nicholus");
             //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
             $mail->Subject = "$subject";
-            // $mail->Body="<html><body>";
-            $mail->Body = <<<HTML
-
-              <body>
-                  <div>
-                    <table cellpadding="0" cellspacing="0" width="640" align="center" border="1">
-                      <thead>
-                          <tr>
-                              <th>Country</th>
-                              <th>Book Title</th>
-                              <th>Publisher Name</th>
-                          </tr>
-                      </thead>
-                      <tbody>
-                          <tr>
-                          <td><?php echo $country; ?></td>
-                          <td><?php echo $bookName; ?></td>
-                          <td><?php echo $publisherName; ?></td>
-                          </tr>
-                      </tbody>
-
-                    </table>
-                  </div>     
-        </body>  
-      HTML;
-    // $mail->Body.="</html></body>";
-    // To send HTML mail, the Content-type header must be set
-            $headers = 'MIME-Version: 1.0' . "\r\n";
+            $mail->Body="<html>
+                     <head>
+                         <title>Birthday Reminders for August</title>
+                     </head>
+                     <body>
+                         <table  border=\"1\" cellspacing='3' width='60%'>
+                             <tr>
+                                 <td>Country:</td>
+                                 <td>$country</td>
+                             </tr>
+                             <tr>
+                                 <td>Email:</td>
+                                 <td>$id_number</td>
+                             </tr>
+                             <tr>
+                                 <td>Address:</td>
+                                 <td>$bookName</td>
+                             </tr>
+                             <tr>
+                                 <td>Phone:</td>
+                                 <td>$publisherName</td>
+                             </tr>
+                             <tr>
+                                 <td>Subject:</td>
+                                 <td>$publisherAddress</td>
+                             </tr>
+                             <tr>
+                                 <td>Services:</td>
+                                 <td>$publisherContact</td>
+                             </tr>
+                             <tr>
+                                 <td>Message:</td>
+                                 <td>$publisherEmail</td>
+                             </tr>
+                         </table>
+                     </body>
+                 </html>";
+            
+            
+            $headers  = 'MIME-Version: 1.0' . "\r\n";
             $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-
-    // <html>
-    // <head>
-    //     <title>Review Request Reminder</title>
-    // </head>
-    // <body>
-    //     <p>Here are the cases requiring your review in December:</p>
-    //     <table border="1" cellspacing="3" width="60%">
-
-    //             <thead>
-    //               <tr>
-    //                 <th>Country</th>
-    //                 <th>Book Title</th>
-    //                 <th>Publisher Full Name</th>
-    //                 <th>Publisher Address</th>
-    //                 <th>Publisher Contact</th>
-    //                 <th>Publisher Email</th>
-    //                 <th>Format</th>
-    //                 <th>Estimated Publication Date</th>
-    //                 <th>External Publishing Platforms</th>
-    //               </tr>
-    //             </thead>
-
-    //             <tbody>
-    //               <tr>
-    //                 <td>{$country}</td>
-    //                 <td>{$bookName}</td>
-    //                 <td>{$publisherName}</td>
-    //                 <td>{$publisherAddress}</td>
-    //                 <td>{$publisherContact}</td>
-    //                 <td>{$publisherEmail}</td>
-    //                 <td>{$format}</td>
-    //                 <td>{$publicationDate</td>
-    //                 <td>{$externalPlatforms}</td>
-    //               </tr>
-    //             <tbody>
-    //     </table>
-    // </body>
-    // </html>
-    // ';
-    // $result = mail($to, $subject, $message, $headers);
+            $mailto = "myself@example.com";
+            $sub = "Get In Touch With Us";
+            mail($mailto,$sub,$info,$headers);
+            $contactsuccess = "Your message has been sent successfully! We will contact you shortly.";
+            $name = $email = $address = $phone = $service = $subject =  $message ="";
 
             if ($mail->send()) {
                 $successMessage = "Form submitted successfully.";
