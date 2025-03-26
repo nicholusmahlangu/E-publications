@@ -110,6 +110,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // validate inputs
     $id_number = $_POST['id_number'];
     $country = htmlspecialchars($_POST['country']);
+    $authorContact = htmlspecialchars($_POST['authorContact']);
     $bookName = htmlspecialchars($_POST['bookName']);
     $authorFullName = htmlspecialchars($_POST['authorFullName']);
     $authorContact = htmlspecialchars($_POST['authorContact']);
@@ -372,6 +373,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <input type="text" id="authorPostalCode" name="authorPostalCode" placeholder="Postal Code" class="form-control" required>
       <input type="hidden" id="authorAddress" name="authorAddress">
     </div>
+
+    <div class="mb-3">
+      <label for="authorContact" class="form-label">Author Contact</label>
+      <input type="text" id="authorContact" name="authorContact" class="form-control" required>
+    </div>
+
     <div class="mb-3">
       <label for="authorContact" class="form-label">Author Contact</label>
       <input type="text" id="authorContact" name="authorContact" class="form-control" required>
@@ -380,7 +387,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <label for="authorEmail" class="form-label">Author Email Address</label>
       <input type="email" id="authorEmail" name="authorEmail" class="form-control" required>
     </div>
-
     <div class="mb-3">
       <label for="format" class="form-label">Format</label>
       <select id="format" name="format" class="form-select" required>
@@ -402,7 +408,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!--<option value="Publisher">The Publisher</option>-->
       </select>
     </div>
-
     <div class="mb-3">
       <label for="externalPlatforms" class="form-label">External Publishing Platforms</label>
       <input type="text" id="externalPlatforms" name="externalPlatforms" class="form-control" placeholder="e.g. Amazon" required>
