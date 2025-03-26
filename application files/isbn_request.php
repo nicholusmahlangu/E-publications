@@ -112,52 +112,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
             $mail->Subject = "$subject";
             $mail->Body="<html>
-                     <head>
-                         <title>Birthday Reminders for August</title>
-                     </head>
                      <body>
+                      <p>Hi Kholofelo. Please find the attached ISBN request information below.</p>
                          <table  border=\"1\" cellspacing='3' width='60%'>
                              <tr>
                                  <td>Country:</td>
                                  <td>$country</td>
                              </tr>
                              <tr>
-                                 <td>Email:</td>
+                                 <td>ID Number:</td>
                                  <td>$id_number</td>
                              </tr>
                              <tr>
-                                 <td>Address:</td>
+                                 <td>Book Title:</td>
                                  <td>$bookName</td>
                              </tr>
                              <tr>
-                                 <td>Phone:</td>
+                                 <td>Publisher First & Last Name:</td>
                                  <td>$publisherName</td>
                              </tr>
                              <tr>
-                                 <td>Subject:</td>
+                                 <td>Publisher Address:</td>
                                  <td>$publisherAddress</td>
                              </tr>
                              <tr>
-                                 <td>Services:</td>
+                                 <td>Publisher Contact:</td>
                                  <td>$publisherContact</td>
                              </tr>
                              <tr>
-                                 <td>Message:</td>
+                                 <td>Publisher Email Address:</td>
                                  <td>$publisherEmail</td>
                              </tr>
+                             <tr>
+                                 <td>Format:</td>
+                                 <td>$format</td>
+                             </tr>          
+                             <tr>
+                                 <td>Publication Date:</td>
+                                 <td>$publicationDate</td>
+                             </tr>                             
+                             <tr>
+                                 <td>External Platforms:</td>
+                                 <td>$externalPlatforms</td>
+                             </tr>                                
                          </table>
                      </body>
                  </html>";
             
-            
-            $headers  = 'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-            $mailto = "myself@example.com";
-            $sub = "Get In Touch With Us";
-            mail($mailto,$sub,$info,$headers);
-            $contactsuccess = "Your message has been sent successfully! We will contact you shortly.";
-            $name = $email = $address = $phone = $service = $subject =  $message ="";
-
             if ($mail->send()) {
                 $successMessage = "Form submitted successfully.";
 
