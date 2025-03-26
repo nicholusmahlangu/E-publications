@@ -51,65 +51,24 @@ function luhnCheck($number) {
   return ($sum % 10) === 0;
 }
 
-
-//   $dob = substr($id_number, 0, 6);
-//   $citizen = substr($id_number, 10, 1);
-//   $checksum = substr($id_number, -1);
-
-//   // Validate date of birth
-//   $year = substr($dob, 0, 2);
-//   $month = substr($dob, 2, 2);
-//   $day = substr($dob, 4, 2);
-//   $full_year = ($year < date('y')) ? '20' . $year : '19' . $year;
-//   if (!checkdate($month, $day, $full_year)) {
-//       return false;
-//   }
-
-//   // Validate citizenship (must be 0 for South Africans)
-//   if ($citizen !== '0') {
-//       return false;
-//   }
-
-//   // Validate using Luhn Algorithm
-//   return luhnCheck($id_number);
-// }
-
-// function luhnCheck($number) {
-//   $sum = 0;
-//   $alt = false;
-//   $digits = str_split(strrev($number));
-//   foreach ($digits as $i => $digit) {
-//       $num = (int) $digit;
-//       if ($alt) {
-//           $num *= 2;
-//           if ($num > 9) {
-//               $num -= 9;
-//           }
-//       }
-//       $sum += $num;
-//       $alt = !$alt;
-//   }
-//   return ($sum % 10) === 0;
-// }
-
-        // Insert into the database
-        $stmt = $conn->prepare(
-            "INSERT INTO author (
-            country, bookName,publisherName, publisherAddress, publisherContact, publisherEmail,
-            format, publicationDate, externalPlatforms
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
-        );
-        $stmt->bind_param(
-            "sssssssss",
-            $country, $bookName,
-            $publisherName, $publisherAddress, $publisherContact, $publisherEmail,
-            $format, $publicationDate, $externalPlatforms
-        );
+          // Insert into the database
+    $stmt = $conn->prepare(
+      "INSERT INTO author (
+          idNumber, country, authorContact, bookName, authorFullName, authorAddress, authorEmail,  
+          format, publicationDate, isbnRegistered, externalPlatforms
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+  );
+  $stmt->bind_param(
+      "sssssssssss",
+      $id_number, $country, $authorContact, $bookName, $authorFullName, $authorAddress, $authorEmail,
+      $format, $publicationDate, $isbnRegistered, $externalPlatforms
+  );
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // validate inputs
     $id_number = $_POST['id_number'];
     $country = htmlspecialchars($_POST['country']);
+    $authorContact = htmlspecialchars($_POST['authorContact']);
     $bookName = htmlspecialchars($_POST['bookName']);
     $authorFullName = htmlspecialchars($_POST['authorFullName']);
     $authorContact = htmlspecialchars($_POST['authorContact']);
@@ -390,6 +349,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <input type="text" id="authorPostalCode" name="authorPostalCode" placeholder="Postal Code" class="form-control" required>
       <input type="hidden" id="authorAddress" name="authorAddress">
     </div>
+
+    <div class="mb-3">
+      <label for="authorContact" class="form-label">Author Contact</label>
+      <input type="text" id="authorContact" name="authorContact" class="form-control" required>
+    </div>
+
     <div class="mb-3">
       <label for="authorContact" class="form-label">Author Contact</label>
       <input type="text" id="authorContact" name="authorContact" class="form-control" required>
@@ -398,7 +363,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <label for="authorEmail" class="form-label">Author Email Address</label>
       <input type="email" id="authorEmail" name="authorEmail" class="form-control" required>
     </div>
-
     <div class="mb-3">
       <label for="format" class="form-label">Format</label>
       <select id="format" name="format" class="form-select" required>
@@ -420,7 +384,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!--<option value="Publisher">The Publisher</option>-->
       </select>
     </div>
-
     <div class="mb-3">
       <label for="externalPlatforms" class="form-label">External Publishing Platforms</label>
       <input type="text" id="externalPlatforms" name="externalPlatforms" class="form-control" placeholder="e.g. Amazon" required>
