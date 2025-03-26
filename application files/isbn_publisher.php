@@ -56,18 +56,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // validate inputs
     $id_number = $_POST['id_number'];
     $country = htmlspecialchars($_POST['country']);
-    $authorContact = htmlspecialchars($_POST['authorContact']);
     $bookName = htmlspecialchars($_POST['bookName']);
-    $authorFullName = htmlspecialchars($_POST['authorFullName']);
-    $authorAddress = htmlspecialchars($_POST['authorAddress']);
-    $authorEmail = htmlspecialchars($_POST['authorEmail']);
     $publisherName = htmlspecialchars($_POST['publisherName']);
     $publisherAddress = htmlspecialchars($_POST['publisherAddress']);
     $publisherContact = htmlspecialchars($_POST['publisherContact']);
     $publisherEmail = htmlspecialchars($_POST['publisherEmail']);
     $format = htmlspecialchars($_POST['format']);
     $publicationDate = htmlspecialchars($_POST['publicationDate']);
-    $openAccess = htmlspecialchars($_POST['openAccess']);
     $isbnRegistered = htmlspecialchars($_POST['isbnRegistered']);
     $externalPlatforms = htmlspecialchars($_POST['externalPlatforms']);
 
@@ -78,16 +73,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Insert into the database
     $stmt = $conn->prepare(
         "INSERT INTO publisher (
-            idNumber, country, authorContact, bookName, authorFullName, authorAddress, authorEmail, 
+            idNumber, country, bookName,
             publisherName, publisherAddress, publisherContact, publisherEmail, 
-            format, publicationDate, openAccess, isbnRegistered, externalPlatforms
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            format, publicationDate, isbnRegistered, externalPlatforms
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
     );
     $stmt->bind_param(
-        "ssssssssssssssss",
-        $id_number, $country, $authorContact, $bookName, $authorFullName, $authorAddress, $authorEmail,
+        "sssssssssss",
+        $id_number, $country, $bookName,
         $publisherName, $publisherAddress, $publisherContact, $publisherEmail,
-        $format, $publicationDate, $openAccess, $isbnRegistered, $externalPlatforms
+        $format, $publicationDate, $isbnRegistered, $externalPlatforms
     );
 
     if ($stmt->execute()) {
@@ -264,14 +259,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <!-- Contact Number -->
-    <div class="mb-3">
-      <label for="authorContact" class="form-label">Author Contact Number</label>
-      <div class="input-group">
-        <span class="input-group-text" id="countryCode">+1</span>
-        <input type="text" id="authorContact" name="authorContact" class="form-control" pattern="\d{7,15}" placeholder="Enter phone number" required>
-      </div>
-      <div class="invalid-feedback">Please enter a valid phone number.</div>
-    </div>
+    
 
     <!-- other Fields -->
     <div class="mb-5">
@@ -279,28 +267,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <input type="text" name="id_number" required pattern="\d{13}" title="Enter a valid 13-digit South African ID number." class="form-control" required>
     </div> 
     <div class="mb-3">
-      <label for="bookName" class="form-label">Title/Name of the Book(s)</label>
+      <label for="bookName" class="form-label">Number of ISBNs requested</label>
       <input type="text" id="bookName" name="bookName" class="form-control" required>
     </div>
-    <div class="mb-3">
-      <label for="authorFullName" class="form-label">Author Full Name</label>
-      <input type="text" id="authorFullName" name="authorFullName" class="form-control" required>
-    </div>
-    <div class="mb-3">
-      <label for="authorAddress" class="form-label">Full Physical Address</label>
-      <input type="text" id="authorAddress" name="authorAddress" class="form-control" required>
-    </div>
-    <div class="mb-3">
-      <label for="authorEmail" class="form-label">Author Email Address</label>
-      <input type="email" id="authorEmail" name="authorEmail" class="form-control" required>
-    </div>
+   
     <div class="mb-3">
       <label for="publisherName" class="form-label">Publisher Name</label>
       <input type="text" id="publisherName" name="publisherName" class="form-control" required>
     </div>
     <div class="mb-3">
       <label for="publisherAddress" class="form-label">Publisher Address</label>
-      <input type="text" id="publisherAddress" name="publisherAddress" class="form-control" required>
+      <input type="text" id="publisherStreet" name="publisherStreet" placeholder="Street eg. 12 Church Street" class="form-control" required>
+      <input type="text" id="publisherCity" name="publisherCity" placeholder="City" class="form-control" required>
+      <input type="text" id="publisherPostalCode" name="publisherPostalCode" placeholder="Postal Code" class="form-control" required>
+      <input type="hidden" id="publisherAddress" name="publisherAddress" >
     </div>
     <div class="mb-3">
       <label for="publisherContact" class="form-label">Publisher Contact</label>
@@ -313,7 +293,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="mb-3">
       <label for="format" class="form-label">Format</label>
       <select id="format" name="format" class="form-select" required>
-        <option value="">—Please choose an option—</option>
+        <option value="" disabled selected>—Please choose an option—</option>
         <option value="Hardcover">Print</option>
         <option value="Paperback">Electronic</option>
         <option value="Digital">Both</option>
@@ -323,13 +303,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <label for="publicationDate" class="form-label">Estimated Publication Date</label>
       <input type="text" id="publicationDate" name="publicationDate" class="form-control datepicker" required>
     </div>
-    <div class="mb-3">
-      <label for="openAccess" class="form-label">Will your publications be available as Open Access?</label>
-      <select id="openAccess" name="openAccess" class="form-select" required>
-        <option value="Yes">Yes</option>
-        <option value="No">No</option>
-      </select>
-    </div>
+    
     <div class="mb-3">
       <label for="isbnRegistered" class="form-label">The ISBN should be registered against:</label>
       <select id="isbnRegistered" name="isbnRegistered" class="form-select" required>
@@ -376,6 +350,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       }, false);
     });
   })();
+
+  document.querySelector('#isbnForm').addEventListener('submit', function(event) {
+  // Get the values of the address fields
+  const street = document.getElementById('publisherStreet').value;
+  const city = document.getElementById('publisherCity').value;
+  const postalCode = document.getElementById('publisherPostalCode').value;
+
+  // Concatenate the values with spaces between them
+  const fullAddress = `${street}, ${city}, ${postalCode}`;
+
+  // Set the concatenated string into the hidden input field
+  document.getElementById('publisherAddress').value = fullAddress;
+});
 </script>
 </body>
 </html>

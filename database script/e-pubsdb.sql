@@ -121,13 +121,8 @@ CREATE TABLE `author` (
   `authorAddress` text NOT NULL,
   `authorContact` varchar(15) NOT NULL,
   `authorEmail` varchar(255) NOT NULL,
-  `publisherName` varchar(255) NOT NULL,
-  `publisherAddress` text NOT NULL,
-  `publisherContact` varchar(15) NOT NULL,
-  `publisherEmail` varchar(255) NOT NULL,
   `format` enum('Print','Electronic','Both') NOT NULL,
   `publicationDate` date NOT NULL,
-  `openAccess` enum('Yes','No') NOT NULL,
   `isbnRegistered` enum('Author') NOT NULL,
   `externalPlatforms` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
@@ -137,8 +132,8 @@ CREATE TABLE `author` (
 -- Dumping data for table `author`
 --
 
-INSERT INTO `author` (`id`, `country`, `bookName`, `authorFullName`, `authorAddress`, `authorContact`, `authorEmail`, `publisherName`, `publisherAddress`, `publisherContact`, `publisherEmail`, `format`, `publicationDate`, `openAccess`, `isbnRegistered`, `externalPlatforms`, `created_at`) VALUES
-(2, 'South Africa', 'Honour', 'William Smith', '2588 New Eerstrust Block D', '0713991678', 'nicolasmahlangu75@gmail.com', 'Molebogang Mahlangu', '1896 Orchards New Road Avenue', '0812346754', 'linkiesebola345@gmail.com', '', '2025-02-26', 'Yes', 'Author', 'Microsoft Azure', '2025-02-17 13:41:45');
+INSERT INTO `author` (`id`, `country`, `bookName`, `authorFullName`, `authorAddress`, `authorContact`, `authorEmail`, `format`, `publicationDate`, `isbnRegistered`, `externalPlatforms`, `created_at`) VALUES
+(2, 'South Africa', 'Honour', 'William Smith', '2588 New Eerstrust Block D', '0713991678', 'nicolasmahlangu75@gmail.com', '', '2025-02-26', 'Author', 'Microsoft Azure', '2025-02-17 13:41:45');
 
 -- --------------------------------------------------------
 
@@ -217,17 +212,12 @@ CREATE TABLE `publisher` (
   `country` text NOT NULL,
   `idNumber` varchar(13) NOT NULL,
   `bookName` varchar(255) NOT NULL,
-  `authorFullName` varchar(255) NOT NULL,
-  `authorAddress` text NOT NULL,
-  `authorContact` varchar(15) NOT NULL,
-  `authorEmail` varchar(255) NOT NULL,
   `publisherName` varchar(255) NOT NULL,
   `publisherAddress` text NOT NULL,
   `publisherContact` varchar(15) NOT NULL,
   `publisherEmail` varchar(255) NOT NULL,
   `format` enum('Print','Electronic','Both') NOT NULL,
   `publicationDate` date NOT NULL,
-  `openAccess` enum('Yes','No') NOT NULL,
   `isbnRegistered` enum('Publisher') NOT NULL,
   `externalPlatforms` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
