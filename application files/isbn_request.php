@@ -51,6 +51,7 @@ function luhnCheck($number) {
   return ($sum % 10) === 0;
 }
 
+<<<<<<< HEAD
           // Insert into the database
     $stmt = $conn->prepare(
       "INSERT INTO author (
@@ -63,6 +64,62 @@ function luhnCheck($number) {
       $id_number, $country, $authorContact, $bookName, $authorFullName, $authorAddress, $authorEmail,
       $format, $publicationDate, $isbnRegistered, $externalPlatforms
   );
+=======
+
+//   $dob = substr($id_number, 0, 6);
+//   $citizen = substr($id_number, 10, 1);
+//   $checksum = substr($id_number, -1);
+
+//   // Validate date of birth
+//   $year = substr($dob, 0, 2);
+//   $month = substr($dob, 2, 2);
+//   $day = substr($dob, 4, 2);
+//   $full_year = ($year < date('y')) ? '20' . $year : '19' . $year;
+//   if (!checkdate($month, $day, $full_year)) {
+//       return false;
+//   }
+
+//   // Validate citizenship (must be 0 for South Africans)
+//   if ($citizen !== '0') {
+//       return false;
+//   }
+
+//   // Validate using Luhn Algorithm
+//   return luhnCheck($id_number);
+// }
+
+// function luhnCheck($number) {
+//   $sum = 0;
+//   $alt = false;
+//   $digits = str_split(strrev($number));
+//   foreach ($digits as $i => $digit) {
+//       $num = (int) $digit;
+//       if ($alt) {
+//           $num *= 2;
+//           if ($num > 9) {
+//               $num -= 9;
+//           }
+//       }
+//       $sum += $num;
+//       $alt = !$alt;
+//   }
+//   return ($sum % 10) === 0;
+// }
+
+        // Insert into the database
+        $stmt = $conn->prepare(
+            "INSERT INTO author (
+            country, bookName,publisherName, publisherAddress, publisherContact, publisherEmail,
+            format, publicationDate, externalPlatforms
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+        );
+        $stmt->bind_param(
+            "sssssssss",
+            $country, $bookName,
+            $publisherName, $publisherAddress, $publisherContact, $publisherEmail,
+            $format, $publicationDate, $externalPlatforms
+        );
+>>>>>>> 121cb41eccb49942914f7fcfb8b33a39713654cb
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // validate inputs
@@ -71,6 +128,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $authorContact = htmlspecialchars($_POST['authorContact']);
     $bookName = htmlspecialchars($_POST['bookName']);
     $authorFullName = htmlspecialchars($_POST['authorFullName']);
+    $authorContact = htmlspecialchars($_POST['authorContact']);
     $authorAddress = htmlspecialchars($_POST['authorAddress']);
     $authorEmail = htmlspecialchars($_POST['authorEmail']);
     $format = htmlspecialchars($_POST['format']);
@@ -82,7 +140,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       die("Invalid South African ID number.");
   }
 
+<<<<<<< HEAD
   
+=======
+    // Insert into the database
+    $stmt = $conn->prepare(
+        "INSERT INTO author (
+            idNumber, country, authorContact, bookName, authorFullName, authorAddress, authorEmail,  
+            format, publicationDate, isbnRegistered, externalPlatforms
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+    );
+    $stmt->bind_param(
+        "sssssssssss",
+        $id_number, $country, $authorContact, $bookName, $authorFullName, $authorAddress, $authorEmail,
+        $format, $publicationDate, $isbnRegistered, $externalPlatforms
+
+    );
+>>>>>>> 121cb41eccb49942914f7fcfb8b33a39713654cb
 
     $subject = "Request for ISBN from a Self Publisher";
             $mail = new PHPMailer(true);
@@ -99,52 +173,74 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
             $mail->Subject = "$subject";
             $mail->Body="<html>
-                     <head>
-                         <title>Birthday Reminders for August</title>
-                     </head>
                      <body>
+                      <p>Hi Kholofelo. Please find the attached ISBN request information below.</p>
                          <table  border=\"1\" cellspacing='3' width='60%'>
                              <tr>
                                  <td>Country:</td>
                                  <td>$country</td>
                              </tr>
                              <tr>
-                                 <td>Email:</td>
+                                 <td>ID Number:</td>
                                  <td>$id_number</td>
                              </tr>
                              <tr>
-                                 <td>Address:</td>
+                                 <td>Book Title:</td>
                                  <td>$bookName</td>
                              </tr>
                              <tr>
-                                 <td>Phone:</td>
+                                 <td>Publisher First & Last Name:</td>
                                  <td>$publisherName</td>
                              </tr>
                              <tr>
-                                 <td>Subject:</td>
+                                 <td>Publisher Address:</td>
                                  <td>$publisherAddress</td>
                              </tr>
                              <tr>
-                                 <td>Services:</td>
+                                 <td>Publisher Contact:</td>
                                  <td>$publisherContact</td>
                              </tr>
                              <tr>
-                                 <td>Message:</td>
+                                 <td>Publisher Email Address:</td>
                                  <td>$publisherEmail</td>
                              </tr>
+                             <tr>
+                                 <td>Format:</td>
+                                 <td>$format</td>
+                             </tr>          
+                             <tr>
+                                 <td>Publication Date:</td>
+                                 <td>$publicationDate</td>
+                             </tr>                             
+                             <tr>
+                                 <td>External Platforms:</td>
+                                 <td>$externalPlatforms</td>
+                             </tr>                                
                          </table>
                      </body>
                  </html>";
             
-            
-            $headers  = 'MIME-Version: 1.0' . "\r\n";
-            $headers .= 'Content-type: text/html; charset=iso-8859-1' . "\r\n";
-            $mailto = "myself@example.com";
-            $sub = "Get In Touch With Us";
-            mail($mailto,$sub,$info,$headers);
-            $contactsuccess = "Your message has been sent successfully! We will contact you shortly.";
-            $name = $email = $address = $phone = $service = $subject =  $message ="";
 
+<<<<<<< HEAD
+=======
+        $to= $authorEmail;    
+        $subject = "Request for ISBN from a Self Publisher";
+          
+        $mail = new PHPMailer(true);
+        $mail->isSMTP();
+        $mail->SMTPAuth = true;
+        $mail->Host = "smtp.gmail.com";
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+        $mail->Port = 587;
+        $mail->Username = "nicolasmahlangu75@gmail.com";
+        $mail->Password="ykbq ecat ctyl avbb ";
+        $mail->setFrom($authorEmail, $authorFullName);
+        $mail->addAddress("nicholus.mahlangu@nlsa.ac.za","Nicholus");
+        //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
+        $mail->Subject= "$subject";
+        $mail->Body="Hi Kholofelo. A request for an ISBN has been sent for the book: $bookName by: $authorFullName Email addresss: $authorEmail. We mainly testing the system neh. Thank you";
+        
+>>>>>>> 121cb41eccb49942914f7fcfb8b33a39713654cb
             if ($mail->send()) {
                 $successMessage = "Form submitted successfully.";
 
@@ -324,10 +420,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
     <div class="mb-3">
+      <label for="authorContact" class="form-label">Author Contact</label>
+      <input type="text" id="authorContact" name="authorContact" class="form-control" required>
+    </div>
+    <div class="mb-3">
       <label for="authorEmail" class="form-label">Author Email Address</label>
       <input type="email" id="authorEmail" name="authorEmail" class="form-control" required>
     </div>
+<<<<<<< HEAD
     
+=======
+
+>>>>>>> 121cb41eccb49942914f7fcfb8b33a39713654cb
     <div class="mb-3">
       <label for="format" class="form-label">Format</label>
       <select id="format" name="format" class="form-select" required>
@@ -349,6 +453,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <!--<option value="Publisher">The Publisher</option>-->
       </select>
     </div>
+<<<<<<< HEAD
+=======
+
+>>>>>>> 121cb41eccb49942914f7fcfb8b33a39713654cb
     <div class="mb-3">
       <label for="externalPlatforms" class="form-label">External Publishing Platforms</label>
       <input type="text" id="externalPlatforms" name="externalPlatforms" class="form-control" placeholder="e.g. Amazon" required>
