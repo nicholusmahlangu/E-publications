@@ -6,14 +6,11 @@ include '../assets/php/conn.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!--<title>Bibliography Information Form</title>
-    <link href="../assets/img/favicon.webp" rel="icon">-->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-    <!--<link rel="stylesheet" href="../assets/css/styles.css">-->
+    <title>Bibliography Information Form</title>
+    <link href="../assets/img/favicon.webp" rel="icon">
+    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
    <!-- JavaScript Validation -->
    <!--<script defer src="../assets/js/validation.js"></script>-->
 
@@ -115,7 +112,10 @@ include '../assets/php/conn.php';
                 <label for="author_name">Author's Name:</label>
                 <input type="text" id="author_name" name="author_name" required placeholder="Enter Author's Name">
 
-                <label for="author_pseudonym">Author's Pseudonym:</label>
+                <label for="author_pseudonym">Author's Pseudonym:
+                <span style="cursor: pointer;" title="A pseudonym is a fictitious name used by an author instead of their real name."> 
+                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                </span></label>
                 <input type="text" id="author_pseudonym" name="author_pseudonym" required placeholder="Enter Pseudonym (optional)">
 
                 <label for="editor_name">Editor's Name:</label>
@@ -127,11 +127,17 @@ include '../assets/php/conn.php';
                 <label for="edition">Edition:</label>
                 <input type="text" id="edition" name="book_edition" required placeholder="Enter Edition">
 
-                <label for="impression">Impression:</label>
+                <label for="impression">Impression:
+                <span style="cursor: pointer;" title="reprinting the same book with the same ISBN."> 
+                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                </span></label>
                 <input type="text" id="impression" name="impression" required placeholder="Enter Impression">
 
-                <label for="set_isbn">Set ISBN:</label>
-                <input type="text" id="set_isbn" name="set_isbn" required placeholder="Enter Set ISBN">
+                <label for="set_isbn">Set ISBN:
+                <span style="cursor: pointer;" title="When a publisher assembles a set of books to sell as a special offer, they can assign an ISBN to the set if it is required to identify the set in the supply chain for marketing and ordering purposes."> 
+                <i class="fa fa-info-circle" aria-hidden="true"></i>
+                </span></label>
+                <input type="text" id="set_isbn" name="set_isbn" placeholder="Enter Set ISBN">
 
                 <label for="publisher_name">Publisher's Name:</label>
                 <input type="text" id="publisher_name" name="publisher_name" required placeholder="Enter Publisher Name">
@@ -159,7 +165,7 @@ include '../assets/php/conn.php';
                 <input type="text" id="language_of_publication" name="language_of_publication" placeholder="Enter Language">
 
                 <label for="english_translation_title">English Translation of Title:</label>
-                <input type="text" id="english_translation_title" name="english_translation_title" required placeholder="Enter Translation (if any)">
+                <input type="text" id="english_translation_title" name="english_translation_title"  placeholder="Enter Translation (if any)">
 
                 <label for="file">Upload File:</label>
                 <input type="file" id="file" name="file" required>       
