@@ -70,21 +70,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id_number = $_POST['id_number'];
     $country = htmlspecialchars($_POST['country']);
     $bookName = htmlspecialchars($_POST['bookName']);
-<<<<<<< HEAD
     $authorFullName = htmlspecialchars($_POST['authorFullName']);
     $authorAddress = htmlspecialchars($_POST['authorAddress']);
     $authorEmail = htmlspecialchars($_POST['authorEmail']);
     $format = htmlspecialchars($_POST['format']);
     $publicationDate = htmlspecialchars($_POST['publicationDate']);
     $isbnRegistered = htmlspecialchars($_POST['isbnRegistered']);
-=======
-    $publisherName = htmlspecialchars($_POST['publisherName']);
-    $publisherAddress = htmlspecialchars($_POST['publisherAddress']);
-    $publisherContact = htmlspecialchars($_POST['publisherContact']);
-    $publisherEmail = htmlspecialchars($_POST['publisherEmail']);
-    $format = htmlspecialchars($_POST['format']);
-    $publicationDate = htmlspecialchars($_POST['publicationDate']);
->>>>>>> c3cd77c9a306fd788aa5638e865e1900fdae5de0
     $externalPlatforms = htmlspecialchars($_POST['externalPlatforms']);
 
     if (!isValidSouthAfricanID($id_number)) {
