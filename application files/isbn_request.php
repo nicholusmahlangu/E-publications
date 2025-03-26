@@ -95,12 +95,12 @@ function luhnCheck($number) {
         // Insert into the database
         $stmt = $conn->prepare(
             "INSERT INTO author (
-            country, bookName,publisherName, publisherAddress, publisherContact, publisherEmail,
-            format, publicationDate, externalPlatforms
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            idNumber, country, authorContact, bookName, authorFullName, authorAddress, authorEmail,  
+            format, publicationDate, isbnRegistered, externalPlatforms
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
         $stmt->bind_param(
-            "sssssssss",
+            "sssssssssss",
             $country, $bookName,
             $publisherName, $publisherAddress, $publisherContact, $publisherEmail,
             $format, $publicationDate, $externalPlatforms
@@ -200,24 +200,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                      </body>
                  </html>";
             
-
-        $to= $authorEmail;    
-        $subject = "Request for ISBN from a Self Publisher";
-          
-        $mail = new PHPMailer(true);
-        $mail->isSMTP();
-        $mail->SMTPAuth = true;
-        $mail->Host = "smtp.gmail.com";
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
-        $mail->Username = "nicolasmahlangu75@gmail.com";
-        $mail->Password="ykbq ecat ctyl avbb ";
-        $mail->setFrom($authorEmail, $authorFullName);
-        $mail->addAddress("nicholus.mahlangu@nlsa.ac.za","Nicholus");
-        //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
-        $mail->Subject= "$subject";
-        $mail->Body="Hi Kholofelo. A request for an ISBN has been sent for the book: $bookName by: $authorFullName Email addresss: $authorEmail. We mainly testing the system neh. Thank you";
-        
             if ($mail->send()) {
                 $successMessage = "Form submitted successfully.";
 
