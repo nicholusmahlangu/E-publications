@@ -40,10 +40,6 @@ $AssignedBookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet WH
         <img src="../assets/img/NLSA2-logo.png" alt="National Library Logo" class="img-fluid" style="width:50%; height:50%" >
   
             </a>
-          <div class="brand-icons">
-            <span class="las la-bell"></span>
-            <span class="las la-user-circle"></span>
-          </div>
         </div>
       </div>
 
