@@ -74,16 +74,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Insert into the database
     $stmt = $conn->prepare(
         "INSERT INTO author (
-            idNumber, country, authorContact, bookName, authorFullName, authorAddress, authorEmail, 
-            publisherName, publisherAddress, publisherContact, publisherEmail, 
-            format, publicationDate, openAccess, isbnRegistered, externalPlatforms
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            idNumber, country, authorContact, bookName, authorFullName, authorAddress, authorEmail,  
+            format, publicationDate, isbnRegistered, externalPlatforms
+        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
     );
     $stmt->bind_param(
-        "ssssssssssssssss",
+        "sssssssssss",
         $id_number, $country, $authorContact, $bookName, $authorFullName, $authorAddress, $authorEmail,
-        $publisherName, $publisherAddress, $publisherContact, $publisherEmail,
-        $format, $publicationDate, $openAccess, $isbnRegistered, $externalPlatforms
+        $format, $publicationDate, $isbnRegistered, $externalPlatforms
     );
 
     if ($stmt->execute()) {
