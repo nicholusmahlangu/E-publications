@@ -117,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                  <td>$id_number</td>
                              </tr>
                              <tr>
-                                 <td>Book Title:</td>
+                                 <td>Number of ISBNs:</td>
                                  <td>$bookName</td>
                              </tr>
                              <tr>
@@ -170,10 +170,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $mail->addAddress($publisherEmail,$publisherName);
           //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
           $mail->Subject= "$subject";
-          $mail->Body="Your request for an ISBN as a Commercial publisher has been sent to one of our NLSA ISBN Administrators for the book: $bookName by: $publisherName Email addresss: $publisherEmail. We mainly testing the system neh. Thank you";
-          $mail->Body .="<html>
+          $mail->Body ="<html>
                      <body>
-                      <p>Hi $authorFullName. Please find the attached ISBN request information below as you sent an ISBN request at the NLSA.</p>
+                      <p>Hi $publisherName. Please find the attached ISBN request information below as you sent an ISBN request at the NLSA.</p>
                          <table  border=\"1\" cellspacing='3' width='60%'>
                              <tr>
                                  <td>Country:</td>
@@ -218,6 +217,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                          </table>
                      </body>
                  </html>";
+                 $mail->send();
           echo "email sent";
       }
     } else {

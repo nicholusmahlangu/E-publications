@@ -149,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->Username   = "nicolasmahlangu75@gmail.com";
             $mail->Password   = "ykbq ecat ctyl avbb ";
             $mail->setFrom("nicholus.mahlangu@nlsa.ac.za", "Kholofelo");
-            $mail->addAddress("nicholus.mahlangu@nlsa.ac.za", "Nicholus");
+            $mail->addAddress("nicholus.mahlangu@nlsa.ac.za", "Kholofelo");
             //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
             $mail->Subject = "$subject";
             $mail->Body="<html>
@@ -199,71 +199,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                          </table>
                      </body>
                  </html>";
-            
-
-        $to= $authorEmail;    
-        $subject = "Request for ISBN from a Self Publisher";
-          
-        $mail = new PHPMailer(true);
-        $mail->isSMTP();
-        $mail->isHTML(true);
-        $mail->SMTPAuth = true;
-        $mail->Host = "smtp.gmail.com";
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
-        $mail->Username = "nicolasmahlangu75@gmail.com";
-        $mail->Password="ykbq ecat ctyl avbb ";
-        $mail->setFrom("nicholus.mahlangu@nlsa.ac.za", "Kholofelo");
-        //$mail->addAddress("nicholus.mahlangu@nlsa.ac.za","Nicholus");
-        $mail->addAddress($authorEmail,$authorFullName);
-        $mail->Subject= "$subject";
-        $mail->Body="<html>
-                     <body>
-                      <p>Hi $authorFullName. Your request for an ISBN as a Self-publisher has been sent to one of our NLSA ISBN Administrators for the book:</p>
-                         <table  border=\"1\" cellspacing='3' width='60%'>
-                             <tr>
-                                 <td>Country:</td>
-                                 <td>$country</td>
-                             </tr>
-                             <tr>
-                                 <td>ID Number:</td>
-                                 <td>$id_number</td>
-                             </tr>
-                             <tr>
-                                 <td>Book Title:</td>
-                                 <td>$bookName</td>
-                             </tr>
-                             <tr>
-                                 <td>Publisher First & Last Name:</td>
-                                 <td>$authorFullName</td>
-                             </tr>
-                             <tr>
-                                 <td>Publisher Address:</td>
-                                 <td>$authorAddress</td>
-                             </tr>
-                             <tr>
-                                 <td>Publisher Contact:</td>
-                                 <td>$authorContact</td>
-                             </tr>
-                             <tr>
-                                 <td>Publisher Email Address:</td>
-                                 <td>$authorEmail</td>
-                             </tr>
-                             <tr>
-                                 <td>Format:</td>
-                                 <td>$format</td>
-                             </tr>          
-                             <tr>
-                                 <td>Publication Date:</td>
-                                 <td>$publicationDate</td>
-                             </tr>                             
-                             <tr>
-                                 <td>External Platforms:</td>
-                                 <td>$externalPlatforms</td>
-                             </tr>                                
-                         </table>
-                     </body>
-                 </html>";
         
             if ($mail->send()) {
                 $successMessage = "Form submitted successfully.";
@@ -280,7 +215,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mail->Port       = 587;
                 $mail->Username   = "nicolasmahlangu75@gmail.com";
                 $mail->Password   = "ykbq ecat ctyl avbb ";
-                $mail->setFrom("nicholus.mahlangu@nlsa.ac.za", "Kholofelo");
+                $mail->setFrom($authorEmail, $authorFullName);
                 $mail->addAddress($authorEmail, $authorFullName);
                 //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
                 $mail->Subject = "$subject";
@@ -329,9 +264,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                  <td>$externalPlatforms</td>
                              </tr>                                
                          </table>
+
+                         <p>Kind regards<br>NLSA</p>
                      </body>
                  </html>";
-                echo "Please check your mail. Email sent!";
+                 $mail->send();
+                //echo "Please check your mail. Email sent!";
             }
         } else {
             $errorMessage = "Error: " . $stmt->error;
