@@ -150,7 +150,8 @@ include '../assets/php/conn.php';
                 <input type="text" id="publisher_address" name="publisher_address" required placeholder="Enter Publisher Address">
 
                 <label for="publication_year">Publication Year:</label>
-                <input type="number" id="publication_year" name="publication_year" required placeholder="Enter Year">
+                <select id="publication_year" class="year-picker">
+                <option value="" disabled selected>Please select publication year</option></select>
 
                 <label for="price">Price (Rand):</label>
                 <input type="number" step="0.01" id="price" name="price" required placeholder="R 0.00">
@@ -176,5 +177,23 @@ include '../assets/php/conn.php';
             <button type="submit">Submit</button>
             </form>
 
+            <script>
+               // Get the current year
+        const currentYear = new Date().getFullYear();
+        const yearSelect = document.getElementById('publication_year');
+
+        // Generate the options for the year picker (from 1900 to current year)
+        for (let year = 1950; year <= currentYear; year++) {
+            const option = document.createElement('option');
+            option.value = year;
+            option.textContent = year;
+            yearSelect.appendChild(option);
+        }
+
+        // Optional: Add an event listener to show the selected year in the console
+        yearSelect.addEventListener('change', (event) => {
+            console.log('Selected year:', event.target.value);
+        });
+            </script>
 </body>
 </html>
