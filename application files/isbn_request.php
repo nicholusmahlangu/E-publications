@@ -115,7 +115,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->Body="<html>
                      <body>
                       <p>Hi Kholofelo. Please find the attached ISBN request information below.</p>
-                         <table  border=\"1\" cellspacing='3' width='60%'>
+                         <table  border=\"1\" cellspacing='5' width='70%'>
                              <tr>
                                  <td>Country:</td>
                                  <td>$country</td>
@@ -182,7 +182,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mail->Body = "<html>
                      <body>
                       <p>Hi $authorFullName. Your request for an ISBN as a Self-publisher has been sent to one of our NLSA ISBN Administrators for the book:</p>
-                         <table  border=\"1\" cellspacing='3' width='60%'>
+                         <table  border=\"1\" cellspacing='5' width='70%'>
                              <tr>
                                  <td>Country:</td>
                                  <td>$country</td>
