@@ -87,7 +87,7 @@ include '../assets/php/conn.php';
 <center>
             <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:24%; height:20%">
         </center>
-    <h2 class="text-center mb-4">Bibliography Information Form</h2>
+    <h1 class="text-center mb-4">Bibliography Information Form</h1>
     
         <!-- Display server-side error messages if any -->
         <?php if (isset($_SESSION['error_message'])): ?>
@@ -120,7 +120,7 @@ include '../assets/php/conn.php';
                 <span style="cursor: pointer;" title="A pseudonym is a fictitious name used by an author instead of their real name."> 
                 <i class="fa fa-info-circle" aria-hidden="true"></i>
                 </span></label>
-                <input type="text" id="author_pseudonym" name="author_pseudonym" required placeholder="Enter Pseudonym (optional)">
+                <input type="text" id="author_pseudonym" name="author_pseudonym" placeholder="Enter Pseudonym (optional)">
 
                 <label for="editor_name">Editor's Name:</label>
                 <input type="text" id="editor_name" name="editor_name" required placeholder="Enter Editor's Name">
@@ -135,7 +135,7 @@ include '../assets/php/conn.php';
                 <span style="cursor: pointer;" title="reprinting the same book with the same ISBN."> 
                 <i class="fa fa-info-circle" aria-hidden="true"></i>
                 </span></label>
-                <input type="text" id="impression" name="impression" required placeholder="Enter Impression">
+                <input type="text" id="impression" name="impression" placeholder="Enter Impression">
 
                 <label for="set_isbn">Set ISBN:
                 <span style="cursor: pointer;" title="When a publisher assembles a set of books to sell as a special offer, they can assign an ISBN to the set if it is required to identify the set in the supply chain for marketing and ordering purposes."> 
