@@ -54,28 +54,29 @@
         return ($sum % 10) === 0;
     }
 
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // validate inputs
-        $id_number         = $_POST['id_number'];
-        $country           = htmlspecialchars($_POST['country']);
-        $bookName          = htmlspecialchars($_POST['bookName']);
-        $authorFullName    = htmlspecialchars($_POST['authorFullName']);
-        $authorContact     = htmlspecialchars($_POST['authorContact']);
-        $authorAddress     = htmlspecialchars($_POST['authorAddress']);
-        $authorEmail       = htmlspecialchars($_POST['authorEmail']);
-        $format            = htmlspecialchars($_POST['format']);
-        $publicationDate   = htmlspecialchars($_POST['publicationDate']);
-        $isbnRegistered    = htmlspecialchars($_POST['isbnRegistered']);
-        $externalPlatforms = htmlspecialchars($_POST['externalPlatforms']);
 
-        if (! isValidSouthAfricanID($id_number)) {
-            die("Invalid South African ID number.");
-        }
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // validate inputs
+    $id_number = $_POST['id_number'];
+    $country = htmlspecialchars($_POST['country']);
+    $authorContact = htmlspecialchars($_POST['authorContact']);
+    $bookName = htmlspecialchars($_POST['bookName']);
+    $authorFullName = htmlspecialchars($_POST['authorFullName']);
+    $authorAddress = htmlspecialchars($_POST['authorAddress']);
+    $authorEmail = htmlspecialchars($_POST['authorEmail']);
+    $format = htmlspecialchars($_POST['format']);
+    $publicationDate = htmlspecialchars($_POST['publicationDate']);
+    $isbnRegistered = htmlspecialchars($_POST['isbnRegistered']);
+    $externalPlatforms = htmlspecialchars($_POST['externalPlatforms']);
 
-        // Insert into the database
-        $stmt = $conn->prepare(
-            "INSERT INTO author (
-            idNumber, country, bookName, authorFullName, authorContact, authorAddress, authorEmail,
+    if (!isValidSouthAfricanID($id_number)) {
+      die("Invalid South African ID number.");
+  }
+
+    // Insert into the database
+    $stmt = $conn->prepare(
+        "INSERT INTO author (
+            idNumber, country, authorContact, bookName, authorFullName, authorAddress, authorEmail,  
             format, publicationDate, isbnRegistered, externalPlatforms
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
         );
@@ -84,24 +85,25 @@
             $id_number, $country, $authorContact, $bookName, $authorFullName, $authorAddress, $authorEmail,
             $format, $publicationDate, $isbnRegistered, $externalPlatforms
 
-        );
-
-        $subject = "Request for ISBN from a Self Publisher";
-        //$to= $authorEmail;
-        $mail = new PHPMailer(true);
-        $mail->isSMTP();
-        $mail->isHTML(true);
-        $mail->SMTPAuth   = true;
-        $mail->Host       = "smtp.gmail.com";
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port       = 587;
-        $mail->Username   = "nicolasmahlangu75@gmail.com";
-        $mail->Password   = "ykbq ecat ctyl avbb ";
-        $mail->setFrom("nicholus.mahlangu@nlsa.ac.za", "Kholofelo");
-        $mail->addAddress("nicholus.mahlangu@nlsa.ac.za", "Kholofelo");
-        //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
-        $mail->Subject = "$subject";
-        $mail->Body    = "<html>
+    );
+    if ($stmt->execute()) {
+      $successMessage = "Form submitted successfully.";
+            $subject = "Request for ISBN from a Self Publisher";
+            //$to= $authorEmail;
+            $mail = new PHPMailer(true);
+            $mail->isSMTP();
+            $mail->isHTML(true);
+            $mail->SMTPAuth   = true;
+            $mail->Host       = "smtp.gmail.com";
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port       = 587;
+            $mail->Username   = "nicolasmahlangu75@gmail.com";
+            $mail->Password   = "ykbq ecat ctyl avbb ";
+            $mail->setFrom("nicholus.mahlangu@nlsa.ac.za", "Kholofelo");
+            $mail->addAddress("nicholus.mahlangu@nlsa.ac.za", "Kholofelo");
+            //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
+            $mail->Subject = "$subject";
+            $mail->Body="<html>
                      <body>
                       <p>Hi Kholofelo. Please find the attached ISBN request information below.</p>
                          <table  border=\"1\" cellspacing='5' width='70%'>
@@ -224,8 +226,9 @@
         $errorMessage = "Error: " . $stmt->error;
     }
 
-    $stmt->close();
-    $conn->close();
+        $stmt->close();
+        $conn->close();
+      }
 ?>
 
 <!DOCTYPE html>
