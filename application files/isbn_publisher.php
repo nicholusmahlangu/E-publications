@@ -93,6 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           
         $mail = new PHPMailer(true);
         $mail->isSMTP();
+        $mail->isHTML(true);
         $mail->SMTPAuth = true;
         $mail->Host = "smtp.gmail.com";
         $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
@@ -103,8 +104,53 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mail->addAddress("nicholus.mahlangu@nlsa.ac.za","Nicholus");
         //$mail->addAddress("motubatse.kgatle@nlsa.ac.za","motubatsi");
         $mail->Subject= "$subject";
-        $mail->Body="Hi Motubatsi. A request for an ISBN has been sent for the book: $bookName by: $publisherName Email addresss: $publisherEmail";
-        
+        $mail->Body="<html>
+                     <body>
+                      <p>Hi Motubatsi. A request for an ISBN has been sent for the book:</p>
+                         <table  border=\"1\" cellspacing='3' width='60%'>
+                             <tr>
+                                 <td>Country:</td>
+                                 <td>$country</td>
+                             </tr>
+                             <tr>
+                                 <td>ID Number:</td>
+                                 <td>$id_number</td>
+                             </tr>
+                             <tr>
+                                 <td>Number of ISBNs:</td>
+                                 <td>$bookName</td>
+                             </tr>
+                             <tr>
+                                 <td>Publisher First & Last Name:</td>
+                                 <td>$publisherName</td>
+                             </tr>
+                             <tr>
+                                 <td>Publisher Address:</td>
+                                 <td>$publisherAddress</td>
+                             </tr>
+                             <tr>
+                                 <td>Publisher Contact:</td>
+                                 <td>$publisherContact</td>
+                             </tr>
+                             <tr>
+                                 <td>Publisher Email Address:</td>
+                                 <td>$publisherEmail</td>
+                             </tr>
+                             <tr>
+                                 <td>Format:</td>
+                                 <td>$format</td>
+                             </tr>          
+                             <tr>
+                                 <td>Publication Date:</td>
+                                 <td>$publicationDate</td>
+                             </tr>                             
+                             <tr>
+                                 <td>External Platforms:</td>
+                                 <td>$externalPlatforms</td>
+                             </tr>                                
+                         </table>
+                     </body>
+                 </html>";
         if ($mail->send()) {
           $successMessage = "Form submitted successfully.";
 
@@ -113,17 +159,65 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           
           $mail = new PHPMailer(true);
           $mail->isSMTP();
+          $mail->isHTML(true);
           $mail->SMTPAuth = true;
           $mail->Host = "smtp.gmail.com";
           $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
           $mail->Port = 587;
           $mail->Username = "nicolasmahlangu75@gmail.com";
           $mail->Password="ykbq ecat ctyl avbb ";
-          $mail->setFrom($publisherEmail, $publisherName);
+          $mail->setFrom("nicholus.mahlangu@nlsa.ac.za", "Motubatsi");
           $mail->addAddress($publisherEmail,$publisherName);
           //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
           $mail->Subject= "$subject";
-          $mail->Body="Your request for an ISBN as a Commercial publisher has been sent to one of our NLSA ISBN Administrators for the book: $bookName by: $publisherName Email addresss: $publisherEmail. We mainly testing the system neh. Thank you";
+          $mail->Body ="<html>
+                     <body>
+                      <p>Hi $publisherName. Please find the attached ISBN request information below as you sent an ISBN request at the NLSA.</p>
+                         <table  border=\"1\" cellspacing='3' width='60%'>
+                             <tr>
+                                 <td>Country:</td>
+                                 <td>$country</td>
+                             </tr>
+                             <tr>
+                                 <td>ID Number:</td>
+                                 <td>$id_number</td>
+                             </tr>
+                             <tr>
+                                 <td>Number of ISBNs:</td>
+                                 <td>$bookName</td>
+                             </tr>
+                             <tr>
+                                 <td>Publisher First & Last Name:</td>
+                                 <td>$publisherName</td>
+                             </tr>
+                             <tr>
+                                 <td>Publisher Address:</td>
+                                 <td>$publisherAddress</td>
+                             </tr>
+                             <tr>
+                                 <td>Publisher Contact:</td>
+                                 <td>$publisherContact</td>
+                             </tr>
+                             <tr>
+                                 <td>Publisher Email Address:</td>
+                                 <td>$publisherEmail</td>
+                             </tr>
+                             <tr>
+                                 <td>Format:</td>
+                                 <td>$format</td>
+                             </tr>          
+                             <tr>
+                                 <td>Publication Date:</td>
+                                 <td>$publicationDate</td>
+                             </tr>                             
+                             <tr>
+                                 <td>External Platforms:</td>
+                                 <td>$externalPlatforms</td>
+                             </tr>                                
+                         </table>
+                     </body>
+                 </html>";
+                 $mail->send();
           echo "email sent";
       }
     } else {
