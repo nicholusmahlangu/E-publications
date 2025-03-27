@@ -51,19 +51,19 @@ function luhnCheck($number) {
   return ($sum % 10) === 0;
 }
 
-          // Insert into the database
-    $stmt = $conn->prepare(
-      "INSERT INTO author (
-          idNumber, country, authorContact, bookName, authorFullName, authorAddress, authorEmail,  
-          format, publicationDate, isbnRegistered, externalPlatforms
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-  );
-  $stmt->bind_param(
-      "sssssssssss",
-      $id_number, $country, $authorContact, $bookName, $authorFullName, $authorAddress, $authorEmail,
-      $format, $publicationDate, $isbnRegistered, $externalPlatforms
-  );
-
+// Insert into the database
+        $stmt = $conn->prepare(
+          "INSERT INTO author (
+              idNumber, country, authorContact, bookName, authorFullName, authorAddress, authorEmail,  
+              format, publicationDate, isbnRegistered, externalPlatforms
+          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+      );
+      $stmt->bind_param(
+          "sssssssssss",
+          $id_number, $country, $authorContact, $bookName, $authorFullName, $authorAddress, $authorEmail,
+          $format, $publicationDate, $isbnRegistered, $externalPlatforms
+  
+      );
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // validate inputs
     $id_number = $_POST['id_number'];
@@ -97,7 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     );
 
-    $subject = "Request for ISBN from a Self Publisher";
+            $subject = "Request for ISBN from a Self Publisher";
+            //$to= $authorEmail;
             $mail = new PHPMailer(true);
             $mail->isSMTP();
             $mail->isHTML(true);
@@ -107,8 +108,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->Port       = 587;
             $mail->Username   = "nicolasmahlangu75@gmail.com";
             $mail->Password   = "ykbq ecat ctyl avbb ";
-            $mail->setFrom($publisherEmail, $publisherName);
-            $mail->addAddress("nicholus.mahlangu@nlsa.ac.za", "Nicholus");
+            $mail->setFrom("nicholus.mahlangu@nlsa.ac.za", "Kholofelo");
+            $mail->addAddress("nicholus.mahlangu@nlsa.ac.za", "Kholofelo");
             //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
             $mail->Subject = "$subject";
             $mail->Body="<html>
@@ -129,19 +130,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                              </tr>
                              <tr>
                                  <td>Publisher First & Last Name:</td>
-                                 <td>$publisherName</td>
+                                 <td>$$authorFullName</td>
                              </tr>
                              <tr>
                                  <td>Publisher Address:</td>
-                                 <td>$publisherAddress</td>
+                                 <td>$authorAddress</td>
                              </tr>
                              <tr>
                                  <td>Publisher Contact:</td>
-                                 <td>$publisherContact</td>
+                                 <td>$authorContact</td>
                              </tr>
                              <tr>
                                  <td>Publisher Email Address:</td>
-                                 <td>$publisherEmail</td>
+                                 <td>$authorEmail</td>
                              </tr>
                              <tr>
                                  <td>Format:</td>
@@ -158,45 +159,77 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                          </table>
                      </body>
                  </html>";
-            
-
-        $to= $authorEmail;    
-        $subject = "Request for ISBN from a Self Publisher";
-          
-        $mail = new PHPMailer(true);
-        $mail->isSMTP();
-        $mail->SMTPAuth = true;
-        $mail->Host = "smtp.gmail.com";
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
-        $mail->Username = "nicolasmahlangu75@gmail.com";
-        $mail->Password="ykbq ecat ctyl avbb ";
-        $mail->setFrom($authorEmail, $authorFullName);
-        $mail->addAddress("nicholus.mahlangu@nlsa.ac.za","Nicholus");
-        //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
-        $mail->Subject= "$subject";
-        $mail->Body="Hi Kholofelo. A request for an ISBN has been sent for the book: $bookName by: $authorFullName Email addresss: $authorEmail. We mainly testing the system neh. Thank you";
         
             if ($mail->send()) {
                 $successMessage = "Form submitted successfully.";
 
-                $to      = $publisherEmail;
+                $to      = $authorEmail;
                 $subject = "ISBN Request Sent Successfully";
 
                 $mail = new PHPMailer(true);
                 $mail->isSMTP();
+                $mail->isHTML(true);
                 $mail->SMTPAuth   = true;
                 $mail->Host       = "smtp.gmail.com";
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
                 $mail->Port       = 587;
                 $mail->Username   = "nicolasmahlangu75@gmail.com";
                 $mail->Password   = "ykbq ecat ctyl avbb ";
-                $mail->setFrom($publisherEmail, $publisherName);
-                $mail->addAddress($publisherEmail, $publisherName);
+                $mail->setFrom($authorEmail, $authorFullName);
+                $mail->addAddress($authorEmail, $authorFullName);
                 //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
                 $mail->Subject = "$subject";
-                $mail->Body    = "Your request for an ISBN as a Self Publisher has been sent to one of our NLSA ISBN Administrators for the book: $bookName by: $publisherName Email addresss: $publisherEmail. We mainly testing the system neh. Thank you";
-                echo "Please check your mail. Email sent!";
+                $mail->Body = "<html>
+                     <body>
+                      <p>Hi $authorFullName. Your request for an ISBN as a Self-publisher has been sent to one of our NLSA ISBN Administrators for the book:</p>
+                         <table  border=\"1\" cellspacing='3' width='60%'>
+                             <tr>
+                                 <td>Country:</td>
+                                 <td>$country</td>
+                             </tr>
+                             <tr>
+                                 <td>ID Number:</td>
+                                 <td>$id_number</td>
+                             </tr>
+                             <tr>
+                                 <td>Book Title:</td>
+                                 <td>$bookName</td>
+                             </tr>
+                             <tr>
+                                 <td>Publisher First & Last Name:</td>
+                                 <td>$authorFullName</td>
+                             </tr>
+                             <tr>
+                                 <td>Publisher Address:</td>
+                                 <td>$authorAddress</td>
+                             </tr>
+                             <tr>
+                                 <td>Publisher Contact:</td>
+                                 <td>$authorContact</td>
+                             </tr>
+                             <tr>
+                                 <td>Publisher Email Address:</td>
+                                 <td>$authorEmail</td>
+                             </tr>
+                             <tr>
+                                 <td>Format:</td>
+                                 <td>$format</td>
+                             </tr>          
+                             <tr>
+                                 <td>Publication Date:</td>
+                                 <td>$publicationDate</td>
+                             </tr>                             
+                             <tr>
+                                 <td>External Platforms:</td>
+                                 <td>$externalPlatforms</td>
+                             </tr>                                
+                         </table>
+
+                         <p>Kind regards<br>NLSA</p>
+                     </body>
+                 </html>";
+                 $mail->send();
+                //echo "Please check your mail. Email sent!";
             }
         } else {
             $errorMessage = "Error: " . $stmt->error;
@@ -355,10 +388,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <input type="text" id="authorContact" name="authorContact" class="form-control" required>
     </div>
 
-    <div class="mb-3">
-      <label for="authorContact" class="form-label">Author Contact</label>
-      <input type="text" id="authorContact" name="authorContact" class="form-control" required>
-    </div>
     <div class="mb-3">
       <label for="authorEmail" class="form-label">Author Email Address</label>
       <input type="email" id="authorEmail" name="authorEmail" class="form-control" required>

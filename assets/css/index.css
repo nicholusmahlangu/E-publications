@@ -147,7 +147,7 @@ h6 {
   align-items: center;
   justify-content: space-between;
   /*font-family: "Poppins", sans-serif;*/
-  /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   /*color: #fff;*/
   color: #231f20;
   font-size: 22 px;
@@ -759,7 +759,7 @@ body {
     align-items: center;
     justify-content: space-between;
     /*font-family: "Poppins", sans-serif;*/
-    /* font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; */
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     /*color: #fff;*/
     color: #231f20;
     font-size: 22 px;
