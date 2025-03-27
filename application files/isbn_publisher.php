@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mail->Body="<html>
                      <body>
                       <p>Hi Motubatsi. A request for an ISBN has been sent for the book:</p>
-                         <table  border=\"1\" cellspacing='3' width='60%'>
+                         <table  border=\"1\" cellspacing='5' width='70%' fontsize='40%'>
                              <tr>
                                  <td>Country:</td>
                                  <td>$country</td>
@@ -173,7 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $mail->Body ="<html>
                      <body>
                       <p>Hi $publisherName. Please find the attached ISBN request information below as you sent an ISBN request at the NLSA.</p>
-                         <table  border=\"1\" cellspacing='3' width='60%'>
+                         <table  border=\"1\" cellspacing='5' width='70%'>
                              <tr>
                                  <td>Country:</td>
                                  <td>$country</td>
