@@ -51,19 +51,7 @@ function luhnCheck($number) {
   return ($sum % 10) === 0;
 }
 
-// Insert into the database
-        $stmt = $conn->prepare(
-          "INSERT INTO author (
-              idNumber, country, authorContact, bookName, authorFullName, authorAddress, authorEmail,  
-              format, publicationDate, isbnRegistered, externalPlatforms
-          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-      );
-      $stmt->bind_param(
-          "sssssssssss",
-          $id_number, $country, $authorContact, $bookName, $authorFullName, $authorAddress, $authorEmail,
-          $format, $publicationDate, $isbnRegistered, $externalPlatforms
-  
-      );
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // validate inputs
     $id_number = $_POST['id_number'];
@@ -71,7 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $authorContact = htmlspecialchars($_POST['authorContact']);
     $bookName = htmlspecialchars($_POST['bookName']);
     $authorFullName = htmlspecialchars($_POST['authorFullName']);
-    $authorContact = htmlspecialchars($_POST['authorContact']);
     $authorAddress = htmlspecialchars($_POST['authorAddress']);
     $authorEmail = htmlspecialchars($_POST['authorEmail']);
     $format = htmlspecialchars($_POST['format']);
@@ -96,7 +83,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $format, $publicationDate, $isbnRegistered, $externalPlatforms
 
     );
-
+    if ($stmt->execute()) {
+      $successMessage = "Form submitted successfully.";
             $subject = "Request for ISBN from a Self Publisher";
             //$to= $authorEmail;
             $mail = new PHPMailer(true);
@@ -237,6 +225,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $stmt->close();
         $conn->close();
+      }
 ?>
 
 <!DOCTYPE html>
