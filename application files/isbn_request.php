@@ -10,8 +10,6 @@ function isValidSouthAfricanID($id_number) {
   if (!preg_match('/^\d{13}$/', $id_number)) {
       return false;
   }
-<<<<<<< HEAD
-=======
 
   $dob = substr($id_number, 0, 6);
   $citizen = substr($id_number, 10, 1);
@@ -53,77 +51,7 @@ function luhnCheck($number) {
   return ($sum % 10) === 0;
 }
 
->>>>>>> 1d76fef (ID, functionality, login verification, password harshing, Forms font, size and proper header across and etc 25 March 2025)
 
-  $dob = substr($id_number, 0, 6);
-  $citizen = substr($id_number, 10, 1);
-  $checksum = substr($id_number, -1);
-
-  // Validate date of birth
-  $year = substr($dob, 0, 2);
-  $month = substr($dob, 2, 2);
-  $day = substr($dob, 4, 2);
-  $full_year = ($year < date('y')) ? '20' . $year : '19' . $year;
-  if (!checkdate($month, $day, $full_year)) {
-      return false;
-  }
-
-  // Validate citizenship (must be 0 for South Africans)
-  if ($citizen !== '0') {
-      return false;
-  }
-
-  // Validate using Luhn Algorithm
-  return luhnCheck($id_number);
-}
-
-function luhnCheck($number) {
-  $sum = 0;
-  $alt = false;
-  $digits = str_split(strrev($number));
-  foreach ($digits as $i => $digit) {
-      $num = (int) $digit;
-      if ($alt) {
-          $num *= 2;
-          if ($num > 9) {
-              $num -= 9;
-          }
-      }
-      $sum += $num;
-      $alt = !$alt;
-  }
-  return ($sum % 10) === 0;
-}
-
-<<<<<<< HEAD
-          // Insert into the database
-    $stmt = $conn->prepare(
-      "INSERT INTO author (
-          idNumber, country, authorContact, bookName, authorFullName, authorAddress, authorEmail,  
-          format, publicationDate, isbnRegistered, externalPlatforms
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-  );
-  $stmt->bind_param(
-      "sssssssssss",
-      $id_number, $country, $authorContact, $bookName, $authorFullName, $authorAddress, $authorEmail,
-      $format, $publicationDate, $isbnRegistered, $externalPlatforms
-  );
-
-=======
-// Insert into the database
-        $stmt = $conn->prepare(
-          "INSERT INTO author (
-              idNumber, country, authorContact, bookName, authorFullName, authorAddress, authorEmail,  
-              format, publicationDate, isbnRegistered, externalPlatforms
-          ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-      );
-      $stmt->bind_param(
-          "sssssssssss",
-          $id_number, $country, $authorContact, $bookName, $authorFullName, $authorAddress, $authorEmail,
-          $format, $publicationDate, $isbnRegistered, $externalPlatforms
-  
-      );
->>>>>>> origin/main
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // validate inputs
     $id_number = $_POST['id_number'];
@@ -131,7 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $authorContact = htmlspecialchars($_POST['authorContact']);
     $bookName = htmlspecialchars($_POST['bookName']);
     $authorFullName = htmlspecialchars($_POST['authorFullName']);
-    $authorContact = htmlspecialchars($_POST['authorContact']);
     $authorAddress = htmlspecialchars($_POST['authorAddress']);
     $authorEmail = htmlspecialchars($_POST['authorEmail']);
     $format = htmlspecialchars($_POST['format']);
@@ -146,7 +73,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Insert into the database
     $stmt = $conn->prepare(
         "INSERT INTO author (
-<<<<<<< HEAD
             idNumber, country, authorContact, bookName, authorFullName, authorAddress, authorEmail,  
             format, publicationDate, isbnRegistered, externalPlatforms
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
@@ -156,20 +82,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $id_number, $country, $authorContact, $bookName, $authorFullName, $authorAddress, $authorEmail,
         $format, $publicationDate, $isbnRegistered, $externalPlatforms
 
-=======
-            idNumber, country, authorContact, bookName, authorFullName, authorAddress, authorEmail, 
-            publisherName, publisherAddress, publisherContact, publisherEmail, 
-            format, publicationDate, openAccess, isbnRegistered, externalPlatforms
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
     );
-    $stmt->bind_param(
-        "ssssssssssssssss",
-        $id_number, $country, $authorContact, $bookName, $authorFullName, $authorAddress, $authorEmail,
-        $publisherName, $publisherAddress, $publisherContact, $publisherEmail,
-        $format, $publicationDate, $openAccess, $isbnRegistered, $externalPlatforms
->>>>>>> 1d76fef (ID, functionality, login verification, password harshing, Forms font, size and proper header across and etc 25 March 2025)
-    );
-
+    if ($stmt->execute()) {
+      $successMessage = "Form submitted successfully.";
             $subject = "Request for ISBN from a Self Publisher";
             //$to= $authorEmail;
             $mail = new PHPMailer(true);
@@ -188,7 +103,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->Body="<html>
                      <body>
                       <p>Hi Kholofelo. Please find the attached ISBN request information below.</p>
-                         <table  border=\"1\" cellspacing='3' width='60%'>
+                         <table  border=\"1\" cellspacing='5' width='70%'>
                              <tr>
                                  <td>Country:</td>
                                  <td>$country</td>
@@ -203,21 +118,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                              </tr>
                              <tr>
                                  <td>Publisher First & Last Name:</td>
-<<<<<<< HEAD
-                                 <td>$publisherName</td>
-                             </tr>
-                             <tr>
-                                 <td>Publisher Address:</td>
-                                 <td>$publisherAddress</td>
-                             </tr>
-                             <tr>
-                                 <td>Publisher Contact:</td>
-                                 <td>$publisherContact</td>
-                             </tr>
-                             <tr>
-                                 <td>Publisher Email Address:</td>
-                                 <td>$publisherEmail</td>
-=======
                                  <td>$$authorFullName</td>
                              </tr>
                              <tr>
@@ -231,7 +131,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                              <tr>
                                  <td>Publisher Email Address:</td>
                                  <td>$authorEmail</td>
->>>>>>> origin/main
                              </tr>
                              <tr>
                                  <td>Format:</td>
@@ -248,27 +147,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                          </table>
                      </body>
                  </html>";
-<<<<<<< HEAD
-            
-
-        $to= $authorEmail;    
-        $subject = "Request for ISBN from a Self Publisher";
-          
-        $mail = new PHPMailer(true);
-        $mail->isSMTP();
-        $mail->SMTPAuth = true;
-        $mail->Host = "smtp.gmail.com";
-        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-        $mail->Port = 587;
-        $mail->Username = "nicolasmahlangu75@gmail.com";
-        $mail->Password="ykbq ecat ctyl avbb ";
-        $mail->setFrom($authorEmail, $authorFullName);
-        $mail->addAddress("nicholus.mahlangu@nlsa.ac.za","Nicholus");
-        //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
-        $mail->Subject= "$subject";
-        $mail->Body="Hi Kholofelo. A request for an ISBN has been sent for the book: $bookName by: $authorFullName Email addresss: $authorEmail. We mainly testing the system neh. Thank you";
-=======
->>>>>>> origin/main
         
             if ($mail->send()) {
                 $successMessage = "Form submitted successfully.";
@@ -292,7 +170,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $mail->Body = "<html>
                      <body>
                       <p>Hi $authorFullName. Your request for an ISBN as a Self-publisher has been sent to one of our NLSA ISBN Administrators for the book:</p>
-                         <table  border=\"1\" cellspacing='3' width='60%'>
+                         <table  border=\"1\" cellspacing='5' width='70%'>
                              <tr>
                                  <td>Country:</td>
                                  <td>$country</td>
@@ -347,6 +225,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         $stmt->close();
         $conn->close();
+      }
 ?>
 
 <!DOCTYPE html>
@@ -496,14 +375,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="mb-3">
       <label for="authorContact" class="form-label">Author Contact</label>
       <input type="text" id="authorContact" name="authorContact" class="form-control" required>
-<<<<<<< HEAD
-    </div>
-
-    <div class="mb-3">
-      <label for="authorContact" class="form-label">Author Contact</label>
-      <input type="text" id="authorContact" name="authorContact" class="form-control" required>
-=======
->>>>>>> origin/main
     </div>
 
     <div class="mb-3">

@@ -13,12 +13,8 @@ include '../assets/php/conn.php';
   <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
-<<<<<<< HEAD
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <!--<link rel="stylesheet" href="../assets/css/styles.css">-->
-=======
-    <!--<link rel="stylesheet" href="../assets/css/styles.css">-->
->>>>>>> 1d76fef (ID, functionality, login verification, password harshing, Forms font, size and proper header across and etc 25 March 2025)
    <!-- JavaScript Validation -->
    <!--<script defer src="../assets/js/validation.js"></script>-->
 
@@ -91,11 +87,7 @@ include '../assets/php/conn.php';
 <center>
             <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:24%; height:20%">
         </center>
-<<<<<<< HEAD
     <h1 class="text-center mb-4">Bibliography Information Form</h1>
-=======
-    <h2 class="text-center mb-4">Bibliography Information Form</h2>
->>>>>>> 1d76fef (ID, functionality, login verification, password harshing, Forms font, size and proper header across and etc 25 March 2025)
     
         <!-- Display server-side error messages if any -->
         <?php if (isset($_SESSION['error_message'])): ?>
@@ -145,16 +137,11 @@ include '../assets/php/conn.php';
                 </span></label>
                 <input type="text" id="impression" name="impression" placeholder="Enter Impression">
 
-<<<<<<< HEAD
                 <label for="set_isbn">Set ISBN:
                 <span style="cursor: pointer;" title="When a publisher assembles a set of books to sell as a special offer, they can assign an ISBN to the set if it is required to identify the set in the supply chain for marketing and ordering purposes."> 
                 <i class="fa fa-info-circle" aria-hidden="true"></i>
                 </span></label>
                 <input type="text" id="set_isbn" name="set_isbn" placeholder="Enter Set ISBN">
-=======
-                <label for="set_isbn">Set ISBN:</label>
-                <input type="text" id="set_isbn" name="set_isbn" required placeholder="Enter Set ISBN">
->>>>>>> 1d76fef (ID, functionality, login verification, password harshing, Forms font, size and proper header across and etc 25 March 2025)
 
                 <label for="publisher_name">Publisher's Name:</label>
                 <input type="text" id="publisher_name" name="publisher_name" required placeholder="Enter Publisher Name">

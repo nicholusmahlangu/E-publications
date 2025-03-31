@@ -73,7 +73,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Insert into the database
     $stmt = $conn->prepare(
         "INSERT INTO publisher (
-<<<<<<< HEAD
             idNumber, country, bookName,
             publisherName, publisherAddress, publisherContact, publisherEmail, 
             format, publicationDate, isbnRegistered, externalPlatforms
@@ -82,16 +81,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->bind_param(
         "sssssssssss",
         $id_number, $country, $bookName,
-=======
-            idNumber, country, authorContact, bookName, authorFullName, authorAddress, authorEmail, 
-            publisherName, publisherAddress, publisherContact, publisherEmail, 
-            format, publicationDate, openAccess, isbnRegistered, externalPlatforms
-        ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-    );
-    $stmt->bind_param(
-        "ssssssssssssssss",
-        $id_number, $country, $authorContact, $bookName, $authorFullName, $authorAddress, $authorEmail,
->>>>>>> 1d76fef (ID, functionality, login verification, password harshing, Forms font, size and proper header across and etc 25 March 2025)
         $publisherName, $publisherAddress, $publisherContact, $publisherEmail,
         $format, $publicationDate, $isbnRegistered, $externalPlatforms
     );
@@ -118,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $mail->Body="<html>
                      <body>
                       <p>Hi Motubatsi. A request for an ISBN has been sent for the book:</p>
-                         <table  border=\"1\" cellspacing='3' width='60%'>
+                         <table  border=\"1\" cellspacing='5' width='70%' fontsize='40%'>
                              <tr>
                                  <td>Country:</td>
                                  <td>$country</td>
@@ -184,7 +173,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
           $mail->Body ="<html>
                      <body>
                       <p>Hi $publisherName. Please find the attached ISBN request information below as you sent an ISBN request at the NLSA.</p>
-                         <table  border=\"1\" cellspacing='3' width='60%'>
+                         <table  border=\"1\" cellspacing='5' width='70%'>
                              <tr>
                                  <td>Country:</td>
                                  <td>$country</td>
