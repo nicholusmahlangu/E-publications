@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
-            $_SESSION['error'] = "Email already registered.";
+            $_SESSION['status'] = "Email already registered.";
             header("Location: ../../application files/signup.php");
             exit;
         }
@@ -52,22 +52,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($stmt->execute()) {
             $_SESSION['status'] = "Registration successful!";
-            header("Location: ../../application files/cataloguerlogin.php");
+            header("Location: ../../application files/signup.php");
             exit;
         } else {
-            $_SESSION['error'] = "Database error. Try again.";
+            $_SESSION['status'] = "Database error. Try again.";
             header("Location: ../../application files/signup.php");
             exit;
         }
 
         $stmt->close();
     } else {
-        $_SESSION['error'] = "Database connection error.";
+        $_SESSION['status'] = "Database connection error.";
         header("Location: ../../application files/signup.php");
         exit;
     }
 } else {
-    $_SESSION['error'] = "Invalid request.";
+    $_SESSION['status'] = "Invalid request.";
     header("Location: ../../application files/signup.php");
     exit;
 }

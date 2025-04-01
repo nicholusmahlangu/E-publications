@@ -7,10 +7,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/css/signup.css"> 
     <link href="../assets/img/favicon.webp" rel="icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" 
+          rel="stylesheet">
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Ion Icons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script defer type="text/javascript" src="../assets/js/signup.js"></script>
+    <link rel="stylesheet" href="../assets/css/signup.css"> 
     <title>Sign Up</title>
     <style>
       .body {
@@ -59,19 +65,23 @@ background-color:rgb(113, 111, 114); /* darker green on hover */
 
 </head>
 <body>
-    <div class="wrapper">
-    <center>
-            <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:18%; height:18%">
-        </center>
+    
+    <div class="container text-center logo-container"> 
+        <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:30%; height:30%">
+    </div>
 
-        <!-- Home Button Icon -->
-        <div class="back-button-container">
-<a href="adminDashboard.php" class="back-button">
-<i class="bi bi-arrow-left"></i>
-Admin Dashboard
-</a>
-</div>
-        <h1>Sign Up</h1>
+    <div class="wrapper">
+            <!-- Logo and Heading -->
+        <!-- <div class="container text-center logo-container">
+            
+            <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:22%; height:22%">
+                <h1 class="system-heading">SIGN UP</h1>
+        </div> -->
+        <div class="side-left">
+            <img src="../assets/img/photo 5.png" alt="Illustration" class="img-fluid">
+        </div>
+
+        <h4 class="text-center mb-4">Sign Up</h4>
         <p id="error-text"></p>
         <?php 
             if (isset($_SESSION['status'])) {
@@ -123,5 +133,8 @@ Admin Dashboard
         </form>
         <p>Already have an account?<a href="../application files/cataloguerlogin.php">Login</a></p>
     </div>
+    <a href="index.php" class="home-icon">
+        <i class="bi bi-house-fill"></i> Home
+    </a>
 </body>
 </html>

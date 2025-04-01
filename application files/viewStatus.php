@@ -35,7 +35,7 @@ $query = "SELECT
           LEFT JOIN users u ON a.cataloguer_id = u.User_ID";
 
 if ($searchTerm !== '') {
-    $query .= " WHERE bi.PublicationTitle LIKE :search OR bi.Genre LIKE :search OR bi.Isbn LIKE :search";
+    $query .= " WHERE bi.PublicationTitle LIKE :search OR bi.Genre LIKE :search OR bi.Isbn LIKE :search OR bi.PublisherEmail LIKE :search OR bi.status LIKE :search OR bi.Book_ID LIKE :search OR u.FullName LIKE :search";
 }
 $query .= " LIMIT :limit OFFSET :offset";
 
