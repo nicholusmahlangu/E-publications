@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     // Password validation (Minimum 8 characters, at least one uppercase letter, one number, and one special character)
-    if (!preg_match('/^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/', $password)) {
+    if (!preg_match('/^(?=.*[A-Z])(?=.*\d)(?=.*[\W]).{8,}$/', $password)) {
         $_SESSION['error'] = "Password must be at least 8 characters long, contain one uppercase letter, one number, and one special character.";
         header("Location: ../../application files/signup.php");
         exit;
