@@ -80,7 +80,8 @@
                 //$new_password = $_POST['new_password'];
                 if(mysqli_num_rows($check_token_run) > 0){
                     if($new_password === $confirm_password){
-                        $new_password_hashed = md5($new_password);
+                        // $new_password_hashed = md5($new_password);
+                        $new_password_hashed = password_hash($new_password, PASSWORD_BCRYPT);
                         $update_password = "UPDATE users SET password='$new_password_hashed', created_at = now() WHERE verify_token='$token' LIMIT 1";
                         $update_password_run = mysqli_query($conn, $update_password);
                         

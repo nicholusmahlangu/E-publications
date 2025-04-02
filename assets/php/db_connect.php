@@ -32,10 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $file = isset($_POST['file']) ? trim($_POST['file']) : '';
     $ISBNtype = isset($_POST['ISBNtype']) ? trim($_POST['ISBNtype']) : '';
 
-    if (empty($author_name) || empty($email) || empty($author_name)|| empty($editor_name)|| empty($title_of_publication)|| empty($book_edition)||empty($isbn_electronic)||empty($publisher_name)||empty($publisher_address)||empty($publisher_year)||empty($price)||empty($fiction_or_non)||empty($genre)||empty($langauge_of_publication)||empty($ISBNtype) && !empty($file)) {
-        echo "Please ensure that all fields are filled.";
-        exit;
-    }
+    // if (empty($author_name) || empty($email) || empty($editor_name)|| empty($title_of_publication)|| empty($book_edition)||empty($isbn_electronic)||empty($publisher_name)||empty($publisher_address)||empty($publisher_year)||empty($price)||empty($fiction_or_non)||empty($genre)||empty($langauge_of_publication)||empty($ISBNtype) && !empty($file)) {
+    //     echo "Please ensure that all fields are filled.";
+    //     exit;
+    // }
 
     if (isset($_FILES["file"]) && $_FILES["file"]["error"] === UPLOAD_ERR_OK) {
         

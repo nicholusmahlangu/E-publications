@@ -52,7 +52,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if ($stmt->execute()) {
             $_SESSION['status'] = "Registration successful!";
-            header("Location: ../../application files/cataloguerlogin.php");
+            header("Location: ../../application files/signup.php");
             exit;
         } else {
             $_SESSION['error'] = "Database error. Try again.";

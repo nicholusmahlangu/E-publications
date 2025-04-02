@@ -1,55 +1,58 @@
 <?php
+  include '../assets/php/conn.php';
     include 'forms_header.php';
-    include '../assets/php/conn.php';
+  
 
     require "vendor/autoload.php";
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
 
-function isValidSouthAfricanID($id_number) {
-  if (!preg_match('/^\d{13}$/', $id_number)) {
-      return false;
-  }
+    function isValidSouthAfricanID($id_number)
+    {
+        if (!preg_match('/^\d{13}$/', $id_number)) {
+            return false;
+        }
 
-  $dob = substr($id_number, 0, 6);
-  $citizen = substr($id_number, 10, 1);
-  $checksum = substr($id_number, -1);
+        $dob      = substr($id_number, 0, 6);
+        $citizen  = substr($id_number, 10, 1);
+        $checksum = substr($id_number, -1);
 
-  // Validate date of birth
-  $year = substr($dob, 0, 2);
-  $month = substr($dob, 2, 2);
-  $day = substr($dob, 4, 2);
-  $full_year = ($year < date('y')) ? '20' . $year : '19' . $year;
-  if (!checkdate($month, $day, $full_year)) {
-      return false;
-  }
+        // Validate date of birth
+        $year      = substr($dob, 0, 2);
+        $month     = substr($dob, 2, 2);
+        $day       = substr($dob, 4, 2);
+        $full_year = ($year < date('y')) ? '20' . $year : '19' . $year;
+        if (! checkdate($month, $day, $full_year)) {
+            return false;
+        }
 
-  // Validate citizenship (must be 0 for South Africans)
-  if ($citizen !== '0') {
-      return false;
-  }
+        // Validate citizenship (must be 0 for South Africans)
+        if ($citizen !== '0') {
+            return false;
+        }
 
-  // Validate using Luhn Algorithm
-  return luhnCheck($id_number);
-}
+        // Validate using Luhn Algorithm
+        return luhnCheck($id_number);
+    }
 
-function luhnCheck($number) {
-  $sum = 0;
-  $alt = false;
-  $digits = str_split(strrev($number));
-  foreach ($digits as $i => $digit) {
-      $num = (int) $digit;
-      if ($alt) {
-          $num *= 2;
-          if ($num > 9) {
-              $num -= 9;
-          }
-      }
-      $sum += $num;
-      $alt = !$alt;
-  }
-  return ($sum % 10) === 0;
-}
+    function luhnCheck($number)
+    {
+        $sum    = 0;
+        $alt    = false;
+        $digits = str_split(strrev($number));
+        foreach ($digits as $i => $digit) {
+            $num = (int) $digit;
+            if ($alt) {
+                $num *= 2;
+                if ($num > 9) {
+                    $num -= 9;
+                }
+            }
+            $sum += $num;
+            $alt = ! $alt;
+        }
+        return ($sum % 10) === 0;
+    }
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -76,11 +79,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             idNumber, country, authorContact, bookName, authorFullName, authorAddress, authorEmail,  
             format, publicationDate, isbnRegistered, externalPlatforms
         ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
-    );
-    $stmt->bind_param(
-        "sssssssssss",
-        $id_number, $country, $authorContact, $bookName, $authorFullName, $authorAddress, $authorEmail,
-        $format, $publicationDate, $isbnRegistered, $externalPlatforms
+        );
+        $stmt->bind_param(
+            "sssssssssss",
+            $id_number, $country, $authorContact, $bookName, $authorFullName, $authorAddress, $authorEmail,
+            $format, $publicationDate, $isbnRegistered, $externalPlatforms
 
     );
     if ($stmt->execute()) {
@@ -118,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                              </tr>
                              <tr>
                                  <td>Publisher First & Last Name:</td>
-                                 <td>$$authorFullName</td>
+                                 <td>$authorFullName</td>
                              </tr>
                              <tr>
                                  <td>Publisher Address:</td>
@@ -135,39 +138,39 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                              <tr>
                                  <td>Format:</td>
                                  <td>$format</td>
-                             </tr>          
+                             </tr>
                              <tr>
                                  <td>Publication Date:</td>
                                  <td>$publicationDate</td>
-                             </tr>                             
+                             </tr>
                              <tr>
                                  <td>External Platforms:</td>
                                  <td>$externalPlatforms</td>
-                             </tr>                                
+                             </tr>
                          </table>
                      </body>
                  </html>";
-        
-            if ($mail->send()) {
-                $successMessage = "Form submitted successfully.";
 
-                $to      = $authorEmail;
-                $subject = "ISBN Request Sent Successfully";
+        if ($mail->send()) {
+            $successMessage = "Form submitted successfully.";
 
-                $mail = new PHPMailer(true);
-                $mail->isSMTP();
-                $mail->isHTML(true);
-                $mail->SMTPAuth   = true;
-                $mail->Host       = "smtp.gmail.com";
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                $mail->Port       = 587;
-                $mail->Username   = "nicolasmahlangu75@gmail.com";
-                $mail->Password   = "ykbq ecat ctyl avbb ";
-                $mail->setFrom($authorEmail, $authorFullName);
-                $mail->addAddress($authorEmail, $authorFullName);
-                //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
-                $mail->Subject = "$subject";
-                $mail->Body = "<html>
+            $to      = $authorEmail;
+            $subject = "ISBN Request Sent Successfully";
+
+            $mail = new PHPMailer(true);
+            $mail->isSMTP();
+            $mail->isHTML(true);
+            $mail->SMTPAuth   = true;
+            $mail->Host       = "smtp.gmail.com";
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+            $mail->Port       = 587;
+            $mail->Username   = "nicolasmahlangu75@gmail.com";
+            $mail->Password   = "ykbq ecat ctyl avbb ";
+            $mail->setFrom($authorEmail, $authorFullName);
+            $mail->addAddress($authorEmail, $authorFullName);
+            //$mail->addAddress("Kholofelo.Mojela@nlsa.ac.za","Kholofelo");
+            $mail->Subject = "$subject";
+            $mail->Body    = "<html>
                      <body>
                       <p>Hi $authorFullName. Your request for an ISBN as a Self-publisher has been sent to one of our NLSA ISBN Administrators for the book:</p>
                          <table  border=\"1\" cellspacing='5' width='70%'>
@@ -202,26 +205,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                              <tr>
                                  <td>Format:</td>
                                  <td>$format</td>
-                             </tr>          
+                             </tr>
                              <tr>
                                  <td>Publication Date:</td>
                                  <td>$publicationDate</td>
-                             </tr>                             
+                             </tr>
                              <tr>
                                  <td>External Platforms:</td>
                                  <td>$externalPlatforms</td>
-                             </tr>                                
+                             </tr>
                          </table>
 
                          <p>Kind regards<br>NLSA</p>
                      </body>
                  </html>";
-                 $mail->send();
-                //echo "Please check your mail. Email sent!";
-            }
-        } else {
-            $errorMessage = "Error: " . $stmt->error;
+            $mail->send();
+            //echo "Please check your mail. Email sent!";
         }
+    } else {
+        $errorMessage = "Error: " . $stmt->error;
+    }
 
         $stmt->close();
         $conn->close();
@@ -265,9 +268,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
   <!-- Display Success/Error Messages -->
   <?php if (! empty($successMessage)): ?>
-    <div class="alert alert-success"><?php echo htmlspecialchars($successMessage)?></div>
+    <div class="alert alert-success"><?php echo htmlspecialchars($successMessage) ?></div>
   <?php elseif (! empty($errorMessage)): ?>
-    <div class="alert alert-danger"><?php echo htmlspecialchars($errorMessage)?></div>
+    <div class="alert alert-danger"><?php echo htmlspecialchars($errorMessage) ?></div>
   <?php endif; ?>
 
   <form id="isbnForm" action="" method="POST" class="needs-validation" novalidate>
@@ -394,7 +397,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <label for="publicationDate" class="form-label">Estimated Publication Date</label>
       <input type="text" id="publicationDate" name="publicationDate" class="form-control datepicker" required>
     </div>
-    
+
     <div class="mb-3">
       <label for="isbnRegistered" class="form-label">The ISBN should be registered against:</label>
       <select id="isbnRegistered" name="isbnRegistered" class="form-select" required>
@@ -420,7 +423,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   });
 
   // Initialize datepicker
-  
+
   $('.datepicker').datepicker({
   format: 'yyyy-mm-dd',
   autoclose: true,
