@@ -94,6 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                 
                                                 $mail = new PHPMailer(true);
                                                 $mail->isSMTP();
+                                                $mail->isHTML(true);
                                                 $mail->SMTPAuth = true;
 
                                                 $mail->Host = "smtp.gmail.com";
@@ -107,14 +108,93 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                                                 $mail->Subject= "Submission of Electronic book";
 
-                                                $mail->Body="Hi Admin. A new book titled: $title_of_publication (ISBN: $isbn_electronic) written by: $author_name  published on: $publisher_year has been submitted by $author_name Email address: $email";
-                                                
+                                                $mail->Body="<html>
+                     <body>
+                      <p>Hi Admin. A new e-book has been submitted.</p>
+                         <table  border=\"1\" cellspacing='5' width='70%'>
+                             <tr>
+                                 <td>ISBN Type:</td>
+                                 <td>$ISBNtype</td>
+                             </tr>
+                             <tr>
+                                 <td>ISBN:</td>
+                                 <td>$isbn_electronic</td>
+                             </tr>
+                             <tr>
+                                 <td>Email Address(Author):</td>
+                                 <td>$email</td>
+                             </tr>
+                             <tr>
+                                 <td>First & Last Name(Author):</td>
+                                 <td>$author_name</td>
+                             </tr>
+                             <tr>
+                                 <td>Author Pseudonym:</td>
+                                 <td>$author_pseudonym</td>
+                             </tr>
+                             <tr>
+                                 <td>First & Last Name(Editor):</td>
+                                 <td>$editor_name</td>
+                             </tr>
+                             <tr>
+                                 <td>Book Title:</td>
+                                 <td>$title_of_publication</td>
+                             </tr>
+                             <tr>
+                                 <td>Book Edition:</td>
+                                 <td>$book_edition</td>
+                             </tr>
+                             <tr>
+                                 <td>Impression:</td>
+                                 <td>$impression</td>
+                             </tr>
+                             <tr>
+                                 <td>Set ISBN:</td>
+                                 <td>$set_isbn</td>
+                             </tr>
+                             <tr>
+                                 <td>First & Last Name(Publisher):</td>
+                                 <td>$publisher_name</td>
+                             </tr>
+                             <tr>
+                                 <td>Publisher Address:</td>
+                                 <td>$publisher_address</td>
+                             </tr>
+                             <tr>
+                                 <td>Publication Year:</td>
+                                 <td>$publisher_year</td>
+                             </tr>
+                             <tr>
+                                 <td>Price(Rand):</td>
+                                 <td>$price</td>
+                             </tr>
+                             <tr>
+                                 <td>Fiction or Nonfiction:</td>
+                                 <td>$fiction_or_non</td>
+                             </tr>
+                             <tr>
+                                 <td>Genre:</td>
+                                 <td>$genre</td>
+                             </tr>
+                             <tr>
+                                 <td>Language of publication:</td>
+                                 <td>$langauge_of_publication</td>
+                             </tr>
+                             <tr>
+                                 <td>English Translation of Title:</td>
+                                 <td>$english_translation</td>
+                             </tr>
+                         </table>
+                     </body>
+                 </html>";
+
                                                 if ($mail->send()) {
                                                     $to= $email;    
                                                 $subject = "Electronic Book Successfully Submitted";
                                                 
                                                 $mail = new PHPMailer(true);
                                                 $mail->isSMTP();
+                                                $mail->isHTML(true);
                                                 $mail->SMTPAuth = true;
 
                                                 $mail->Host = "smtp.gmail.com";

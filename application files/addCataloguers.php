@@ -1,4 +1,4 @@
-<?php
+<?php 
     session_start();
 ?>
 
@@ -7,19 +7,38 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/css/signup.css">
     <link href="../assets/img/favicon.webp" rel="icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" 
+          rel="stylesheet">
+          <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <!-- Ion Icons -->
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
     <script defer type="text/javascript" src="../assets/js/signup.js"></script>
+    <link rel="stylesheet" href="../assets/css/signup.css"> 
     <title>Sign Up</title>
-
     <style>
-    body {
-      background-color: #f8f9fa;
-    }
+      .body {
+            width: 100%;
+        }
 
+        .panel {
+            border: 1px solid red;
+            background-color: blue;
+            margin: 50px;
+        }
+        img {
+            width: 100%;
+        }
 
-.back-button {
+        .logo {
+            background-color: red;
+            border: 1px solid yellow;
+            width: 100px;
+
+        }
+      .back-button {
 background-color:rgb(28, 28, 28); /* green background */
 color: #fff; /* white text */
 padding: 5px 10px; /* add some padding */
@@ -30,7 +49,6 @@ transition: background-color 0.3s ease-in-out; /* smooth transition */
 display: inline-flex; /* add inline-flex display */
 align-items: center; /* center icon and text */
 font-size: 16px; /* set font size */
-text-decoration: none;
 }
 
 .back-button i {
@@ -41,31 +59,43 @@ font-size: 18px; /* set font size for icon */
 .back-button:hover {
 background-color:rgb(113, 111, 114); /* darker green on hover */
 text-decoration: none;
-}
-  </style>
 
+}
+
+ 
+    </style>
 
 </head>
-<body class="background-image">
-        <center>
-            <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:18%; height:18%">
-        </center>
+<body>
+    
+    <div class="container text-center logo-container"> 
+        <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:30%; height:30%">
+    </div>
 
-        <!-- Home Button Icon -->
-    <div class="back-button-container">
+         <!-- Home Button Icon -->
+         <div class="back-button-container">
         <a href="adminDashboard.php" class="back-button">
            <i class="bi bi-arrow-left"></i>
             Admin Dashboard
         </a>
     </div>
-
     <div class="wrapper">
+            <!-- Logo and Heading -->
+        <!-- <div class="container text-center logo-container">
+            
+            <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:22%; height:22%">
+                <h1 class="system-heading">SIGN UP</h1>
+        </div> -->
+        <!-- <div class="side-left">
+            <img src="../assets/img/photo 5.png" alt="Illustration" class="img-fluid">
+        </div> -->
+
         <h2>Add Cataloguer</h2>
         <p id="error-text"></p>
-        <?php
+        <?php 
             if (isset($_SESSION['status'])) {
 
-            ?>
+                ?>
                     <div class="alert alert-success d-flex align-items-center" role="alert">
                         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
                         <div>
@@ -73,10 +103,21 @@ text-decoration: none;
                         </div>
                     </div>
                 <?php
-                    unset($_SESSION['status']);
-                    }
+                unset($_SESSION['status']);
+            }
                 ?>
-        <form id="form" method="post" action="../assets/php/signup.php">
+             
+             <?php if(isset($_SESSION['error'])){     
+                ?><div class="alert alert-danger d-flex align-items-center" role="alert">
+  <svg class="bi flex-shrink-e-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            <?php echo $_SESSION['error']; ?>
+                        </div>
+                    </div>
+                    <?php
+                    unset($_SESSION['error']);
+                }  
+        ?>
+        <form id="form" method="post" action="../assets/php/addCataloguers.php">
             <div>
                 <label for="full-name-input">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM160-160v-112q0-34 17.5-62.5T224-378q62-31 126-46.5T480-440q66 0 130 15.5T736-378q29 15 46.5 43.5T800-272v112H160Z"/></svg>
@@ -95,7 +136,7 @@ text-decoration: none;
                 </label>
                 <input type="text" name="contact" id="input-contact" placeholder="Contact no">
             </div>
-
+           
             <div>
                 <label for="password-input">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M240-80q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640h40v-80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720v80h40q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240Zm240-200q33 0 56.5-23.5T560-360q0-33-23.5-56.5T480-440q-33 0-56.5 23.5T400-360q0 33 23.5 56.5T480-280ZM360-640h240v-80q0-50-35-85t-85-35q-50 0-85 35t-35 85v80Z"/></svg>
@@ -110,8 +151,9 @@ text-decoration: none;
             </div>
             <button type="submit" id="submit">Add</button>
         </form>
-
     </div>
+    <a href="index.php" class="home-icon">
+        <i class="bi bi-house-fill"></i> Home
+    </a>
 </body>
-
 </html>
