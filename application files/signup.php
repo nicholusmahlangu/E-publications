@@ -71,15 +71,10 @@ background-color:rgb(113, 111, 114); /* darker green on hover */
     </div>
 
     <div class="wrapper">
-            <!-- Logo and Heading -->
-        <!-- <div class="container text-center logo-container">
-            
-            <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:22%; height:22%">
-                <h1 class="system-heading">SIGN UP</h1>
-        </div> -->
-        <div class="side-left">
+
+        <!-- <div class="side-left">
             <img src="../assets/img/photo 5.png" alt="Illustration" class="img-fluid">
-        </div>
+        </div> -->
 
         <h4 class="text-center mb-4">Sign Up</h4>
         <p id="error-text"></p>

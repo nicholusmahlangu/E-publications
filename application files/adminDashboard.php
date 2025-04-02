@@ -21,7 +21,7 @@ $AssignedBookTotal = "SELECT SQL_CALC_FOUND_ROWS * FROM book_informationsheet WH
   <head>
     <meta charset="UTF-8" >
     <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1, minimum-scale=1">
-    <link href="../assets/img/favicon.webp" rel="icon" >
+    <link href="../assets/img/favicon.webp" rel="icon">
     <title>Admin Dashboard</title>
     <link
       rel="stylesheet"

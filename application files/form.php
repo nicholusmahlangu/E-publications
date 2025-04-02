@@ -150,7 +150,7 @@ include '../assets/php/conn.php';
                 <input type="text" id="publisher_address" name="publisher_address" required placeholder="Enter Publisher Address">
 
                 <label for="publication_year">Publication Year:</label>
-                <select id="publication_year" class="year-picker">
+                <select id="publication_year" name="publication_year" class="year-picker" required>
                 <option value="" disabled selected>Please select publication year</option></select>
 
                 <label for="price">Price (Rand):</label>
