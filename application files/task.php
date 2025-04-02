@@ -39,8 +39,8 @@ $cataloguerResults = mysqli_query($conn, $cataloguerQuery);
 <body>
         <!-- Home Button Icon -->
         <a href="adminDashboard.php" class="btn btn-secondary mb-3">
-        <i class="bi bi-house-fill"></i> Admin Dashboard
-    </a>
+          <i class="bi bi-house-fill"></i> Admin Dashboard
+        </a>
   <div class="container table-container">
     <h1 class="mb-4 text-center">Book Details</h1>
     <div class="table-responsive">

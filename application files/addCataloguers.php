@@ -1,4 +1,4 @@
-<?php 
+<?php
     session_start();
 ?>
 
@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../assets/css/signup.css"> 
+    <link rel="stylesheet" href="../assets/css/signup.css">
     <link href="../assets/img/favicon.webp" rel="icon">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <script defer type="text/javascript" src="../assets/js/signup.js"></script>
@@ -30,6 +30,7 @@ transition: background-color 0.3s ease-in-out; /* smooth transition */
 display: inline-flex; /* add inline-flex display */
 align-items: center; /* center icon and text */
 font-size: 16px; /* set font size */
+text-decoration: none;
 }
 
 .back-button i {
@@ -39,30 +40,32 @@ font-size: 18px; /* set font size for icon */
 
 .back-button:hover {
 background-color:rgb(113, 111, 114); /* darker green on hover */
+text-decoration: none;
 }
   </style>
 
-    
+
 </head>
 <body class="background-image">
-<center>
+        <center>
             <img src="../assets/img/NLSA-logo.png" class="logo-img" alt="NLSA Logo"style="width:18%; height:18%">
         </center>
 
         <!-- Home Button Icon -->
-        <div class="back-button-container">
-<a href="adminDashboard.php" class="back-button">
-<i class="bi bi-arrow-left"></i>
-Admin Dashboard
-</a>
-</div>
+    <div class="back-button-container">
+        <a href="adminDashboard.php" class="back-button">
+           <i class="bi bi-arrow-left"></i>
+            Admin Dashboard
+        </a>
+    </div>
+
     <div class="wrapper">
         <h2>Add Cataloguer</h2>
         <p id="error-text"></p>
-        <?php 
+        <?php
             if (isset($_SESSION['status'])) {
 
-                ?>
+            ?>
                     <div class="alert alert-success d-flex align-items-center" role="alert">
                         <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
                         <div>
@@ -70,9 +73,9 @@ Admin Dashboard
                         </div>
                     </div>
                 <?php
-                unset($_SESSION['status']);
-            }  
-        ?>
+                    unset($_SESSION['status']);
+                    }
+                ?>
         <form id="form" method="post" action="../assets/php/signup.php">
             <div>
                 <label for="full-name-input">
@@ -92,7 +95,7 @@ Admin Dashboard
                 </label>
                 <input type="text" name="contact" id="input-contact" placeholder="Contact no">
             </div>
-           
+
             <div>
                 <label for="password-input">
                     <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M240-80q-33 0-56.5-23.5T160-160v-400q0-33 23.5-56.5T240-640h40v-80q0-83 58.5-141.5T480-920q83 0 141.5 58.5T680-720v80h40q33 0 56.5 23.5T800-560v400q0 33-23.5 56.5T720-80H240Zm240-200q33 0 56.5-23.5T560-360q0-33-23.5-56.5T480-440q-33 0-56.5 23.5T400-360q0 33 23.5 56.5T480-280ZM360-640h240v-80q0-50-35-85t-85-35q-50 0-85 35t-35 85v80Z"/></svg>
@@ -107,7 +110,7 @@ Admin Dashboard
             </div>
             <button type="submit" id="submit">Add</button>
         </form>
-        
+
     </div>
 </body>
 

@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $result = $stmt->get_result();
 
         if ($result->num_rows > 0) {
-            $_SESSION['status'] = "Email already registered.";
+            $_SESSION['error'] = "Email already registered.";
             header("Location: ../../application files/signup.php");
             exit;
         }
@@ -55,19 +55,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             header("Location: ../../application files/signup.php");
             exit;
         } else {
-            $_SESSION['status'] = "Database error. Try again.";
+            $_SESSION['error'] = "Database error. Try again.";
             header("Location: ../../application files/signup.php");
             exit;
         }
 
         $stmt->close();
     } else {
-        $_SESSION['status'] = "Database connection error.";
+        $_SESSION['error'] = "Database connection error.";
         header("Location: ../../application files/signup.php");
         exit;
     }
 } else {
-    $_SESSION['status'] = "Invalid request.";
+    $_SESSION['error'] = "Invalid request.";
     header("Location: ../../application files/signup.php");
     exit;
 }

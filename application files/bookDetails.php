@@ -12,12 +12,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Tab icon -->
   <link href="../assets/img/favicon.webp" rel="icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="../assets/css/bookDetails.css">
   <title>Book details</title>
 </head>
 <body>
           <!-- Home Button Icon -->
-          <a href="adminDashboard.php" class="home-icon">
+          <a href="adminDashboard.php" class="btn btn-secondary mb-3">
         <i class="bi bi-house-fill"></i> Admin Dashboard
     </a>
   <div class="scrollable-table">
@@ -72,7 +74,7 @@
               <td><?php echo $row['EnglishVersionTitle']; ?></td>
               <td><?php echo $row['FileUpload']; ?></td>
               <td>
-                <a href="bookEdit.php?Book_ID=<?php echo $row['Book_ID']?>" class="link-dark"><i class="fa-solid fa-pen-to-sqaure fs-5 me-3">Edit</i></a>
+                <a href="bookEdit.php?Book_ID=<?php echo $row['Book_ID']?>" class="link-dark">Edit<i class="fa-solid fa-pen-to-sqaure fs-5 me-3"></i></a>
               </td>
        </tr>
                  <?php }?>

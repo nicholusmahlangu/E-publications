@@ -17,7 +17,7 @@
 }
 
 .table th{
-    background-color: #009578;
+    background-color: rgb(28, 28, 28);
     /* background-color: #009578 black; */
     color: #ffffff;
     text-align: left;
@@ -38,3 +38,32 @@
 .table tbody tr:nth-of-type(even){
     background-color: #f3f3f3;
 }
+
+.btn {
+    background-color:rgb(28, 28, 28); /* green background */
+    color: #fff; /* white text */
+    padding: 5px 10px; /* add some padding */
+    border: none; /* remove border */
+    border-radius: 5px; /* rounded corners */
+    cursor: pointer; /* change cursor on hover */
+    transition: background-color 0.3s ease-in-out; /* smooth transition */
+    display: inline-flex; /* add inline-flex display */
+    align-items: center; /* center icon and text */
+    font-size: 16px; /* set font size */
+    text-decoration: none;
+    }
+    
+    .btn i {
+    margin-right: 5px; /* add some space between icon and text */
+    font-size: 18px; /* set font size for icon */
+    }
+    
+    .btn:hover {
+    background-color:rgb(113, 111, 114); /* darker green on hover */
+    text-decoration: none;
+    }
+
+    .link-dark{
+        color: red;
+        text-decoration: none;
+    }

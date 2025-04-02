@@ -95,7 +95,18 @@ background-color:rgb(113, 111, 114); /* darker green on hover */
                     </div>
                 <?php
                 unset($_SESSION['status']);
-            }  
+            }
+                ?>
+             
+             <?php if(isset($_SESSION['error'])){     
+                ?><div class="alert alert-danger d-flex align-items-center" role="alert">
+  <svg class="bi flex-shrink-e-2" width="24" height="24" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                            <?php echo $_SESSION['error']; ?>
+                        </div>
+                    </div>
+                    <?php
+                    unset($_SESSION['error']);
+                }  
         ?>
         <form id="form" method="post" action="../assets/php/signup.php">
             <div>

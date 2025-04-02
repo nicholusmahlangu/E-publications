@@ -157,7 +157,7 @@
           />
         </center>
 
-        <!-- Profile Section -->
+        <!-- Profile Section
         <div class="mt-4">
           <h1>
             Welcome, <span id="FullName">[Loading...]</span>
@@ -165,7 +165,7 @@
           <p>
             Email: <span id="EmailAddress">[Loading...]</span>
           </p>
-        </div>
+        </div> -->
 
         <!-- Table Section -->
         <div class="table-responsive mt-4">

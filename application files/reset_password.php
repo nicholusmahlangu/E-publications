@@ -49,7 +49,7 @@
                             </div>
                             <div class="form-group mb-3">
                                 <label>Email Address</label>
-                                <input type="text" name="email" value="<?php if(isset($_GET['email'])){echo $_GET['email'];} ?>" class="form-control" placeholder="Enter Email Address">
+                                <input type="text" name="email" value="<?php if(isset($_GET['email'])){echo $_GET['email'];} ?>" class="form-control" placeholder="Enter Email Address" readonly>
                             </div>
                             <div class="form-group mb-3">
                                 <label>New Password</label>
