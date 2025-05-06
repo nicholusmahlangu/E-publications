@@ -18,6 +18,19 @@ $cataloguerResults = mysqli_query($conn, $cataloguerQuery);
   <link href="../assets/img/favicon.webp" rel="icon">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.2.2/css/dataTables.dataTables.css"/>
+    <!-- jQuery and DataTables.js -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <link href="../Jquery/jquery.multiselect.css" rel="stylesheet"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="https://cdn.datatables.net/2.2.2/js/dataTables.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- bootstrap css and js -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"/>
+<!-- JS for jQuery -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <title>Book Details</title>
   <style>
     body {
@@ -54,6 +67,7 @@ $cataloguerResults = mysqli_query($conn, $cataloguerQuery);
             <th>ISBN</th>
             <th>Status</th>
             <th>Assign to</th>
+            <th>Preview</th>
             <th>Action</th>
           </tr>
         </thead>
@@ -81,6 +95,10 @@ $cataloguerResults = mysqli_query($conn, $cataloguerQuery);
                       <?php endwhile; ?>
                     </select>
                 </td>
+                
+                <td>
+                <a href="generate_pdf.php?Book_ID=<?php echo $book['Book_ID'];?>" class="btn btn-success" name="view-pdf-btn" target="_blank"><i 
+                class="fa fa-file-pdf-o"></i> View PDF</a> &nbsp;&nbsp;  
                 <td>
                     <button type="submit" class="btn btn-primary btn-sm">Assign</button>
                   </form>

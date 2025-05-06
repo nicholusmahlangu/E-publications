@@ -41,6 +41,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         
         // Seting absolute path for the uploads directory
         $targetDir = __DIR__ . "/../../uploads/";
+        //$targetDir1 = __DIR__ . "/../../application files/uploads/";
+
         
         // Check if directory exists, if not, create it
         if (!is_dir($targetDir)) {
